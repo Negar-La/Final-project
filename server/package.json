@@ -10,7 +10,8 @@
     "mongodb": "^4.12.0",
     "morgan": "^1.10.0",
     "node": "^19.1.0",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "request-promise": "^4.2.6"
   },
   "scripts": {
     "start": "nodemon index.js"
