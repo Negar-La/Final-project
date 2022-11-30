@@ -59,7 +59,7 @@ const SearchBar = () => {
                         const suggestionIndex = item.title.toLowerCase().indexOf(userQuery.toLowerCase())-userQuery.length
                         return (
    //selecting a search results redirects to itemDetails page and also cleans up the input and search results.
-                          <StyledLink to={`/items/${item.id}`} key={item.id}
+                          <StyledLink to={`/books/${item.id}`} key={item.id}
                                       onClick={() => {
                                       setFilteredData('');
                                       setUserQuery("");

@@ -71,5 +71,116 @@ const getSingleBook = async (req, res) => {
 };
 
 
+const getSearchResults = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  const userInput = req.params.userInput;
 
-module.exports = { getBooks, getSingleBook };
+  try{
+      await client.connect();
+      const db = client.db("final-project");
+    console.log("connected")
+      //first target items collection to have all items
+      const results = await db.collection("books").find().toArray();
+      // then filtering the items based on the user's input
+  let getSearchResults = results.filter((item) => {
+    if (item.title.toLowerCase().includes(userInput.toLowerCase())) {
+        return item;
+    }
+});
+      
+//since getSearchResults is an array, to set a condition we use .length > 0
+      if (getSearchResults.length > 0) {
+      res.status(200).json({status:200, data : getSearchResults, message:"The results of your search"})
+      } else {
+      res.status(404).json({status:404, message:"Sorry, No book was found based on your search"})
+      }
+  } catch(err){
+      console.log(err.stack);
+  }
+  finally {
+      client.close();
+  }
+};
+
+
+const addFavorite = async(req, res) =>{
+  const client = new MongoClient(MONGO_URI, options);
+}
+
+
+const addComment = async(req, res) =>{
+  const client = new MongoClient(MONGO_URI, options);
+  const {id} = req.params;
+  const { comment, user, userPicture } = req.body;
+  // console.log(id)
+  // console.log( req.body)  
+try{
+    await client.connect();
+
+    const db = client.db("final-project");
+
+    const newUser = { "id":id, "comment": comment, "user": user, "userPicture": userPicture};
+ 
+    const userComment = await db.collection("users").insertOne({newUser})
+    const allComments = await db.collection("users").find().toArray()
+  
+  
+    res.status(200).json({ status: 200, message: "Comment successfully added", data: newUser});
+  } catch (err){
+    res.status(400).json({status: 400, message: "Comment not added"});
+    console.log(err.stack);
+  } finally {
+    client.close();
+  }
+}
+
+
+const getComments = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  const {id} = req.params;
+try{
+    await client.connect();
+
+    const db = client.db("final-project");
+
+    const allComments = await db.collection("users").find().toArray()
+   let filteredComments = allComments.filter((comment)=>{
+    //  console.log(comment.newUser)
+      if (comment.newUser.id === id)
+      return comment.newUser
+    })
+    // console.log(filteredComments)
+  
+    res.status(200).json({ status: 200, message: "All comments based on this id", data: filteredComments});
+  } catch (err){
+    res.status(400).json({status: 400, message: "Comment not added"});
+    console.log(err.stack);
+  } finally {
+    client.close();
+  }
+}
+
+const deleteComment = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  const {id} = req.params;
+  const {comment} = req.body
+try{
+    await client.connect();
+
+    const db = client.db("final-project");
+
+    const result = await db.collection("users").deleteOne({id})
+    
+    // console.log(filteredComments)
+  
+    res.status(200).json({ status: 200, message: "Comment was deleted successfully", data: result});
+  } catch (err){
+    res.status(400).json({status: 400, message: "Comment not deleted"});
+    console.log(err.stack);
+  } finally {
+    client.close();
+  }
+}
+
+
+module.exports = { getBooks, getSingleBook, getSearchResults, addFavorite, addComment, getComments, deleteComment };

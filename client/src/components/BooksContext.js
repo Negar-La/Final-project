@@ -12,13 +12,14 @@ const BooksProvider = ({ children }) => {
     fetch("/api/get-books")
       .then((res) => res.json())
       .then((data) =>{
-        console.log(data.data)   
+        // console.log(data.data) 
+        console.log("hi")  
         setBooks(data.data)
       });
   }, []);
 
   return (
-    <BooksContext.Provider value={{ books, setBooks }}>
+    <BooksContext.Provider value={{ books, setBooks}}>
       {children}
     </BooksContext.Provider>
   );

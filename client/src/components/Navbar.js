@@ -17,16 +17,25 @@ const Navbar = () => {
 
   return (
     <Container>
+      <LeftSide>
         <NavigationLink to='/' end>
-           <span>Title - Logo</span>
+           <Logo src={process.env.PUBLIC_URL + '/images/logo.png'}/>
         </NavigationLink>
+        <NavigationLink to='/' end>
+           <Name>Name</Name>
+        </NavigationLink>
+      </LeftSide>
+        
       
         <RightSide>
            {isAuthenticated && (
             <>
-              <Hello>Hello, {user.name}</Hello>
               <NavigationLink to='/profile'>
-              <CgProfile style={{color: "yellow",  verticalAlign: 'middle'}}/>
+                  <Hello>Hello, {user.name}</Hello>
+              </NavigationLink>
+     
+              <NavigationLink to='/profile'>
+                  <CgProfile style={{color: "yellow",  verticalAlign: 'middle'}}/>
               </NavigationLink>
               <LogoutBtn onClick={() => navigate("/logout")}>Log out</LogoutBtn>
             </>
@@ -41,20 +50,27 @@ const Navbar = () => {
 }
 
 const Container = styled.div`
-  background-color: gray;
+  background-color: lightgray;
+  width: 100vw;
   padding: 10px 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border: 1px solid red;
 `
 const RightSide = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 `
+const LeftSide = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid black;
+`
 
 const NavigationLink = styled(NavLink)`
-  /* default styles here */
   text-decoration: none;
   text-align: center;
   color: pink;
@@ -66,6 +82,14 @@ const NavigationLink = styled(NavLink)`
     border-radius: 15px;
   }
 `;
+
+const Logo = styled.img`
+    width: 50px;
+    margin-left: 10px;
+`
+const Name = styled.div`
+  margin-left: 5px;
+`
 
 const Hello = styled.span`
   color: orange;

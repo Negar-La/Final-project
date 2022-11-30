@@ -3,7 +3,7 @@ const helmet = require('helmet');
 const morgan = require ('morgan');
 const port = 8000;
 
-const {getBooks, getSingleBook} = require ("./handlers")
+const {getBooks, getSingleBook, getSearchResults, addFavorite, addComment, getComments, deleteComment} = require ("./handlers")
 
 express()
   .use(express.json())
@@ -12,7 +12,11 @@ express()
 
   .get('/api/get-books', getBooks)
   .get('/api/get-book/:id', getSingleBook)
-
+  .get("/api/books/search/:userInput", getSearchResults)
+  .post("/api/add-favorite", addFavorite)
+  .post("/api/comment/:id", addComment)
+  .get("/api/comment/:id", getComments)
+  .delete("/api/comment/:id", deleteComment)
 
 
 

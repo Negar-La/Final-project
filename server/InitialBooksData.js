@@ -14,7 +14,7 @@ const getBooks = async (query) => {
 };
 
 
-getBooks("Dahlia Adler").then((items) => console.log(
+getBooks("Jessamine Chan").then((items) => console.log(
     JSON.stringify(
     items.slice(0, 7).map((result)=>{
         return {
