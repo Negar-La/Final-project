@@ -4,14 +4,15 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 import NewComment from "./NewComment";
-import { Link } from "react-router-dom";
+import { useContext} from "react";
+import { BooksContext } from "./BooksContext";
 
 const BookDetails = () => {
 
   const [book, setBook] = useState(null);
   const [notFound, setNotFound] = useState(false);
 
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { isAuthenticated} = useAuth0();
   // console.log(user)
   const [commentPosted, setCommentPosted] = useState(false)
 
@@ -20,12 +21,14 @@ const BookDetails = () => {
 
   const navigate = useNavigate();
 
+  const { addToFavoriteHandler } = useContext(BooksContext);
 
   const handleClick = () => {
     // console.log("hi")
     window.open(book.previewLink);
   };
 
+  //fetch data to have book details
   useEffect(() => {
     fetch(`/api/get-book/${bookId}`)
       .then((res) => res.json())
@@ -38,35 +41,6 @@ const BookDetails = () => {
         }
       });
   }, [bookId, commentPosted]);
-
-  const addToFavoriteHandler = (e, book) => {
-    e.preventDefault();
-
-    fetch("/api/add-favorite", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        title: book.title,
-        id: book.id,
-        author: book.author,
-        publisher: book.publisher,
-        category: book.categories,
-        imageSrc: book.image,
-        pages: book.pageCount,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        navigate("/profile");
-        console.log(data)
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
 
 
 
@@ -93,8 +67,17 @@ const BookDetails = () => {
             <div>Description: {book.description}</div>
             <button onClick={ handleClick}>Click here to preview</button>
             <button    onClick={(e) => {
-                  addToFavoriteHandler(e, book);
-                }}>+ Add to Favorite List</button>
+               if (!isAuthenticated)
+               {
+                window.alert("Please log in first!")
+               } else {
+                addToFavoriteHandler(e, book);
+                navigate("/profile");
+               }
+               
+                 
+                }}>+ Add to Favorite List
+            </button>
             <Write>Write a comment about this book</Write>
 
             {isAuthenticated ? (
@@ -104,7 +87,6 @@ const BookDetails = () => {
             }
             
           </div>
-       
         </Container>
       }
       </>  
@@ -135,17 +117,6 @@ const ErrorMsg = styled.div`
     font-size: 22px;
     text-align: center;
 `
-const ImgCurrentUser = styled.img`
-  width : 50px;
-  height: 60px;
-  border-radius: 50%;
-`
-
-const Span = styled.span`
-  color: red;
-  font-weight: bold;
-`
-
 const Write = styled.p`
   margin-top: 10px;
   margin-bottom: 10px;

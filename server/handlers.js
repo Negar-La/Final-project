@@ -1,5 +1,6 @@
 "use strict";
 const { MongoClient} = require("mongodb");
+const { v4: uuidv4 } = require('uuid');
 
 require("dotenv").config();
 const { MONGO_URI } = process.env;
@@ -105,13 +106,127 @@ const getSearchResults = async (req, res) => {
 
 const addFavorite = async(req, res) =>{
   const client = new MongoClient(MONGO_URI, options);
+  const { user, userPicture, title, author, imageSrc, id } = req.body;
+  console.log(id)
+  // console.log( req.body)  
+try{
+    await client.connect();
+
+    const db = client.db("final-project");
+    if (user && userPicture && title && author && imageSrc && id) {
+      const findBook = await db.collection("favorites").findOne({"id": id, "userPicture": userPicture})
+      console.log(findBook)
+     if (findBook) {
+       res.status(200).json({status:200, data:req.body, message:"This book is already in your favorite list"})
+     } else {
+      const userFavorite = await db.collection("favorites").insertOne(req.body)
+  
+      res.status(200).json({ status: 200, message: "book successfully added to favorite list", data: req.body});
+     }
+ 
+    }
+  
+  } catch (err){
+    res.status(400).json({status: 400, message: "Book was not added to favorite list"});
+    console.log(err.stack);
+  } finally {
+    client.close();
+  }
+}
+
+const deleteFavorite = async(req, res) =>{
+  const client = new MongoClient(MONGO_URI, options);
+  
+  console.log(req.body) 
+ 
+try{
+    await client.connect();
+
+    const db = client.db("final-project");
+  //in mongodb we use "" to access the keys in database, so we check db to pick "id" and based on   console.log(req.body) in terminal, we have  req.body.item.id
+    const deleteOne = await db.collection("favorites").deleteOne({"id": req.body.item.id})
+    console.log(deleteOne.deletedCount)
+    res.status(200).json({ status: 200, message: "book successfully deleted from favorite list", data: deleteOne });
+  } catch (err){
+    res.status(400).json({status: 400, message: "Book was not deleted"});
+    console.log(err.stack);
+  } finally {
+    client.close();
+  }
+}
+
+const getFavorites = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+try{
+    await client.connect();
+
+    const db = client.db("final-project");
+
+    const allFavorites = await db.collection("favorites").find().toArray()
+
+    res.status(200).json({ status: 200, message: "All favorite books", data: allFavorites});
+  } catch (err){
+    res.status(400).json({status: 400, message: "Comment not added"});
+    console.log(err.stack);
+  } finally {
+    client.close();
+  }
+}
+
+const addPerson = async (req, res) =>{
+  const client = new MongoClient(MONGO_URI, options);
+  const {user} = req.body
+  try{
+    await client.connect();
+    const db = client.db("final-project");
+    console.log("try to add someone")
+    const findPerson = await db.collection("persons").find().toArray()
+    // console.log(findPerson)
+    let isNew = findPerson.find((she)=>{
+      // console.log("she", she)
+      return she.email === user.email || she.picture === user.picture
+    })
+
+      if (!isNew) {
+        const newPerson = await db.collection("persons").insertOne({...req.body.user})
+      // console.log(newPerson) 
+   res.status(200).json({ status: 200, message: "person was added successfully to persons collection", data: req.body})
+    
+  } else {  res.status(400).json({status: 400, message: "person already exist"})}
+} catch (err){
+    console.log(err.stack);
+  } finally {
+    client.close();
+  }
+}
+
+const getSinglePerson = async(req, res)=>{
+  const client = new MongoClient(MONGO_URI, options);
+  const {id} = req.params
+  try{
+    await client.connect();
+    const db = client.db("final-project");
+    
+    const getPerson = await db.collection("persons").findOne({_id:id})
+   
+
+      if (getPerson) {
+   res.status(200).json({ status: 200, message: "The requested person data", data: req.body})
+    
+  } else {  res.status(400).json({status: 400, message: "No person was found based on this id"})}
+} catch (err){
+    console.log(err.stack);
+  } finally {
+    client.close();
+  }
 }
 
 
-const addComment = async(req, res) =>{
+const addComment = async (req, res) =>{
   const client = new MongoClient(MONGO_URI, options);
   const {id} = req.params;
   const { comment, user, userPicture } = req.body;
+  req.body.userId = uuidv4();
   // console.log(id)
   // console.log( req.body)  
 try{
@@ -119,11 +234,9 @@ try{
 
     const db = client.db("final-project");
 
-    const newUser = { "id":id, "comment": comment, "user": user, "userPicture": userPicture};
+    const newUser = { "id":id, "userId":  req.body.userId, "comment": comment, "user": user, "userPicture": userPicture};
  
     const userComment = await db.collection("users").insertOne({newUser})
-    const allComments = await db.collection("users").find().toArray()
-  
   
     res.status(200).json({ status: 200, message: "Comment successfully added", data: newUser});
   } catch (err){
@@ -153,7 +266,7 @@ try{
   
     res.status(200).json({ status: 200, message: "All comments based on this id", data: filteredComments});
   } catch (err){
-    res.status(400).json({status: 400, message: "Comment not added"});
+    res.status(400).json({status: 400, message: "There is no comment"});
     console.log(err.stack);
   } finally {
     client.close();
@@ -183,4 +296,4 @@ try{
 }
 
 
-module.exports = { getBooks, getSingleBook, getSearchResults, addFavorite, addComment, getComments, deleteComment };
+module.exports = { getBooks, getSingleBook, getSearchResults, addPerson, getSinglePerson, addFavorite, deleteFavorite, getFavorites, addComment, getComments, deleteComment };

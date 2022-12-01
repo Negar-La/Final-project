@@ -4,12 +4,39 @@ import { useNavigate } from "react-router-dom";
 import Login from "./Login";
 import {CgProfile} from "react-icons/cg";
 import { NavLink } from "react-router-dom";
+import { useEffect } from "react";
 
 
 const Navbar = () => {
 
   const navigate = useNavigate();
   const { user, isAuthenticated, isLoading } = useAuth0();
+  // console.log(user)
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      // console.log("try to fetch in Navbar")
+      fetch("/api/person", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          user,
+        })
+      })
+        .then(res=>res.json())
+        .then((data)=>{
+        // console.log(data)
+        })
+    }
+  }, [isAuthenticated]);
+
+
+
+
+
 
   if (isLoading) {
     return <div>Loading ...</div>;

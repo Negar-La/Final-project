@@ -1,11 +1,8 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import {BiLoader} from "react-icons/bi";
-import {RiDeleteBinLine} from "react-icons/ri";
-import ErrorPage from './ErrorPage';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+
 
 const NewComment = ({commentPosted, setCommentPosted}) => {
 
@@ -33,14 +30,16 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
       .then((data) => {
         if (data.status === 200) {
           setComments(data.data);
-          console.log(data.data)
+          // console.log(data.data)
         } 
       });
-  }, []);
+  }, [state]); //this useEffect triggers when a comment is added and causes a rerender of the component
+
+
 
 //Post method post a new comment and adds it to users collection in mongodb
   const handleSubmit = ()=>{
-    console.log('hi')
+    // console.log('hi')
     fetch(`/api/comment/${bookId}`, {
       method: "POST",
       headers: {
@@ -53,9 +52,10 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
       if (data.status === 400 || data.status === 500) {
         throw new Error (data.message)
        } else{
-        console.log(data); //{comment: {…}}
+        // console.log(data); //{comment: {…}}
         setState(data.data)
-        window.location.reload(); //refresh the page to show most recent comment in the list
+        // window.location.reload(); //refresh the page to show most recent comment in the list I do not need it!
+        //I create the comment, post it to db and then by get method I retrieve all comments from db!!
         setCommentText("");
         setRemainingLetters(280);
         setCommentPosted(!commentPosted); 
@@ -99,17 +99,6 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
           <>
            <div>
               <p>Comments:</p>
-              { state &&
-              ( <div> 
-                             <Link to='/profile'>
-                                  <ImgCurrentUser src={state.userPicture}/>
-                             </Link>
-                             <Span>{state.user}: </Span>
-                             {state.comment}  
-                         
-                </div> 
-              )}
-              
             </div>
 
             <div>
@@ -117,13 +106,13 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
               {comments && comments.slice().reverse().map((c, i)=>{
                               //  console.log(c)
                                return (
-                                 <div key={c.i}  >
+                                 <div key={i}  >
                                   <ImgCurrentUser src={c.newUser.userPicture}/>
                                   <Span>{c.newUser.user}: </Span>
                                   <span>{c.newUser.comment}</span>
-                                  <span> 
+                                  {/* <span> 
                                     <RiDeleteBinLine style={{marginLeft: "20px"}}/>
-                                  </span>
+                                  </span> */}
                                  
                                  </div>
                                )
@@ -200,26 +189,5 @@ const Input = styled.textarea`
   outline: none;
   resize: none;
 `;
-
-const Spin= styled.div`
-text-align: center;
-margin-left: 300px;
-margin-top: 50px;
-/* background-color: red; */
-width: 18px;
-height: 18px;
-   -webkit-animation: spin 2s linear infinite;
-  animation: spin 2s linear infinite;
-
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-`
 
 export default NewComment
