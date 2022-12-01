@@ -1,27 +1,24 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 import NewComment from "./NewComment";
-import { useContext} from "react";
-import { BooksContext } from "./BooksContext";
+import { useNavigate } from "react-router-dom";
 
 const BookDetails = () => {
 
   const [book, setBook] = useState(null);
   const [notFound, setNotFound] = useState(false);
 
-  const { isAuthenticated} = useAuth0();
+  const {user, isAuthenticated} = useAuth0();
   // console.log(user)
   const [commentPosted, setCommentPosted] = useState(false)
 
   const { bookId } = useParams();
   // console.log(bookId)
-
+  const [favoriteBook, setFavoriteBook] = useState(null)
   const navigate = useNavigate();
-
-  const { addToFavoriteHandler } = useContext(BooksContext);
 
   const handleClick = () => {
     // console.log("hi")
@@ -42,6 +39,34 @@ const BookDetails = () => {
       });
   }, [bookId, commentPosted]);
 
+  const addToFavoriteHandler = (e, book) => {
+    e.preventDefault();
+
+    fetch(`/api/add-favorite`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user: user.name, 
+        userPicture: user.picture,
+        title: book.title,
+        id: book.id,
+        author: book.author,
+        imageSrc: book.image,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+        setFavoriteBook(data.data)
+        navigate("/profile"); //we put navigate after fetching data to be sure that navigation occurs after fetching data.
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
 
   if (notFound) {
@@ -72,7 +97,6 @@ const BookDetails = () => {
                 window.alert("Please log in first!")
                } else {
                 addToFavoriteHandler(e, book);
-                navigate("/profile");
                }
                
                  

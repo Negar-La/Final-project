@@ -6,6 +6,7 @@ import { BsSearch } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import SearchResults from "./SearchResults";
+import SearchAuthor from "./SearchAuthor";
 
 const SearchBar = () => {
 
@@ -15,12 +16,17 @@ const SearchBar = () => {
   const [filteredData, setFilteredData] = useState('');
   const [userQuery, setUserQuery] = useState("");
 
+  const [isToggled, setIsToggled] = useState(false);
 
-  //This handler tracks what user types in input and checks if an item's name includes that word.
+
+  //This handler tracks what user types in input and checks if a book's title includes that word.
   const handleFilter = (event) => {
     const itemSearched = event.target.value;
     setUserQuery(itemSearched);
     const newFilter = books.filter((item) => {
+      if (userQuery.length > 0 && isToggled === true && item.author.toLowerCase().includes(itemSearched.toLowerCase())) {
+        return true;
+      } else
       if (userQuery.length > 0 && item.title.toLowerCase().includes(itemSearched.toLowerCase()) ) {
          return true;
         } else {
@@ -40,7 +46,9 @@ const SearchBar = () => {
         onChange={handleFilter}
         value={userQuery}
       />
-      <SearchIcon onClick={() => {
+
+      <SearchIcon className="search-icon"
+       onClick={() => {
                        userQuery &&
                        navigate(`/search/${userQuery}`)
                        setFilteredData('');
@@ -49,13 +57,23 @@ const SearchBar = () => {
                      }}>
           <BsSearch/>     
       </SearchIcon>
+      <AuthorBtn 
+         onClick={() => {
+          userQuery && isToggled &&
+          setIsToggled(true)
+          navigate(`/searchByAuthor/${userQuery}`)
+          setFilteredData('');
+          setUserQuery("");
+          <SearchAuthor/>
+        }}
+      >Author</AuthorBtn>
     </InputWrapper>
     {filteredData.length  !== 0 && 
       <ResultWrapper>
           {
     //we decide to show maximum 6 results per search.        
                       filteredData.slice(0, 6).map((item) => {
-                        const categoryName = item.categories;
+                        const authorName = item.author;
                         const suggestionIndex = item.title.toLowerCase().indexOf(userQuery.toLowerCase())-userQuery.length
                         return (
    //selecting a search results redirects to itemDetails page and also cleans up the input and search results.
@@ -67,10 +85,10 @@ const SearchBar = () => {
                       {item.title.toLowerCase().includes(userQuery.toLowerCase()) ? 
                       <>
                         <span>
-                          {item.title.slice(0, suggestionIndex + userQuery.length)}
+                          {item.title.slice(0, suggestionIndex + userQuery.length)} 
                           <Prediction>{item.title.slice(suggestionIndex + userQuery.length)}
-                            <ItalicIn> in </ItalicIn>
-                            <CategoryName>{categoryName}</CategoryName>
+                            <ItalicIn> by </ItalicIn>
+                            <CategoryName>{authorName}</CategoryName>
                           </Prediction>
                         </span>
                       </>
@@ -85,7 +103,7 @@ const SearchBar = () => {
   );
 };
 const StyledInput = styled.input`
-
+  border-radius: 15px;
 `;
 const StyledLink = styled(Link)`
   width: 470px;
@@ -108,7 +126,21 @@ const Container = styled.div``;
 const InputWrapper = styled.div`
   margin-top: 10px;
   display: flex;
+
+  .search-icon {
+    margin-left: -25px;
+    cursor: pointer;
+    align-items: center;
+    padding: 3px;
+    border: 1px solid black;
+    border-radius: 50%;
+  }
 `;
+
+const AuthorBtn = styled.button`
+  border: none;
+  border-radius: 15px;
+`
 
 const ResultWrapper = styled.div`
   position: absolute;

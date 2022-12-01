@@ -3,7 +3,10 @@ const helmet = require('helmet');
 const morgan = require ('morgan');
 const port = 8000;
 
-const {getBooks, getSingleBook, getSearchResults, addPerson, getSinglePerson, addFavorite, deleteFavorite, getFavorites, addComment, getComments, deleteComment} = require ("./handlers")
+const {getBooks, getSingleBook, getSearchResults, getSearchAuthor} = require ("./handlers/books-handler")
+const {addFavorite, deleteFavorite, getFavorites} = require ("./handlers/Favorite-handlers")
+const {addComment, getComments, deleteComment} = require ("./handlers/comments-handler")
+const {addPerson, getSinglePerson} = require ("./handlers/person-Auth0-handler")
 
 express()
   .use(express.json())
@@ -13,14 +16,18 @@ express()
   .get('/api/get-books', getBooks)
   .get('/api/get-book/:id', getSingleBook)
   .get("/api/books/search/:userInput", getSearchResults)
+  .get("/api/books/searchByAuthor/:author", getSearchAuthor)
+
   .post("/api/person", addPerson)
   .get("/api/person/:id", getSinglePerson)
+
   .post("/api/add-favorite", addFavorite)
   .delete("/api/delete-favorite", deleteFavorite)
   .get("/api/get-favorites", getFavorites)
+
   .post("/api/comment/:id", addComment)
   .get("/api/comment/:id", getComments)
-  .delete("/api/comment/:id", deleteComment)
+  .delete("/api/delete-comment", deleteComment)
 
 
 

@@ -7,7 +7,7 @@ import Logout from "./Logout";
 import Profile from "./Profile";
 import SearchResults from "./SearchResults";
 import BookDetails from "./BookDetails" ;
-import NewComment from "./NewComment";
+import SearchAuthor from "./SearchAuthor";
 
 const App = ()=> {
   return (
@@ -19,6 +19,7 @@ const App = ()=> {
         <Route path="/profile" element={<Profile />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/search/:searchTerm" element={<SearchResults />}/>
+        <Route path="/searchByAuthor/:searchTerm" element={<SearchAuthor />}/>
         <Route path="/books/:bookId" element={<BookDetails />} />
       </Routes>
     </BrowserRouter>

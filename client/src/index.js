@@ -7,7 +7,7 @@ import BooksProvider from './components/BooksContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <Auth0Provider
     domain="dev-xhs6s7vmewmk7kug.us.auth0.com"
     clientId="ZC3uzXBDGM9u2sfqZn8QvWjRoydPWlpk"
@@ -17,6 +17,6 @@ root.render(
     <App />
     </BooksProvider>
     </Auth0Provider>
-  </React.StrictMode>
+  // </React.StrictMode>
 );
 

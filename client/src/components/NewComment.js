@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useParams } from "react-router-dom";
+import {TiDeleteOutline} from "react-icons/ti";
 
 
 const NewComment = ({commentPosted, setCommentPosted}) => {
@@ -12,9 +13,10 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
   // console.log(user)
 
   const [commentText, setCommentText] = useState("");
-  const [state, setState] = useState(null);
+  const [postComment, setPostComment] = useState(null);
   const [remainingLetters, setRemainingLetters] = useState(280);
   const [comments, setComments] = useState(null)
+  const[commentDeleted, setCommentDeleted] = useState(false)
 
    // Handle the onChange function for the New comment text
    const handleCommentTextChange = (e) => {
@@ -30,10 +32,10 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
       .then((data) => {
         if (data.status === 200) {
           setComments(data.data);
-          // console.log(data.data)
+          console.log(data.data)
         } 
       });
-  }, [state]); //this useEffect triggers when a comment is added and causes a rerender of the component
+  }, [postComment, commentDeleted]); //this useEffect triggers when a comment is added and causes a rerender of the component
 
 
 
@@ -52,8 +54,8 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
       if (data.status === 400 || data.status === 500) {
         throw new Error (data.message)
        } else{
-        // console.log(data); //{comment: {…}}
-        setState(data.data)
+        console.log(data); //{comment: {…}}
+        setPostComment(data.data)
         // window.location.reload(); //refresh the page to show most recent comment in the list I do not need it!
         //I create the comment, post it to db and then by get method I retrieve all comments from db!!
         setCommentText("");
@@ -66,6 +68,30 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
 
     })
   }
+
+  const deleteCommentHandler = (e, c) => {                        
+    e.preventDefault();
+    fetch("/api/delete-comment", {         
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({c}),
+    })
+      .then((data) => {
+        return data.json();
+      })
+      .then((data) => {
+        if (data.status === 200) {          
+         console.log(data)   
+         setCommentDeleted(!commentDeleted)          
+        }
+      })
+      .catch((error) => {
+        return error;
+      });
+  };
 
 
   return (
@@ -110,9 +136,14 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
                                   <ImgCurrentUser src={c.newUser.userPicture}/>
                                   <Span>{c.newUser.user}: </Span>
                                   <span>{c.newUser.comment}</span>
-                                  {/* <span> 
-                                    <RiDeleteBinLine style={{marginLeft: "20px"}}/>
-                                  </span> */}
+                                  { c.newUser.userPicture === user.picture ?
+                                  (
+                                    <DeleteBtn  onClick={(e) => { deleteCommentHandler(e, c) }}>
+                                    <TiDeleteOutline size={30} style={{color: 'blue'}}/>
+                                  </DeleteBtn>
+                                  ) : ("")
+                                    }
+                                 
                                  
                                  </div>
                                )
@@ -189,5 +220,13 @@ const Input = styled.textarea`
   outline: none;
   resize: none;
 `;
+
+const DeleteBtn = styled.button`
+  cursor: pointer;
+  border: none;
+  background-color: white;
+  border-radius: 10px;
+  transition: .2s;
+`
 
 export default NewComment

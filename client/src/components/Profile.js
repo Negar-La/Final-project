@@ -2,6 +2,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import {TiDeleteOutline} from "react-icons/ti";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
 
@@ -11,8 +12,8 @@ const Profile = () => {
 
   const [favoriteBooks, setFavoriteBooks] = useState(null)
 
-  //we define this useState to use in the dependency array of useEffect so the page re-render each time that a book is deleted from favorite list.
-  const[commentDeleted, setCommentDeleted] = useState(false)
+  //we define this useState to use in the dependency array of useEffect so the page re-render each time that it changes.
+  const[favoriteDeleted, setFavoriteDeleted] = useState(false)
 
   useEffect(() => {
     fetch(`/api/get-favorites`)
@@ -24,7 +25,7 @@ const Profile = () => {
           // console.log(data.data[12].favoriteBook.userPicture)
         } 
       });
-  }, [commentDeleted]);
+  }, [favoriteDeleted]);
 
   const deleteFavoriteHandler = (e, item) => {                        
     e.preventDefault();
@@ -42,7 +43,7 @@ const Profile = () => {
       .then((data) => {
         if (data.status === 200) {          
          console.log(data)   
-         setCommentDeleted(true)          
+         setFavoriteDeleted(!favoriteDeleted)  //you should set it to opposite value so it will change each time and renders useEffect each time and not just the first time!        
         }
       })
       .catch((error) => {
@@ -82,11 +83,14 @@ const Profile = () => {
                   <Box key={item._id}>
                       <DeleteBtn  onClick={(e) => { deleteFavoriteHandler(e, item) }}
                       ><TiDeleteOutline size={32} style={{color: 'blue'}}/></DeleteBtn>
-                     <Image>
-                      <img src={item.imageSrc} alt={item.title} />
-                    </Image>
-                    <Name>{item.title}</Name>
-                    <Author>{item.author}</Author>
+                       <Link to={`/books/${item.id}`} >
+                          <Image>
+                          <img src={item.imageSrc} alt={item.title} />
+                          </Image>
+                          <Name>{item.title}</Name>
+                          <Author>{item.author}</Author>
+                      </Link>
+                   
                   </Box>
                 )
               })
@@ -102,6 +106,7 @@ const Profile = () => {
 
 const Wrapper = styled.div`
   display: flex;
+  flex-wrap: wrap;
 `
 
 const UserInfo = styled.article`
