@@ -8,7 +8,7 @@ import {FaBomb} from "react-icons/fa";
         <FaBomb />
       </ErrorIcon>
       <h3>An unknown error has occurred</h3>
-      <p>Please try refreshing the page, or contact support if the problem persists.</p>
+      <p>Please try refreshing the page.</p>
     </ErrorDiv>
   );
 };

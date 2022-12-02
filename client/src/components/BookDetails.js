@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 import NewComment from "./NewComment";
 import { useNavigate } from "react-router-dom";
+import Loader from "./Loader";
 
 const BookDetails = () => {
 
@@ -78,7 +78,7 @@ const BookDetails = () => {
     return (
       <>
        {!book ?
-       <h1>Loading...</h1>
+       <Center><Loader/></Center>
        :
        book &&
         <Container>
@@ -146,6 +146,12 @@ const Write = styled.p`
   margin-bottom: 10px;
   font-size: 19px;
   font-weight: bold;
+`
+const Center = styled.div`
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 `
 
 export default BookDetails

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useParams } from "react-router-dom";
 import {TiDeleteOutline} from "react-icons/ti";
-
+import Loader from "./Loader";
 
 const NewComment = ({commentPosted, setCommentPosted}) => {
 
@@ -124,12 +124,11 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
         {isAuthenticated ? (
           <>
            <div>
-              <p>Comments:</p>
-            </div>
-
-            <div>
+              <p>Comments:</p>      
       {/*  the most efficient way to reverse a JavaScript array? reverse() if you want in-place, or array. slice(). reverse() if you want a copy. */}
-              {comments && comments.slice().reverse().map((c, i)=>{
+              {!comments ? <Center><Loader/></Center>
+              :
+              comments && comments.slice().reverse().map((c, i)=>{
                               //  console.log(c)
                                return (
                                  <div key={i}  >
@@ -227,6 +226,12 @@ const DeleteBtn = styled.button`
   background-color: white;
   border-radius: 10px;
   transition: .2s;
+`
+const Center = styled.div`
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 `
 
 export default NewComment

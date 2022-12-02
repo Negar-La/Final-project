@@ -6,6 +6,8 @@ const BooksProvider = ({ children }) => {
   // SET UP STATE FOR ALL BOOKS
   const [books, setBooks] = useState(null);
 
+  const [status, setStatus] = useState("loading");
+
   // FETCH ALL BOOKS
   useEffect(() => {
     fetch("/api/get-books")
@@ -14,12 +16,17 @@ const BooksProvider = ({ children }) => {
         // console.log(data.data) 
         // console.log("hi")  
         setBooks(data.data)
-      });
+        setStatus("idle");
+      })
+      .catch ((error)=>{
+        console.log(error);
+        setStatus("error");
+       })
   }, []);
 
 
   return (
-    <BooksContext.Provider value={{ books, setBooks }}>
+    <BooksContext.Provider value={{ books, setBooks, status, setStatus }}>
       {children}
     </BooksContext.Provider>
   );

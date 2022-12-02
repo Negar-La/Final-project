@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import {TiDeleteOutline} from "react-icons/ti";
 import { Link } from "react-router-dom";
+import Loader from "./Loader";
 
 const Profile = () => {
 
@@ -54,7 +55,7 @@ const Profile = () => {
 
 
   if (isLoading) {
-    return <div>Loading ...</div>;
+    return  <Center><Loader/></Center>  ;
   }
 
   return (
@@ -75,28 +76,34 @@ const Profile = () => {
         </UserInfo>
         <FavoriteList>
             <Title>Your favorite books:</Title>
-            <Flex>
-              {favoriteBooks && favoriteBooks.map((item)=>{
-                // console.log(item)
-                if (item.userPicture === user.picture)
-                return (
-                  <Box key={item._id}>
-                      <DeleteBtn  onClick={(e) => { deleteFavoriteHandler(e, item) }}
-                      ><TiDeleteOutline size={32} style={{color: 'blue'}}/></DeleteBtn>
-                       <Link to={`/books/${item.id}`} >
-                          <Image>
-                          <img src={item.imageSrc} alt={item.title} />
-                          </Image>
-                          <Name>{item.title}</Name>
-                          <Author>{item.author}</Author>
-                      </Link>
-                   
-                  </Box>
-                )
-              })
-            
-              }
-            </Flex>
+            {
+              !favoriteBooks ? <Center><Loader/></Center> :
+              (
+                <Flex>
+                {favoriteBooks && favoriteBooks.map((item)=>{
+                  // console.log(item) 
+                  if (item.userPicture === user.picture)
+                  return (
+                    <Box key={item._id}>
+                        <DeleteBtn  onClick={(e) => { deleteFavoriteHandler(e, item) }}
+                        ><TiDeleteOutline size={32} style={{color: 'blue'}}/></DeleteBtn>
+                         <Link to={`/books/${item.id}`} >
+                            <Image>
+                            <img src={item.imageSrc} alt={item.title} />
+                            </Image>
+                            <Name>{item.title}</Name>
+                            <Author>{item.author}</Author>
+                        </Link>
+                     
+                    </Box>
+                  ) 
+                })
+              
+                }
+              </Flex>
+              )
+            }
+         
         </FavoriteList>
       </Wrapper>
     
@@ -147,6 +154,14 @@ const Flex = styled.div`
   display: flex;
 
 `
+const NoBook = styled.div`
+  font-size: 32px;
+  position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+`
+
 const Name = styled.div`
   font-weight: bold;
   text-align: center;
@@ -183,4 +198,12 @@ const DeleteBtn = styled.button`
   border-radius: 10px;
   transition: .2s;
 `
+
+const Center = styled.div`
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+`
+
 export default Profile

@@ -1,11 +1,13 @@
 import { useAuth0 } from "@auth0/auth0-react";
+import Loader from "./Loader";
+import styled from "styled-components"
 
 const Login = () => {
 
   const { isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
 
     if (isLoading) {
-    return <div>Loading ...</div>;
+    return <Center><Loader/></Center> ;
   }
 
   return (
@@ -20,4 +22,11 @@ const Login = () => {
   )
 }
 
+
+const Center = styled.div`
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+`
 export default Login

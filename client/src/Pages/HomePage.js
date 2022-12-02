@@ -1,9 +1,16 @@
 import styled from "styled-components";
 import Books from "../components/Books";
 import SearchBar from "../components/SearchBar";
+import ErrorPage from '../components/ErrorPage';
+import { useContext } from 'react';
+import { BooksContext } from "../components/BooksContext" ;
 
 const HomePage = () => {
   
+  const {status} = useContext(BooksContext)
+
+
+  if (status==='error') {return <ErrorPage /> }
   return (
     <>
         

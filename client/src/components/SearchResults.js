@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import Loader from "./Loader";
 
 const SearchResults = () => {
 
@@ -25,7 +26,7 @@ const SearchResults = () => {
 {/* consider 3 possibilities: loading state - there is no result - there are results to shown */}
     {searchedItems ===null ? ( 
       <>
-        <h1>Loading...</h1>
+         <Center><Loader/></Center> 
       </>
         ): searchedItems === undefined ? (
           <ErrorMsg>Sorry, no results were found matching your criteria!</ErrorMsg>
@@ -128,5 +129,12 @@ const Name = styled.p`
   margin-bottom: 10px;
 `;
 const Price = styled.div``;
+
+const Center = styled.div`
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+`
 
 export default SearchResults

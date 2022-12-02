@@ -1,4 +1,4 @@
-
+import Loader from "./Loader";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -21,7 +21,7 @@ const Logout = () => {
     // loading status to prevent false not logged in
     if (isLoading) {
         return (
-           <h1>Loading...</h1>
+            <Center><Loader/></Center> 
         )
 
     // if the user is not logged in, it will prevent him from logging off
@@ -92,6 +92,11 @@ const ErrorMessage = styled.div`
     text-align: center;
     margin: 3px;
 `
-
+const Center = styled.div`
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+`
 
 export default Logout;

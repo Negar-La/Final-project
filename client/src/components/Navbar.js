@@ -5,6 +5,7 @@ import Login from "./Login";
 import {CgProfile} from "react-icons/cg";
 import { NavLink } from "react-router-dom";
 import { useEffect } from "react";
+import Loader from "./Loader";
 
 
 const Navbar = () => {
@@ -34,12 +35,8 @@ const Navbar = () => {
   }, [isAuthenticated]);
 
 
-
-
-
-
   if (isLoading) {
-    return <div>Loading ...</div>;
+    return      <Center><Loader/></Center>  ;
   }
 
   return (
@@ -139,5 +136,10 @@ const LogoutBtn = styled.button`
     opacity: 0.3;
   }
 `
-
+const Center = styled.div`
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+`
 export default Navbar
