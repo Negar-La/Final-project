@@ -121,7 +121,9 @@ const StyledLink = styled(Link)`
 const SearchIcon = styled.div`
  
 `;
-const Container = styled.div``;
+const Container = styled.div`
+   
+`;
 
 const InputWrapper = styled.div`
   margin-top: 10px;

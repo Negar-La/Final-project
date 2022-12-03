@@ -25,7 +25,7 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
   };
 
 
-//Get method shows the comments based on book's id 
+//Get method shows all the comments based on book's id 
   useEffect(() => {
     fetch(`/api/comment/${bookId}`)
       .then((res) => res.json())
@@ -126,9 +126,9 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
            <div>
               <p>Comments:</p>      
       {/*  the most efficient way to reverse a JavaScript array? reverse() if you want in-place, or array. slice(). reverse() if you want a copy. */}
-              {!comments ? <Center><Loader/></Center>
-              :
-              comments && comments.slice().reverse().map((c, i)=>{
+              {!comments ? <Loader/>
+              : (comments.length < 1) ? <p>There is no comment</p>
+              : (comments && comments.slice().reverse().map((c, i)=>{ 
                               //  console.log(c)
                                return (
                                  <div key={i}  >
@@ -147,6 +147,7 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
                                  </div>
                                )
                              })
+              ) 
                           
                 }
             </div>

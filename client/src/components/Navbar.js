@@ -6,9 +6,13 @@ import {CgProfile} from "react-icons/cg";
 import { NavLink } from "react-router-dom";
 import { useEffect } from "react";
 import Loader from "./Loader";
+import { ThemeContext } from "./ThemeContext"
+import { useContext } from "react";
 
 
 const Navbar = () => {
+
+  const {toggleTheme, theme} = useContext(ThemeContext)
 
   const navigate = useNavigate();
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -46,8 +50,15 @@ const Navbar = () => {
            <Logo src={process.env.PUBLIC_URL + '/images/logo.png'}/>
         </NavigationLink>
         <NavigationLink to='/' end>
-           <Name>Name</Name>
+           <Name>My Online Library</Name>
         </NavigationLink>
+        <Button onClick={toggleTheme}
+            style={{backgroundColor: theme==='dark' ? "purple" : "lightgrey"}}
+        >
+            <Ball 
+                style={{left: theme==='dark' ? "20px" : "-5px" }}
+            />
+        </Button>
       </LeftSide>
         
       
@@ -55,11 +66,12 @@ const Navbar = () => {
            {isAuthenticated && (
             <>
               <NavigationLink to='/profile'>
-                  <Hello>Hello, {user.name}</Hello>
+                  <Hello>Hello, {user.name} <CgProfile style={{color: 'var(--darkblue)',  verticalAlign: 'middle', }}/>
+                  </Hello>
               </NavigationLink>
      
               <NavigationLink to='/profile'>
-                  <CgProfile style={{color: "yellow",  verticalAlign: 'middle'}}/>
+                  
               </NavigationLink>
               <LogoutBtn onClick={() => navigate("/logout")}>Log out</LogoutBtn>
             </>
@@ -74,13 +86,12 @@ const Navbar = () => {
 }
 
 const Container = styled.div`
-  background-color: lightgray;
   width: 100vw;
   padding: 10px 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid red;
+   background-color: var(--background);
 `
 const RightSide = styled.div`
   display: flex;
@@ -91,46 +102,79 @@ const LeftSide = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid black;
 `
 
 const NavigationLink = styled(NavLink)`
   text-decoration: none;
   text-align: center;
-  color: pink;
-
   &.active {
-    color: white;
     text-decoration: none;
-    /* background-color: hsl(0deg, 0%, 80%); */
     border-radius: 15px;
   }
 `;
 
 const Logo = styled.img`
-    width: 50px;
-    margin-left: 10px;
+  width: 50px;
+  margin-left: 10px;
 `
-const Name = styled.div`
+const Name = styled.p`
   margin-left: 5px;
+  color: var(--darkblue);
+  background-color: var(--background);
+  font-family: roboto, sans-serif;
+  border-radius: 14px;
+  padding: 5px;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: background-color 0.4s,
+              opacity 0.5s;
+  &:hover {
+    background-color: var(--yellow);
+    padding: 5px;
+    border-radius: 14px;
+  }
+  &:active {
+    opacity: 0.3;
+  }
 `
 
 const Hello = styled.span`
-  color: orange;
-  margin-right: 10px;
+  margin-right: 3px;
+  border-radius: 14px;
+  padding: 5px;
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--darkblue);
+  background-color: var(--background);
+  cursor: pointer;
+  transition: background-color 0.4s,
+              opacity 0.5s;
+  &:hover {
+    background-color: var(--yellow);
+    padding: 5px;
+    border-radius: 14px;
+  }
+  &:active {
+    opacity: 0.3;
+  }
 `
 
 const LogoutBtn = styled.button`
   padding: 6px 10px;
+  font-weight: 600;
+  font-size: 17px;
   border-radius: 14px;
   border: none;
-  background-color: white;
+  color: var(--darkblue);
+  background-color: var(--background);
   margin-left: 15px;
   cursor: pointer;
-  transition: background-color 0.5s,
+  transition: background-color 0.4s,
               opacity 0.5s;
   &:hover {
-    background-color: yellow;
+    background-color: var(--yellow);
   }
   &:active {
     opacity: 0.3;
@@ -142,4 +186,20 @@ const Center = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
 `
+const Button= styled.button`
+    width: 50px;
+    border-radius: 20px;
+    border: 3px solid lightgray;
+    transition: ease-in 0.2s;
+    margin-left: 15px;
+`;
+
+const Ball= styled.div`
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 50%;
+    transition: ease-in 0.2s;
+    position: relative;
+`;
 export default Navbar

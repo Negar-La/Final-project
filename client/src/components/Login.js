@@ -14,7 +14,7 @@ const Login = () => {
     <div>
 
       {!isAuthenticated &&
-      <button onClick={() => loginWithRedirect()}>Log In</button>
+      <LoginBtn onClick={() => loginWithRedirect()}>Log In</LoginBtn>
       }
 
     </div>
@@ -22,6 +22,25 @@ const Login = () => {
   )
 }
 
+const LoginBtn = styled.button`
+  padding: 6px 10px;
+  font-weight: 600;
+  font-size: 17px;
+  border-radius: 14px;
+  border: none;
+  color: var(--darkblue);
+  background-color: var(--background);
+  margin-left: 15px;
+  cursor: pointer;
+  transition: background-color 0.4s,
+              opacity 0.5s;
+  &:hover {
+    background-color: var(--yellow);
+  }
+  &:active {
+    opacity: 0.3;
+  }
+`
 
 const Center = styled.div`
     position: fixed;

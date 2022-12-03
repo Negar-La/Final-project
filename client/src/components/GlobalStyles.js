@@ -4,13 +4,23 @@ export const breakpoints = { tablet: "600px" };
 
 export default createGlobalStyle`
     :root {
-      --primary-color: #cc5500;
-      --accent-bg-color: rgba(204, 85, 0, 0.1);
-      --page-horizontal-padding: 20px;
-      --header-height: 50px;
-      --max-content-width: 1200px;
-      --heading-font-family: 'Teko', sans-serif;
-      --user-img-width: 120px;
+       // USED IN MAIN NAVBAR, SECONDARY BUTTONS, HOVER MAIN BUTTONS 
+    --darkblue: #142b6f;
+    // USED AS A BACKGROUND COLOR 
+    --background: #fffcf2;
+    // USED IN THE SECONDARY NAVBAR DISPLAYING CATEGORY
+    --yellow: rgb(255, 214, 0);
+    // USED IN ICONS // LOGO MAIN NAVBAR
+    --lightblue:  #d9e4fd;
+    --turquoise: #0593A2;
+    // USED TO HIGHLIGHT SMALL SPAN
+    --redbutton:  #E3371E;
+    // HIGHTLIGNT COLOR USED IN MAIN BUTTONS
+    --corail: #ff7a48;
+    // FONTS FOR LOGO
+    --logo: 'Besley', serif;
+    // FONT FOR EVERYTHING ELSE
+    --body: 'Arimo', sans-serif;
     }
 
     html, body, div, span, applet, object, iframe,
@@ -30,6 +40,7 @@ export default createGlobalStyle`
         padding: 0;
         border: 0;
         font-size: 100%;
+        font-family: roboto, sans-serif;
         vertical-align: baseline;
         box-sizing: border-box;
     }
@@ -53,8 +64,7 @@ export default createGlobalStyle`
         content: none;
     }
     h1, h2, h3 {
-      color: var(--primary-color);
-      font-family: var(--heading-font-family);
+      color: var(--darkblue);
     }
     h2 {
       font-size: 28px;

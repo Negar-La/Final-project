@@ -80,7 +80,7 @@ const Wrapper = styled.div`
   padding-left: 1em;
   padding-top: 1em;
   gap: 1em;
-  background-color: #d9e4fd;
+  /* background-color: #d9e4fd; */
   a {
     text-decoration: none;
     box-shadow: none;

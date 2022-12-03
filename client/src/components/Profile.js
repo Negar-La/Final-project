@@ -53,6 +53,14 @@ const Profile = () => {
   };
 
 
+// const x = favoriteBooks.filter((item)=>{
+//   console.log(item)
+//   if (item.userPicture === user.picture) {
+//   return item
+//   }
+// })
+
+// console.log(x) //[] or [{...}]
 
   if (isLoading) {
     return  <Center><Loader/></Center>  ;
@@ -82,23 +90,29 @@ const Profile = () => {
                 <Flex>
                 {favoriteBooks && favoriteBooks.map((item)=>{
                   // console.log(item) 
-                  if (item.userPicture === user.picture)
-                  return (
-                    <Box key={item._id}>
-                        <DeleteBtn  onClick={(e) => { deleteFavoriteHandler(e, item) }}
-                        ><TiDeleteOutline size={32} style={{color: 'blue'}}/></DeleteBtn>
-                         <Link to={`/books/${item.id}`} >
-                            <Image>
-                            <img src={item.imageSrc} alt={item.title} />
-                            </Image>
-                            <Name>{item.title}</Name>
-                            <Author>{item.author}</Author>
-                        </Link>
-                     
-                    </Box>
-                  ) 
+                  if (item.userPicture === user.picture) {
+                    return (
+                      <Box key={item._id}>
+                          <DeleteBtn  onClick={(e) => { deleteFavoriteHandler(e, item) }}
+                          ><TiDeleteOutline size={32} style={{color: 'blue'}}/></DeleteBtn>
+                           <Link to={`/books/${item.id}`} >
+                              <Image>
+                              <img src={item.imageSrc} alt={item.title} />
+                              </Image>
+                              <Name>{item.title}</Name>
+                              <Author>{item.author}</Author>
+                          </Link>
+                       
+                      </Box>
+                    )
+                  }
                 })
-              
+                }
+                {(favoriteBooks && favoriteBooks.filter((item)=>{
+                   if (item.userPicture === user.picture)
+                   return item
+                }).length < 1) ? <NoBook>You have no book in your favorite list</NoBook> : "" 
+
                 }
               </Flex>
               )

@@ -51,15 +51,23 @@ const Logout = () => {
 }
 
 const Wrapper = styled.div`
-    display: flex;
-    width: 100%;
-    height: calc(100vh - 300px);
-    background-color: #d9e4fd;
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 300px);
+  background-image: url("/images/books.jpg");
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 `
 
 const LogoutDiv = styled.div`
     margin: auto;
-    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 6px;
+    margin-top: 300px;
+    background-color: #fffcf2;
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -69,14 +77,35 @@ const Answer = styled.button`
     width: 75px;
     height: 40px;
     margin: 3px;
-    background-color: #151f30;
+    background-color: var(--darkblue);
+    border-radius: 6px;
+    font-family: roboto;
     border: none;
     color: white;
     font-size: 20px;
+    cursor: pointer;
+  transition: background-color 0.4s,
+              opacity 0.5s;
+  &:hover {
+    background-color: var(--yellow);
+    padding: 5px;
+    border-radius: 14px;
+    color: var(--darkblue);
+    font-family: roboto;
+    font-weight: 500;
+    font-size: 20px;
+  }
+  &:active {
+    opacity: 0.3;
+  }
 `
 
 const Question = styled.p`
     padding: 10px;
+    margin-bottom: 5px;
+    font-family: roboto;
+    font-size: 22px;
+    color: var(--darkblue)
 `
 
 const Buttons = styled.div`

@@ -24,7 +24,7 @@ try{
 
     const newUser = { "id":id, "userId":  req.body.userId, "comment": comment, "user": user, "userPicture": userPicture};
  
-    const userComment = await db.collection("users").insertOne({newUser})
+    const userComment = await db.collection("comments").insertOne({newUser})
   
     res.status(200).json({ status: 200, message: "Comment successfully added", data: newUser});
   } catch (err){
@@ -45,7 +45,7 @@ try{
 
     const db = client.db("final-project");
 
-    const deleteOne = await db.collection("users").deleteOne({ "newUser.comment": req.body.c.newUser.comment})
+    const deleteOne = await db.collection("comments").deleteOne({ "newUser.comment": req.body.c.newUser.comment})
     console.log(deleteOne.deletedCount)
     res.status(200).json({ status: 200, message: "comment successfully deleted from list", data: deleteOne });
   } catch (err){
@@ -64,7 +64,7 @@ try{
 
     const db = client.db("final-project");
 
-    const allComments = await db.collection("users").find().toArray()
+    const allComments = await db.collection("comments").find().toArray()
    let filteredComments = allComments.filter((comment)=>{
     //  console.log(comment.newUser)
       if (comment.newUser.id === id)
