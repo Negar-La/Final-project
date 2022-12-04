@@ -11,8 +11,10 @@ export default createGlobalStyle`
     // USED IN THE SECONDARY NAVBAR DISPLAYING CATEGORY
     --yellow: rgb(255, 214, 0);
     // USED IN ICONS // LOGO MAIN NAVBAR
-    --lightblue:  #d9e4fd;
-    --turquoise: #0593A2;
+    --hoveryellow:  #f4d35e;
+
+    --purple: #4d194d;
+    /* --turquoise: #0593A2;
     // USED TO HIGHLIGHT SMALL SPAN
     --redbutton:  #E3371E;
     // HIGHTLIGNT COLOR USED IN MAIN BUTTONS
@@ -20,9 +22,12 @@ export default createGlobalStyle`
     // FONTS FOR LOGO
     --logo: 'Besley', serif;
     // FONT FOR EVERYTHING ELSE
-    --body: 'Arimo', sans-serif;
+    --body: 'Arimo', sans-serif; */
     }
-
+    body, html {
+    height: 100%;
+    margin: 0;
+}
     html, body, div, span, applet, object, iframe,
     h1, h2, h3, h4, h5, h6, p, blockquote, pre,
     a, abbr, acronym, address, big, cite, code,
@@ -63,10 +68,15 @@ export default createGlobalStyle`
         content: '';
         content: none;
     }
-    h1, h2, h3 {
+    h1, h2, h3, p {
       color: var(--darkblue);
+  
     }
     h2 {
       font-size: 28px;
+    }
+    div, button, textarea {
+        font-family: roboto;
+        color: var(--darkblue);
     }
 `;

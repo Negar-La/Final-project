@@ -88,6 +88,8 @@ const Navbar = () => {
 const Container = styled.div`
   width: 100vw;
   padding: 10px 15px;
+  position: fixed;
+  z-index: 2;
   display: flex;
   justify-content: space-between;
   align-items: center;

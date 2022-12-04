@@ -42,7 +42,7 @@ const SearchBar = () => {
     <InputWrapper>
       <StyledInput
         type="text"
-        placeholder="Search here"
+        placeholder="Enter"
         onChange={handleFilter}
         value={userQuery}
       />
@@ -55,7 +55,10 @@ const SearchBar = () => {
                        setUserQuery("");
                        <SearchResults/>
                      }}>
-          <BsSearch/>     
+          <BsSearch size={19} style={{color: "white", marginTop: '3px'}}
+                    onMouseOver={({target})=>target.style.color="blue"}
+                    onMouseOut={({target})=>target.style.color="white"}
+                 />     
       </SearchIcon>
       <AuthorBtn 
          onClick={() => {
@@ -88,7 +91,7 @@ const SearchBar = () => {
                           {item.title.slice(0, suggestionIndex + userQuery.length)} 
                           <Prediction>{item.title.slice(suggestionIndex + userQuery.length)}
                             <ItalicIn> by </ItalicIn>
-                            <CategoryName>{authorName}</CategoryName>
+                            <AuthorName>{authorName}</AuthorName>
                           </Prediction>
                         </span>
                       </>
@@ -104,22 +107,29 @@ const SearchBar = () => {
 };
 const StyledInput = styled.input`
   border-radius: 15px;
+  width: 300px;
+  height: 32px;
+  padding-left: 10px;
+  border: none;
+  margin-right: 15px;
+  background-color: var(--background);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 `;
 const StyledLink = styled(Link)`
-  width: 470px;
+  width: 300px;
   height: 50px;
   display: flex;
   align-items: center;
   padding-left: 10px;
+  padding-right: 5px;
   text-decoration: none;
   border-radius: 4px;
-  color: black;
+  color: var(--darkblue);
   &:hover {
-    background-color: lightyellow;
+    background-color: var(--hoveryellow);
   }
 `;
 const SearchIcon = styled.div`
- 
 `;
 const Container = styled.div`
    
@@ -130,25 +140,47 @@ const InputWrapper = styled.div`
   display: flex;
 
   .search-icon {
-    margin-left: -25px;
+    margin-left: -48px;
     cursor: pointer;
     align-items: center;
-    padding: 3px;
-    border: 1px solid black;
-    border-radius: 50%;
+    background-color: var(--darkblue);
+    padding: 4px 8px;
+    border-radius: 45%;
+    margin-right: 10px;
+    transition: background-color 0.3s,
+                opacity 0.3s;
+  &:hover {
+    background-color: var(--yellow);
+    
+  }
+  &:active {
+    opacity: 0.3;
+  }
   }
 `;
 
 const AuthorBtn = styled.button`
   border: none;
+  font-size: 15px;
   border-radius: 15px;
+  background-color: var(--background);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s,
+              opacity 0.3s;
+  &:hover {
+    background-color: var(--yellow);
+  }
+  &:active {
+    opacity: 0.3;
+  }
 `
 
 const ResultWrapper = styled.div`
   position: absolute;
-  margin-top: 1px;
-  width: 470px;
-  background-color: white;
+  margin-top: 2px;
+  width: 300px;
+  background-color: var(--background);
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   z-index: 5;
   border-radius: 4px;
@@ -163,8 +195,8 @@ const ItalicIn = styled.span`
   font-size: 14px;
 `;
 
-const CategoryName = styled.span`
-color: purple;
+const AuthorName = styled.span`
+color:  var(--purple);
 font-style: italic;
 font-size: 14px;
 `;

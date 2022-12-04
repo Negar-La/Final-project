@@ -82,35 +82,39 @@ const BookDetails = () => {
        :
        book &&
         <Container>
-          <BookImage src={book.image} />
+          <Left>
+            <BookImage src={book.image} />
+            <PreviewBtn onClick={ handleClick}>Click here to preview</PreviewBtn>
+              <FavoriteBtn    onClick={(e) => {
+                if (!isAuthenticated)
+                {
+                  window.alert("Please log in first!")
+                } else {
+                  addToFavoriteHandler(e, book);
+                }
+                
+                  
+                  }}>+ Add to Favorite List
+              </FavoriteBtn>
+          </Left>
+         
           <div>
-            <div>Title: {book.title}</div>
-            <div>Author: {book.author}</div>
-            <div>Publisher: {book.publisher}</div>
-            <div>Category: {book.categories}</div>
-            <div>Pages: {book.pageCount}</div>
-            <div>Description: {book.description}</div>
-            <button onClick={ handleClick}>Click here to preview</button>
-            <button    onClick={(e) => {
-               if (!isAuthenticated)
-               {
-                window.alert("Please log in first!")
-               } else {
-                addToFavoriteHandler(e, book);
-               }
-               
-                 
-                }}>+ Add to Favorite List
-            </button>
-            <Write>Write a comment about this book</Write>
-
-            {isAuthenticated ? (
-             <NewComment commentPosted={commentPosted} setCommentPosted={setCommentPosted} />
-            ) :
-            <p>Please log in so you can read comments and write a comment!</p>
-            }
-            
+            <Title>Title: <span>{book.title}</span> </Title>
+            <Author>Author: <span>{book.author}</span></Author>
+            <Publisher>Publisher: <span>{book.publisher}</span></Publisher>
+            <Category>Category: <span>{book.categories}</span></Category>
+            <Pages>Pages: <span>{book.pageCount}</span></Pages>
+            <Description>Description: <span>{book.description}</span></Description>
+           
           </div>
+          <CommentContainer>
+              <Write>Write a comment about this book</Write>
+              {isAuthenticated ? (
+              <NewComment commentPosted={commentPosted} setCommentPosted={setCommentPosted} />
+              ) :
+              <p>Please log in so you can read comments and write a comment!</p>
+              }
+          </CommentContainer>
         </Container>
       }
       </>  
@@ -120,19 +124,128 @@ const BookDetails = () => {
 }
 
 const Container = styled.div`
+  padding-top: 85px;
   display: flex;
+`
+
+const Left = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `
 
 const BookImage = styled.img`
   margin-left: 1em;
   margin-right: 2em;
-  padding: 1em;
-  width: 300px;
-  height: 200px;
+  border: 3px solid var(--darkblue);
+  height: 250px;
+  width: 200px;
+  object-fit: fill;
   box-shadow: rgba(16, 55, 120, 0.3) 0px 1px 2px 0px,
     rgba(21, 31, 48, 0.15) 0px 1px 3px 1px;
   border-radius: 10px;
 `;
+
+const Title = styled.div`
+  font-size: 22px;
+  margin-bottom: 8px;
+  font-weight: bold;
+  span {
+    font-weight: 400;
+  }
+`
+
+const Author = styled.div`
+  font-size: 20px;
+  margin-bottom: 8px;
+  font-weight: bold;
+  span {
+    font-weight: 400;
+  }
+`
+
+const Publisher = styled.div`
+   font-size: 20px;
+  margin-bottom: 8px;
+  font-weight: bold;
+  span {
+    font-weight: 400;
+  }
+`
+
+const Category = styled.div`
+   font-size: 20px;
+  margin-bottom: 8px;
+  font-weight: bold;
+  span {
+    font-weight: 400;
+  }
+`
+
+const Pages = styled.div`
+   font-size: 20px;
+  margin-bottom: 8px;
+  font-weight: bold;
+  span {
+    font-weight: 400;
+  }
+`
+
+const Description = styled.div`
+  width: 700px;
+  line-height: 1.5;
+  text-align: justify;
+  font-size: 20px;
+  margin-bottom: 8px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  span {
+    font-weight: 400;
+  }
+`
+
+const PreviewBtn = styled.button`
+  border: none;
+  margin-top: 30px;
+  font-size: 18px;
+  border-radius: 15px;
+  width: 200px;
+  background-color: var(--background);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s,
+              opacity 0.3s;
+  &:hover {
+    background-color: var(--yellow);
+  }
+  &:active {
+    opacity: 0.3;
+  }
+`
+
+const FavoriteBtn = styled.button`
+  border: none;
+  margin-top: 40px;
+  margin-bottom: 50px;
+  font-size: 18px;
+  border-radius: 15px;
+  width: 200px;
+  background-color: var(--background);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s,
+              opacity 0.3s;
+  &:hover {
+    background-color: var(--yellow);
+  }
+  &:active {
+    opacity: 0.3;
+  }
+  
+`
+const CommentContainer = styled.div`
+  margin-left: 5em;
+`
 
 const ErrorMsg = styled.div`
     font-family: "Arimo", sans-serif;
@@ -142,9 +255,8 @@ const ErrorMsg = styled.div`
     text-align: center;
 `
 const Write = styled.p`
-  margin-top: 10px;
-  margin-bottom: 10px;
-  font-size: 19px;
+  margin-bottom: 15px;
+  font-size: 22px;
   font-weight: bold;
 `
 const Center = styled.div`

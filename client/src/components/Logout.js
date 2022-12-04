@@ -39,7 +39,7 @@ const Logout = () => {
         return (
             <Wrapper>
                 <LogoutDiv>
-                        <Question>Do you want to log out?</Question>
+                        <Question>Are you sure you want to leave this page?</Question>
                         <Buttons>
                             <Answer value="yes" onClick={handleYes} >Yes</Answer>
                             <Answer value="no" onClick={handleNo} >No</Answer>
@@ -55,6 +55,9 @@ const Wrapper = styled.div`
   width: 100%;
   height: calc(100vh - 300px);
   background-image: url("/images/books.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   height: 100vh;
   width: 100vw;
   display: flex;

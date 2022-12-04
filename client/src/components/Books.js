@@ -37,9 +37,20 @@ const Books = () => {
 }
 
 const Wrapper = styled.div`
-  /* display: flex;
-  flex-direction: column;
-  flex-wrap: wrap; */
+  margin-left: 10px;
+  border: 3px solid var(--darkblue);
+  border-radius: 6px;
+  height: 203px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  img {
+    height: 196px;
+    width: 129px;
+    flex-basis: 25%
+  }
+  &:hover {
+    box-shadow: rgba(0, 0, 204, 0.3) 0px 2px 3px 1px,
+      rgba(0, 0, 204, 0.15) 0px 1px 3px 1px;
+  }
 `
 
 export default Books

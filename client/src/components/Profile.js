@@ -94,13 +94,11 @@ const Profile = () => {
                     return (
                       <Box key={item._id}>
                           <DeleteBtn  onClick={(e) => { deleteFavoriteHandler(e, item) }}
-                          ><TiDeleteOutline size={32} style={{color: 'blue'}}/></DeleteBtn>
-                           <Link to={`/books/${item.id}`} >
-                              <Image>
-                              <img src={item.imageSrc} alt={item.title} />
-                              </Image>
-                              <Name>{item.title}</Name>
-                              <Author>{item.author}</Author>
+                          ><TiDeleteOutline size={26} style={{color: 'var(--darkblue)'}}/></DeleteBtn>
+                           <Link to={`/books/${item.id}`} style={{ textDecoration: 'none' }}>
+                              <Image src={item.imageSrc} alt={item.title} />
+                              <BookTitle>{item.title}</BookTitle>
+                              <Author>Author: <span>{item.author}</span></Author>
                           </Link>
                        
                       </Box>
@@ -127,12 +125,13 @@ const Profile = () => {
 
 const Wrapper = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  padding-top: 70px;
 `
 
 const UserInfo = styled.article`
+  text-align: center;
   h2, h3 {
-    color: purple;
+    color: var(--darkblue);
     margin: 15px;
   }
 `;
@@ -143,64 +142,67 @@ const UserImage = styled.img`
   margin: 20px;
   margin-bottom: 0px;
 `
-
-const FavoriteList = styled.div`
-  margin-left: 130px;
-`;
-
 const Title = styled.div`
   font-weight: bold;
   font-size: 22px;
-  color: purple;
   margin-top: 20px;
   margin-bottom: 10px;
 `
+
+const FavoriteList = styled.div`
+  margin-left: 130px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const Flex = styled.div`
+  display: flex;
+  width: 1100px;
+  flex-wrap: wrap;
+`
+
 const Box = styled.div`
-  border: 1px solid black;
-  width: 240px;
+  border: 2px solid var(--darkblue);
+  max-width: 200px;
+  padding: 10px 25px;
   margin: 10px;
-  padding: 10px;
+  text-decoration: none;
   text-align: center;
   border-radius: 10px;
   position: relative;
+  &:hover {
+    box-shadow: rgba(0, 0, 204, 0.3) 0px 2px 3px 1px,
+      rgba(0, 0, 204, 0.15) 0px 1px 3px 1px;
+  }
 `
-const Flex = styled.div`
-  display: flex;
 
-`
 const NoBook = styled.div`
   font-size: 32px;
   position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `
 
-const Name = styled.div`
+const BookTitle = styled.div`
   font-weight: bold;
-  text-align: center;
-  margin: auto;
-  width: 200px;
   margin-bottom: 5px;
 `;
 
-const Image = styled.div`
-  margin-bottom: 5px;
+const Image = styled.img`
   margin-top: 10px;
-  margin: auto;
-  img {
-    width: auto;
-    height: 175px;
-  }
+  border-radius: 10px;
+  width: 134px;
+  height: 200px;
+  margin-bottom: 10px;
 `;
 
 const Author = styled.div`
-  font-weight: bold;
-  color: purple;
-  font-size: 18px;
-  width: 200px;
-  margin: auto;
-  margin-bottom: 10px;
+  font-size: 16px;
+  color: var(--purple);
+  span{
+    font-weight: bold;
+  }
 `
 const DeleteBtn = styled.button`
   position: absolute;
@@ -209,8 +211,15 @@ const DeleteBtn = styled.button`
   cursor: pointer;
   border: none;
   background-color: white;
-  border-radius: 10px;
-  transition: .2s;
+  border-radius: 50%;
+  transition: background-color 0.3s,
+              opacity 0.3s;
+  &:hover {
+    background-color: var(--yellow);
+  }
+  &:active {
+    opacity: 0.3;
+  }
 `
 
 const Center = styled.div`

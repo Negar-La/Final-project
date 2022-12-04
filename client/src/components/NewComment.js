@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useParams } from "react-router-dom";
-import {TiDeleteOutline} from "react-icons/ti";
+import {TiDelete} from "react-icons/ti";
 import Loader from "./Loader";
 
 const NewComment = ({commentPosted, setCommentPosted}) => {
@@ -14,14 +14,14 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
 
   const [commentText, setCommentText] = useState("");
   const [postComment, setPostComment] = useState(null);
-  const [remainingLetters, setRemainingLetters] = useState(280);
+  const [remainingLetters, setRemainingLetters] = useState(200);
   const [comments, setComments] = useState(null)
   const[commentDeleted, setCommentDeleted] = useState(false)
 
    // Handle the onChange function for the New comment text
    const handleCommentTextChange = (e) => {
     setCommentText(e.target.value);
-    setRemainingLetters(280 - e.target.value.length);
+    setRemainingLetters(200 - e.target.value.length);
   };
 
 
@@ -59,7 +59,7 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
         // window.location.reload(); //refresh the page to show most recent comment in the list I do not need it!
         //I create the comment, post it to db and then by get method I retrieve all comments from db!!
         setCommentText("");
-        setRemainingLetters(280);
+        setRemainingLetters(200);
         setCommentPosted(!commentPosted); 
          }
     })
@@ -114,7 +114,7 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
                     <Bottom>
                       <Span remainingLetters={remainingLetters}>  {remainingLetters}</Span>
                       <Button type="submit"
-                      disabled={remainingLetters===280 || remainingLetters < 0 ? true : false}>
+                      disabled={remainingLetters===200 || remainingLetters < 0 ? true : false}>
                         Send
                       </Button>
                     </Bottom>
@@ -124,39 +124,39 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
         {isAuthenticated ? (
           <>
            <div>
-              <p>Comments:</p>      
-      {/*  the most efficient way to reverse a JavaScript array? reverse() if you want in-place, or array. slice(). reverse() if you want a copy. */}
+              <CommentTitle>Comments:</CommentTitle>      
+               {/*the most efficient way to reverse a JavaScript array? reverse() if you want in-place, or array. slice(). reverse() if you want a copy. */}
               {!comments ? <Loader/>
-              : (comments.length < 1) ? <p>There is no comment</p>
+              : (comments.length < 1) ? <NoComment>No comment yet.</NoComment>
               : (comments && comments.slice().reverse().map((c, i)=>{ 
                               //  console.log(c)
                                return (
-                                 <div key={i}  >
+                                 <PreviousComments key={i}  >
                                   <ImgCurrentUser src={c.newUser.userPicture}/>
-                                  <Span>{c.newUser.user}: </Span>
-                                  <span>{c.newUser.comment}</span>
+                                  <UserSpan>{c.newUser.user}: </UserSpan>
+                                  <CommentText>{c.newUser.comment}</CommentText>
                                   { c.newUser.userPicture === user.picture ?
                                   (
                                     <DeleteBtn  onClick={(e) => { deleteCommentHandler(e, c) }}>
-                                    <TiDeleteOutline size={30} style={{color: 'blue'}}/>
+                                      <SpanIcon>
+                                          <TiDelete size={30}
+                                          onMouseOver={({target})=>target.style.color="yellow"}
+                                          onMouseOut={({target})=>target.style.color='var(--darkblue)'}/>
+                                      </SpanIcon>
                                   </DeleteBtn>
                                   ) : ("")
                                     }
-                                 
-                                 
-                                 </div>
+
+                                 </PreviousComments>
                                )
-                             })
+                 })
               ) 
                           
-                }
-            </div>
-          </>
-           
-
-            
-            ) : ("")
-            }
+              }
+          </div>
+        </>  
+        ) : ("")
+        }
 
         
       </>
@@ -168,10 +168,7 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
 
 const FormContainer = styled.form`
   margin-left: 15px;
-  margin-bottom: 20px;
-  border: 1px solid lightgray;
-  width: 600px;
-  height: 150px;
+  margin-bottom: 25px;
 `;
 
 const Flex = styled.div`
@@ -180,27 +177,42 @@ const Flex = styled.div`
 
 const ImgCurrentUser = styled.img`
   width : 50px;
-  height: 60px;
+  height: 50px;
+  border: 3px solid var(--darkblue);
   border-radius: 50%;
 `
 const Bottom = styled.div`
-  margin-top: -45px;
-  margin-left: 475px;
+  margin-top: -50px;
+  margin-left: 400px;
+
 `;
 
 const Button = styled.button`
   color: white;
   background-color: ${(props) =>
-    !props.disabled ? 'red' : 'rgb(134, 136, 253)'};
+    !props.disabled ? 'var(--darkblue)' : 'gray'};
+    cursor: ${(props)=>
+    !props.disabled ? 'pointer' : 'not-allowed'};
   border: 0px;
   font-size: 18px;
-  font-weight: bold;
   border-radius: 25px;
   padding: 8px 16px;
-  cursor: pointer;
+  transition: background-color 0.4s,
+              opacity 0.5s;
+  &:hover {
+    background-color: ${(props)=>
+    !props.disabled ? 'var(--yellow)' : 'gray'};
+    color: ${(props)=>
+    !props.disabled ? 'var(--darkbluew)' : 'white'};
+  }
+  &:active {
+    opacity: 0.3;
+  }
 `;
 
 const Span = styled.span`
+  right: 160px;
+  top: 265px;
   color: lightgray;
   margin-right: 15px;
   color: ${(props) =>
@@ -213,26 +225,66 @@ const Span = styled.span`
 
 //change your input type='text' to a textarea, and as a user types, the text will wrap onto the next line.
 const Input = styled.textarea`
-  border: none;
+  padding: 10px;
   font-size: 18px;
-  width: 600px;
+  width: 500px;
   height: 150px;
   outline: none;
   resize: none;
+  border: 3px solid var(--darkblue);
+  border-radius: 10px;
 `;
+
+const CommentTitle = styled.p`
+  font-size: 22px;
+  margin-bottom: 8px;
+  font-weight: 400;
+`
+
+const NoComment = styled.p`
+  font-size: 22px;
+  margin-bottom: 8px;
+  font-weight: 400;
+  margin-left: 10px;
+`
+
+const PreviousComments = styled.div`
+  max-width: 600px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+`
+
+
+const UserSpan = styled.span`
+  margin-right: 8px;
+  margin-left: 10px;
+  font-weight: bold;
+`;
+
+const CommentText = styled.span`
+  outline: none;
+  resize: none;
+`
 
 const DeleteBtn = styled.button`
   cursor: pointer;
   border: none;
   background-color: white;
   border-radius: 10px;
-  transition: .2s;
+  margin-left: 10px;
 `
-const Center = styled.div`
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+
+const SpanIcon = styled.span`
+  color: var(--darkblue);
+  transition: color 0.3s,
+              opacity 0.3s;
+  &:hover {
+  color: var(--yellow);
+  }
+  &:active {
+    opacity: 0.3;
+  }
 `
 
 export default NewComment
