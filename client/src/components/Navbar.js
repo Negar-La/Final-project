@@ -6,13 +6,9 @@ import {CgProfile} from "react-icons/cg";
 import { NavLink } from "react-router-dom";
 import { useEffect } from "react";
 import Loader from "./Loader";
-import { ThemeContext } from "./ThemeContext"
-import { useContext } from "react";
-
+import About from "./About"
 
 const Navbar = () => {
-
-  const {toggleTheme, theme} = useContext(ThemeContext)
 
   const navigate = useNavigate();
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -52,13 +48,9 @@ const Navbar = () => {
         <NavigationLink to='/' end>
            <Name>My Online Library</Name>
         </NavigationLink>
-        <Button onClick={toggleTheme}
-            style={{backgroundColor: theme==='dark' ? "purple" : "lightgrey"}}
-        >
-            <Ball 
-                style={{left: theme==='dark' ? "20px" : "-5px" }}
-            />
-        </Button>
+        <NavigationLink to='/about' >
+        <Name>About</Name>
+        </NavigationLink>
       </LeftSide>
         
       
@@ -188,20 +180,5 @@ const Center = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
 `
-const Button= styled.button`
-    width: 50px;
-    border-radius: 20px;
-    border: 3px solid lightgray;
-    transition: ease-in 0.2s;
-    margin-left: 15px;
-`;
 
-const Ball= styled.div`
-    width: 20px;
-    height: 20px;
-    background-color: white;
-    border-radius: 50%;
-    transition: ease-in 0.2s;
-    position: relative;
-`;
 export default Navbar

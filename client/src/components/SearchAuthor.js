@@ -16,7 +16,7 @@ const SearchAuthor = () => {
       .then((res) => res.json())
       .then((data) => {
         setSearchedItems(data.data);
-        console.log(data.data)
+        // console.log(data.data)
       });
   }, [searchTerm]);
 

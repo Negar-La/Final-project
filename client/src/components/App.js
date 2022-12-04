@@ -8,24 +8,21 @@ import Profile from "./Profile";
 import SearchResults from "./SearchResults";
 import BookDetails from "./BookDetails" ;
 import SearchAuthor from "./SearchAuthor";
+import About from "./About";
 import { useContext } from 'react';
 import { BooksContext } from "./BooksContext" ;
-import { ThemeContext } from "./ThemeContext";
 import styled from "styled-components";
 import ErrorPage from './ErrorPage';
 import Loader from "./Loader";
-import './darkMode.css';
 
 
 const App = ()=> {
 
   const {status} = useContext(BooksContext)
-  const {theme} = useContext(ThemeContext)
 
   return (
     <BrowserRouter>
       <GlobalStyles />
-      <div className={`App ${theme}`}>
       <Navbar />
           { status==="error" ?
                 <ErrorPage/> :
@@ -35,13 +32,12 @@ const App = ()=> {
             <Route path="/" element={<HomePage />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/logout" element={<Logout />} />
+            <Route path="/about" element={<About />} />
             <Route path="/search/:searchTerm" element={<SearchResults />}/>
             <Route path="/searchByAuthor/:searchTerm" element={<SearchAuthor />}/>
             <Route path="/books/:bookId" element={<BookDetails />} />
           </Routes>
           }
-      </div>
-         
     </BrowserRouter>
   );
 }

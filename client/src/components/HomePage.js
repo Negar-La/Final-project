@@ -19,17 +19,14 @@ const HomePage = () => {
        
             <Left>
               <Quote>A book is a Gift you open again and again</Quote>
-            
               <SearchWrapper>
                   <SearchBar/>
               </SearchWrapper>
             </Left>
             <Choose>Choose a book <AiOutlineRead size={25} style={{marginTop: '10px'}}/> and start reading:</Choose>
             <BookWrapper>
-  
               <Books/>
             </BookWrapper>
-
             <BookWrapper2>
               <Books/>
             </BookWrapper2>

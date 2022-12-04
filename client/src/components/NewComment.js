@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useParams } from "react-router-dom";
-import {TiDelete} from "react-icons/ti";
+import {FaTimes} from "react-icons/fa";
 import Loader from "./Loader";
 
 const NewComment = ({commentPosted, setCommentPosted}) => {
@@ -32,7 +32,7 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
       .then((data) => {
         if (data.status === 200) {
           setComments(data.data);
-          console.log(data.data)
+          // console.log(data.data)
         } 
       });
   }, [postComment, commentDeleted]); //this useEffect triggers when a comment is added and causes a rerender of the component
@@ -54,7 +54,7 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
       if (data.status === 400 || data.status === 500) {
         throw new Error (data.message)
        } else{
-        console.log(data); //{comment: {…}}
+        // console.log(data); //{comment: {…}}
         setPostComment(data.data)
         // window.location.reload(); //refresh the page to show most recent comment in the list I do not need it!
         //I create the comment, post it to db and then by get method I retrieve all comments from db!!
@@ -84,7 +84,7 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
       })
       .then((data) => {
         if (data.status === 200) {          
-         console.log(data)   
+        //  console.log(data)   
          setCommentDeleted(!commentDeleted)          
         }
       })
@@ -139,8 +139,8 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
                                   (
                                     <DeleteBtn  onClick={(e) => { deleteCommentHandler(e, c) }}>
                                       <SpanIcon>
-                                          <TiDelete size={30}
-                                          onMouseOver={({target})=>target.style.color="yellow"}
+                                          <FaTimes size={25}
+                                          onMouseOver={({target})=>target.style.color="var(--yellow)"}
                                           onMouseOut={({target})=>target.style.color='var(--darkblue)'}/>
                                       </SpanIcon>
                                   </DeleteBtn>
@@ -195,6 +195,7 @@ const Button = styled.button`
     !props.disabled ? 'pointer' : 'not-allowed'};
   border: 0px;
   font-size: 18px;
+  font-weight: bold;
   border-radius: 25px;
   padding: 8px 16px;
   transition: background-color 0.4s,

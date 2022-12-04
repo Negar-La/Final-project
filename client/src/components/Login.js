@@ -31,6 +31,7 @@ const LoginBtn = styled.button`
   color: var(--darkblue);
   background-color: var(--background);
   margin-left: 15px;
+  margin-right: 15px;
   cursor: pointer;
   transition: background-color 0.4s,
               opacity 0.5s;

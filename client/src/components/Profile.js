@@ -22,7 +22,7 @@ const Profile = () => {
       .then((data) => {
         if (data.status === 200) {
           setFavoriteBooks(data.data);
-          console.log(data.data)
+          // console.log(data.data)
           // console.log(data.data[12].favoriteBook.userPicture)
         } 
       });
@@ -43,7 +43,7 @@ const Profile = () => {
       })
       .then((data) => {
         if (data.status === 200) {          
-         console.log(data)   
+        //  console.log(data)   
          setFavoriteDeleted(!favoriteDeleted)  //you should set it to opposite value so it will change each time and renders useEffect each time and not just the first time!        
         }
       })
@@ -157,7 +157,7 @@ const FavoriteList = styled.div`
 
 const Flex = styled.div`
   display: flex;
-  width: 1100px;
+  max-width: 1100px;
   flex-wrap: wrap;
 `
 

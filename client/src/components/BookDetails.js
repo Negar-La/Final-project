@@ -5,6 +5,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import NewComment from "./NewComment";
 import { useNavigate } from "react-router-dom";
 import Loader from "./Loader";
+import {MdFavorite} from "react-icons/md"
+import {AiOutlineRead} from "react-icons/ai"
 
 const BookDetails = () => {
 
@@ -41,7 +43,6 @@ const BookDetails = () => {
 
   const addToFavoriteHandler = (e, book) => {
     e.preventDefault();
-
     fetch(`/api/add-favorite`, {
       method: "POST",
       headers: {
@@ -59,7 +60,7 @@ const BookDetails = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
+        // console.log(data)
         setFavoriteBook(data.data)
         navigate("/profile"); //we put navigate after fetching data to be sure that navigation occurs after fetching data.
       })
@@ -84,7 +85,7 @@ const BookDetails = () => {
         <Container>
           <Left>
             <BookImage src={book.image} />
-            <PreviewBtn onClick={ handleClick}>Click here to preview</PreviewBtn>
+            <PreviewBtn onClick={ handleClick}>Click to Preview <AiOutlineRead /> </PreviewBtn>
               <FavoriteBtn    onClick={(e) => {
                 if (!isAuthenticated)
                 {
@@ -94,7 +95,7 @@ const BookDetails = () => {
                 }
                 
                   
-                  }}>+ Add to Favorite List
+                  }}> Add to Favorite List <MdFavorite/>
               </FavoriteBtn>
           </Left>
          
@@ -112,7 +113,7 @@ const BookDetails = () => {
               {isAuthenticated ? (
               <NewComment commentPosted={commentPosted} setCommentPosted={setCommentPosted} />
               ) :
-              <p>Please log in so you can read comments and write a comment!</p>
+              <Please>Please log in so you can read comments and write a comment!</Please>
               }
           </CommentContainer>
         </Container>
@@ -129,14 +130,13 @@ const Container = styled.div`
 `
 
 const Left = styled.div`
+  width: 260px;
   display: flex;
   flex-direction: column;
   align-items: center;
 `
 
 const BookImage = styled.img`
-  margin-left: 1em;
-  margin-right: 2em;
   border: 3px solid var(--darkblue);
   height: 250px;
   width: 200px;
@@ -203,13 +203,19 @@ const Description = styled.div`
     font-weight: 400;
   }
 `
+const Please = styled.div`
+   font-size: 20px;
+  margin-top: 18px;
+  font-weight: 500;
+`
 
 const PreviewBtn = styled.button`
   border: none;
-  margin-top: 30px;
+  margin-top: 40px;
   font-size: 18px;
   border-radius: 15px;
   width: 200px;
+  padding: 10px 0px;
   background-color: var(--background);
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   cursor: pointer;
@@ -226,9 +232,10 @@ const PreviewBtn = styled.button`
 const FavoriteBtn = styled.button`
   border: none;
   margin-top: 40px;
-  margin-bottom: 50px;
   font-size: 18px;
   border-radius: 15px;
+  width: 210px;
+  padding: 10px 2px;
   width: 200px;
   background-color: var(--background);
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useContext } from "react";
 import { BooksContext } from "./BooksContext";
 import styled from "styled-components";
-import { BsSearch } from "react-icons/bs";
+import { RiSearchFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import SearchResults from "./SearchResults";
@@ -55,9 +55,9 @@ const SearchBar = () => {
                        setUserQuery("");
                        <SearchResults/>
                      }}>
-          <BsSearch size={19} style={{color: "white", marginTop: '3px'}}
-                    onMouseOver={({target})=>target.style.color="blue"}
-                    onMouseOut={({target})=>target.style.color="white"}
+          <RiSearchFill size={36} style={{color: "var(--darkblue)", marginLeft: '-53px'}}
+                    onMouseOver={({target})=>target.style.color="var(--yellow)"}
+                    onMouseOut={({target})=>target.style.color="var(--darkblue)"}
                  />     
       </SearchIcon>
       <AuthorBtn 
@@ -108,7 +108,7 @@ const SearchBar = () => {
 const StyledInput = styled.input`
   border-radius: 15px;
   width: 300px;
-  height: 32px;
+  height: 36px;
   padding-left: 10px;
   border: none;
   margin-right: 15px;
@@ -140,13 +140,8 @@ const InputWrapper = styled.div`
   display: flex;
 
   .search-icon {
-    margin-left: -48px;
     cursor: pointer;
-    align-items: center;
-    background-color: var(--darkblue);
-    padding: 4px 8px;
     border-radius: 45%;
-    margin-right: 10px;
     transition: background-color 0.3s,
                 opacity 0.3s;
   &:hover {
@@ -154,7 +149,7 @@ const InputWrapper = styled.div`
     
   }
   &:active {
-    opacity: 0.3;
+    opacity: 0.7;
   }
   }
 `;
@@ -172,7 +167,7 @@ const AuthorBtn = styled.button`
     background-color: var(--yellow);
   }
   &:active {
-    opacity: 0.3;
+    opacity: 0.8;
   }
 `
 
