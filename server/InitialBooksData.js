@@ -14,7 +14,7 @@ const getBooks = async (query) => {
 };
 
 
-getBooks("Ina Garten").then((items) => console.log(
+getBooks("Jasmine Guillory").then((items) => console.log(
     JSON.stringify(
     items.slice(0, 7).map((result)=>{
         return {
