@@ -15,11 +15,11 @@ const Books = () => {
   // const random = books.sort(() => 0.5 - Math.random()).slice(0,6)
 
   return (
-    <>
+    <Div>
       {!books ? 
       <h1>Loading...</h1>
       : (
-        books.sort(() => 0.5 - Math.random()).slice(0,4).map((book)=>{
+        books.sort(() => 0.5 - Math.random()).slice(0,9).map((book)=>{
           // console.log(book)
           return (
             <Link to={`/books/${book.id}`} key={book.id} >
@@ -32,12 +32,20 @@ const Books = () => {
         })
       )
       }
-    </>
+    </Div>
   )
 }
+const Div = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 500px;
+  padding-right: 0px;
+  padding-left: 35px;
+`
 
 const Wrapper = styled.div`
-  margin-left: 10px;
+  margin-left: 15px;
+  margin-bottom: 15px;
   border: 3px solid var(--darkblue);
   border-radius: 6px;
   height: 203px;
@@ -45,7 +53,6 @@ const Wrapper = styled.div`
   img {
     height: 196px;
     width: 129px;
-    flex-basis: 25%
   }
   &:hover {
     box-shadow: rgba(0, 0, 204, 0.3) 0px 2px 3px 1px,

@@ -13,8 +13,7 @@ const HomePage = () => {
 
   if (status==='error') {return <ErrorPage /> }
   return (
-    <>
-        
+    <>    
         <Container>
        
             <Left>
@@ -27,24 +26,16 @@ const HomePage = () => {
             <BookWrapper>
               <Books/>
             </BookWrapper>
-            <BookWrapper2>
-              <Books/>
-            </BookWrapper2>
-    
-         
         </Container>
     </>
-
- 
   )
 }
 const Choose = styled.p`
-  font-family: roboto;
   font-size:24px; 
   font-weight:700;  
   letter-spacing:1px; 
   position: fixed;
-  right: 196px;
+  right: 136px;
   `
 
 const Container = styled.div`
@@ -61,21 +52,8 @@ const Container = styled.div`
 
 const BookWrapper = styled.div`
   position: fixed;
-  right: 50px;
+  right: 100px;
   top: 200px;
-  display: flex;
-  flex-basis: 25%;
-  flex-wrap: wrap;
-  height: 200px;
-  `
-  const BookWrapper2 = styled.div`
-  position: fixed;
-  right: 50px;
-  top: 500px;
-  display: flex;
-  flex-basis: 25%;
-  flex-wrap: wrap;
-  height: 200px;
   `
 
 const Quote = styled.p`

@@ -266,6 +266,7 @@ const UserSpan = styled.span`
 const CommentText = styled.span`
   outline: none;
   resize: none;
+  text-align: justify;
 `
 
 const DeleteBtn = styled.button`
