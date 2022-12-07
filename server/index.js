@@ -3,7 +3,7 @@ const helmet = require('helmet');
 const morgan = require ('morgan');
 const port = 8000;
 
-const {getBooks, getSingleBook, getSearchResults, getSearchAuthor} = require ("./handlers/books-handler")
+const {getBooks, getSingleBook, getSearchResults, getSearchAuthor, getCategories, getSingleCategory} = require ("./handlers/books-handler")
 const {addFavorite, deleteFavorite, getFavorites} = require ("./handlers/Favorite-handlers")
 const {addComment, getComments, deleteComment} = require ("./handlers/comments-handler")
 const {addPerson, getSinglePerson} = require ("./handlers/person-Auth0-handler")
@@ -17,6 +17,8 @@ express()
   .get('/api/get-book/:id', getSingleBook)
   .get("/api/books/search/:userInput", getSearchResults)
   .get("/api/books/searchByAuthor/:author", getSearchAuthor)
+  .get("/api/get-categories", getCategories)
+  .get("/api/get-categories/:categories", getSingleCategory)
 
   .post("/api/person", addPerson)
   .get("/api/person/:id", getSinglePerson)

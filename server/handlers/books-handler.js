@@ -116,11 +116,61 @@ const getSearchAuthor = async (req, res) => {
     }
 };
 
+const getCategories = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+
+  try {
+    await client.connect();
+    const db = client.db("final-project");
+    console.log("categories connected!");
+
+    const result = await db.collection("books").find().toArray();
+        // target category
+     let categories = result.map(({ categories })=> categories )
+    //  console.log(categories)
+
+         // remove duplicates from the category array
+    let  uniq = [...new Set(categories)];
+         console.log(uniq);
+
+    res.status(200).json({ status: 200, data: uniq });
+  } catch (err) {
+    console.log(err.stack);
+    res.status(500).json({ status: 500, data: req.body, message: err.message });
+  } finally {
+    // close the connection to the database server
+    client.close();
+    console.log("getCategories disconnected!");
+  }
+};
+
+const getSingleCategory = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  const categories = req.params.categories
+  console.log(categories);
+  try {
+    await client.connect();
+    const db = client.db("final-project");
+    console.log("single category connected!");
+
+    const result = await db.collection("books").find({categories}).toArray();
+  
+    if (result.length <= 0) {
+      res.status(404).json({ status: 404, message: "category not found" });
+    } else {
+      res.status(200).json({ status: 200, data: result });
+    }
+  } catch (err) {
+    console.log(err.stack);
+    res.status(500).json({ status: 500, data: req.body, message: err.message });
+  } finally {
+    // close the connection to the database server
+    client.close();
+    console.log("single category  disconnected!");
+  }
+};
 
 
 
 
-
-
-
-module.exports = { getBooks, getSingleBook, getSearchResults, getSearchAuthor};
+module.exports = { getBooks, getSingleBook, getSearchResults, getSearchAuthor, getCategories, getSingleCategory};
