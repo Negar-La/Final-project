@@ -1,12 +1,14 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 import NewComment from "./NewComment";
 import { useNavigate } from "react-router-dom";
 import Loader from "./Loader";
 import {MdFavorite} from "react-icons/md"
-import {AiOutlineRead} from "react-icons/ai"
+import {AiOutlineRead} from "react-icons/ai";
+import SimilarBooks from "./SimilarBooks";
+
 
 const BookDetails = () => {
 
@@ -22,6 +24,9 @@ const BookDetails = () => {
   const [favoriteBook, setFavoriteBook] = useState(null)
   const navigate = useNavigate();
 
+  const [category, setCategory] = useState(null)
+  const [similar, setSimilar] = useState(null)
+
   const handleClick = () => {
     // console.log("hi")
     window.open(book.previewLink);
@@ -34,7 +39,8 @@ const BookDetails = () => {
       .then((data) => {
         if (data.status === 200) {
           setBook(data.data);
-          // console.log(data.data)
+          setCategory(data.data.categories)
+          console.log(data.data.categories)
         } else {
           setNotFound(true);
         }
@@ -68,6 +74,23 @@ const BookDetails = () => {
         console.log(error);
       });
   };
+
+ 
+
+//fetch books with the same category as the current book
+    useEffect(() => {
+     category && fetch(`/api/get-categories/${category}`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.status === 200) {
+            setSimilar(data.data);
+            console.log(data.data)
+          } else {
+            setNotFound(true);
+          }
+        });
+    }, [book])
+ 
 
 
   if (notFound) {
@@ -115,7 +138,12 @@ const BookDetails = () => {
               ) :
               <Please>Please log in so you can read comments and write a comment!</Please>
               }
+              <Write2>
+                  You're maybe interested in similar books:
+             <SimilarBooks similar={similar} book={book}/>
+              </Write2>
           </CommentContainer>
+          
         </Container>
       }
       </>  
@@ -271,6 +299,13 @@ const Center = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+`
+
+const Write2  =styled.div`
+  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 20px;
 `
 
 export default BookDetails
