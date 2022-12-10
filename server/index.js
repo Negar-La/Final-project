@@ -18,7 +18,7 @@ express()
   .get("/api/books/search/:userInput", getSearchResults)
   .get("/api/books/searchByAuthor/:author", getSearchAuthor)
   .get("/api/get-categories", getCategories)
-  .get("/api/get-categories/:categories", getSingleCategory)
+  .get("/api/get-categories/:category", getSingleCategory)
 
   .post("/api/person", addPerson)
   .get("/api/person/:id", getSinglePerson)

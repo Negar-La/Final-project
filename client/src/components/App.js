@@ -8,6 +8,7 @@ import Profile from "./Profile";
 import SearchResults from "./SearchResults";
 import BookDetails from "./BookDetails" ;
 import SearchAuthor from "./SearchAuthor";
+import SearchCategory from "./SearchCategory";
 import About from "./About";
 import { useContext } from 'react';
 import { BooksContext } from "./BooksContext" ;
@@ -35,6 +36,7 @@ const App = ()=> {
             <Route path="/about" element={<About />} />
             <Route path="/search/:searchTerm" element={<SearchResults />}/>
             <Route path="/searchByAuthor/:searchTerm" element={<SearchAuthor />}/>
+            <Route path="/searchByCategory/:category" element={<SearchCategory />}/>
             <Route path="/books/:bookId" element={<BookDetails />} />
           </Routes>
           }

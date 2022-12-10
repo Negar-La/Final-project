@@ -4,32 +4,33 @@ import { BooksContext } from "./BooksContext";
 import styled from "styled-components";
 import { RiSearchFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import SearchResults from "./SearchResults";
-import SearchAuthor from "./SearchAuthor";
+import { useNavigate, useParams } from "react-router-dom";
+import SearchCategory from "./SearchCategory";
 
 const SearchBar = () => {
 
   const navigate = useNavigate();
+  const {category} = useParams();
 
-  const { books } = useContext(BooksContext);
+  const { books, categories } = useContext(BooksContext);
   const [filteredData, setFilteredData] = useState('');
   const [userQuery, setUserQuery] = useState("");
-
+  console.log(userQuery);
   const [isToggled, setIsToggled] = useState(false);
-
+  const [isToggledCategory, setIsToggledCategory] = useState(false);
 
   //This handler tracks what user types in input and checks if a book's title includes that word.
   const handleFilter = (event) => {
     const itemSearched = event.target.value;
     setUserQuery(itemSearched);
+    console.log(userQuery.length);
     const newFilter = books.filter((item) => {
-      if (userQuery.length > 0 && isToggled === true && item.author.toLowerCase().includes(itemSearched.toLowerCase())) {
+      if ( isToggled === true && item.author.toLowerCase().includes(itemSearched.toLowerCase())) {
         return true;
       } else
-      if (userQuery.length > 0 && item.title.toLowerCase().includes(itemSearched.toLowerCase()) ) {
+      if ( item.title.toLowerCase().includes(itemSearched.toLowerCase()) ) {
          return true;
-        } else {
+        }  else {
         return false;
       }
     });
@@ -37,24 +38,48 @@ const SearchBar = () => {
     itemSearched === "" ? setFilteredData('') : setFilteredData(newFilter);
   };
 
+  const handleChange = (e)=>{
+    console.log(e.target.value);
+    console.log('category selected!');
+    isToggledCategory  &&
+    setIsToggledCategory(true)
+    navigate(`/searchByCategory/${e.target.value}`)
+    setFilteredData('');
+    <SearchCategory/>
+  }
+
+
   return (
     <Container>
-    <InputWrapper>
-      <StyledInput
-        type="text"
-        placeholder="Enter"
-        onChange={handleFilter}
-        value={userQuery}
-      />
+        <CategoryDiv>
+          <Select name="categories" id='categories'
+          onChange={handleChange}
+        >
+          <option value="pick">Select Category</option>
+              <>{categories && categories.map((category, index)=>{
+                  return  <option key ={index} value= {category}> {category}</option> 
+                  }) 
+                  }
+              </>
+                  
+          </Select>
+        </CategoryDiv>
+        
+      <InputWrapper>
+        <StyledInput
+          type="text"
+          placeholder="Enter"
+          onChange={handleFilter}
+          value={userQuery}
+        />
 
       <SearchIcon className="search-icon"
        onClick={() => {
-                       userQuery &&
-                       navigate(`/search/${userQuery}`)
-                       setFilteredData('');
-                       setUserQuery("");
-                       <SearchResults/>
-                     }}>
+          if(userQuery.length > 0){ navigate(`/search/${userQuery}`)}
+          else {window.alert("Please enter something!")}
+          setFilteredData('');
+          setUserQuery("");
+       }}>
           <RiSearchFill size={36} style={{color: "var(--darkblue)", marginLeft: '-53px'}}
                     onMouseOver={({target})=>target.style.color="var(--yellow)"}
                     onMouseOut={({target})=>target.style.color="var(--darkblue)"}
@@ -62,12 +87,11 @@ const SearchBar = () => {
       </SearchIcon>
       <AuthorBtn 
          onClick={() => {
-          userQuery && isToggled &&
           setIsToggled(true)
-          navigate(`/searchByAuthor/${userQuery}`)
           setFilteredData('');
           setUserQuery("");
-          <SearchAuthor/>
+          if(userQuery.length > 0){ navigate(`/searchByAuthor/${userQuery}`)}
+          else {window.alert("Please enter the name of the author!")}
         }}
       >Author</AuthorBtn>
     </InputWrapper>
@@ -134,6 +158,21 @@ const SearchIcon = styled.div`
 const Container = styled.div`
    
 `;
+
+const CategoryDiv = styled.div`
+   margin-bottom: 20px;
+`
+
+const Select = styled.select`
+   border-radius: 15px;
+  width: 250px;
+  height: 36px;
+  text-align: center;
+  font-size: 17px;
+  color: var(--darkblue);
+  background-color: var(--background);
+  
+`
 
 const InputWrapper = styled.div`
   margin-top: 10px;

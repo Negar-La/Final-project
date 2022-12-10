@@ -4,13 +4,6 @@ import Loader from "./Loader";
 
     const SimilarBooks = ({similar, book})=>{
 
-        // const handleClick = () => {
-        //     console.log("hi")
-        //     window.location.reload();
-        //   };
-
-
-
         return (
             <FlexDiv>
             {!similar ? <Loader/>
@@ -20,7 +13,7 @@ import Loader from "./Loader";
                     console.log(category)
                     return (
                         //If you use this, it will go to the link and also reload
-                        <a onClick={() => {window.location.href=`/books/${category.id}`}}>
+                        <a key={category.id} onClick={() => {window.location.href=`/books/${category.id}`}}>
                             <Box>
                               <Image src={category.image} alt={category.title} />
                               <Name>{category.title}</Name>
@@ -43,8 +36,8 @@ display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
-width: 220px;
-height: 331px;
+width: 180px;
+height: 220px;
 padding: 10px 25px;
 margin: 10px;
 text-decoration: none;
@@ -69,21 +62,21 @@ const FlexDiv = styled.div`
 const Image = styled.img`
 margin-top: 10px;
 border-radius: 10px;
-width: 134px;
-height: 200px;
-margin-bottom: 10px;
+width: 100px;
+height: 120px;
+margin-bottom: 5px;
 `;
 const Name = styled.div`
-width: 210px;
-font-size: 19px;
+width: 175px;
+font-size: 17px;
 align-items: center;
-font-weight: bold;
-margin-bottom: 10px;
+margin-bottom: 5px;
 `;
 const AuthorSimilar = styled.div`
-font-size: 16px;
+width: 175px;
+font-size: 14px;
 color: var(--purple);
-margin-bottom: 5px;
+margin-bottom: 4px;
 `;
 
     export default SimilarBooks

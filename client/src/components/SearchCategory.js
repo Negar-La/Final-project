@@ -4,29 +4,31 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Loader from "./Loader";
 
-const SearchResults = () => {
+const SearchCategory = () => {
 
-  const {searchTerm} = useParams();
+  const {category} = useParams();
+  console.log(category);
   const [searchedItems, setSearchedItems] = useState(null);
 
 
   //fetch data based on searchTerm
   useEffect(() => {
-    fetch(`/api/books/search/${searchTerm}`)
+    fetch(`/api/get-categories/${category}`)
       .then((res) => res.json())
       .then((data) => {
         setSearchedItems(data.data);
+        // console.log(data.data)
       });
-  }, [searchTerm]);
+  }, [category]);
 
 
   return (
     <>
-    <Title>Results for the term " {searchTerm} " in books titles:</Title>
+    <Title>Results for the Category " {category} ":</Title>
 {/* consider 3 possibilities: loading state - there is no result - there are results to shown */}
     {searchedItems ===null ? ( 
       <>
-         <Center><Loader/></Center> 
+        <Center><Loader/></Center> 
       </>
         ): searchedItems === undefined ? (
           <ErrorMsg>Sorry, no results were found matching your criteria!</ErrorMsg>
@@ -34,13 +36,14 @@ const SearchResults = () => {
         :
         ( 
     <Wrapper>
-    {searchedItems.map((book) => {
+    {searchedItems && searchedItems.map((book) => {
       return (
         <Link to={`/books/${book.id}`} key={book.id} >
           <Box>
-              <Image src={book.image} alt={book.title} />
+                <Image src={book.image} alt={book.title} />
               <Name>{book.title}</Name>
               <Author>{book.author}</Author>
+              <Category>Category:{book.categories}</Category>
           </Box>
         </Link>
       );
@@ -52,7 +55,6 @@ const SearchResults = () => {
 
   )
 }
-
 const ErrorMsg = styled.div`
    font-weight: bold;
     margin-top: 40px;
@@ -81,7 +83,7 @@ const Wrapper = styled.div`
 const Box = styled.div`
   border: 2px solid var(--darkblue);
   width: 200px;
-  height: 321px;
+  height: 341px;
   padding: 10px 25px;
   margin: 10px;
   text-decoration: none;
@@ -107,8 +109,14 @@ const Name = styled.p`
 `;
 const Author = styled.div`
   font-size: 16px;
-  color: var(--purple);
+  color: var(--darkblue);
+  margin-bottom: 5px;
   `;
+
+  const Category = styled.div`
+    font-size: 16px;
+     color: var(--darkblue);
+  `
 
 const Center = styled.div`
     position: fixed;
@@ -117,4 +125,5 @@ const Center = styled.div`
     transform: translate(-50%, -50%);
 `
 
-export default SearchResults
+
+export default SearchCategory

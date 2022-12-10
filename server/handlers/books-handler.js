@@ -146,19 +146,24 @@ const getCategories = async (req, res) => {
 
 const getSingleCategory = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
-  const categories = req.params.categories
-  console.log(categories);
+  const category = req.params.category
+  console.log(category);
   try {
     await client.connect();
     const db = client.db("final-project");
     console.log("single category connected!");
 
-    const result = await db.collection("books").find({categories}).toArray();
-  
-    if (result.length <= 0) {
+    const result = await db.collection("books").find().toArray();
+    const x = result.filter((book) => {
+      if (book.categories === category) {
+          return book
+      }
+  });
+
+    if (x.length <= 0) {
       res.status(404).json({ status: 404, message: "category not found" });
     } else {
-      res.status(200).json({ status: 200, data: result });
+      res.status(200).json({ status: 200, data: x });
     }
   } catch (err) {
     console.log(err.stack);
