@@ -64,11 +64,11 @@ const SearchBar = () => {
                   
           </Select>
         </CategoryDiv>
-        
+        <Para>Or</Para>
       <InputWrapper>
         <StyledInput
           type="text"
-          placeholder="Enter"
+          placeholder="Search here"
           onChange={handleFilter}
           value={userQuery}
         />
@@ -129,6 +129,12 @@ const SearchBar = () => {
   </Container>
   );
 };
+const Para = styled.p`
+  font-weight: bold;
+  margin-top: 0px;
+  margin-left: 10px;
+`
+
 const StyledInput = styled.input`
   border-radius: 15px;
   width: 300px;
@@ -160,7 +166,7 @@ const Container = styled.div`
 `;
 
 const CategoryDiv = styled.div`
-   margin-bottom: 20px;
+   margin-bottom: 10px;
 `
 
 const Select = styled.select`
