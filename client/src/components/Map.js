@@ -23,8 +23,7 @@ const object = { lat, lng};
 
   const onMarkerClick = (e) => {
     console.log(e);
-    window.alert(book.title)
-
+    window.alert(book.libraryName)
 };
 
     if (!isLoaded) {

@@ -15,7 +15,7 @@ const SearchBar = () => {
   const { books, categories } = useContext(BooksContext);
   const [filteredData, setFilteredData] = useState('');
   const [userQuery, setUserQuery] = useState("");
-  console.log(userQuery);
+  // console.log(userQuery);
   const [isToggled, setIsToggled] = useState(false);
   const [isToggledCategory, setIsToggledCategory] = useState(false);
 

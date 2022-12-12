@@ -9,8 +9,8 @@ import Loader from "./Loader";
             {!similar ? <Loader/>
             : similar && similar.sort(() => 0.5 - Math.random()).slice(0,3).map((category)=>{
                 if(category.id !== book.id){
-                    console.log(book.id)
-                    console.log(category)
+                    // console.log(book.id)
+                    // console.log(category)
                     return (
                         //If you use this, it will go to the link and also reload
                         <a key={category.id} onClick={() => {window.location.href=`/books/${category.id}`}}>

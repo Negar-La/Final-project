@@ -31,7 +31,7 @@ const BooksProvider = ({ children }) => {
       .then((res) => res.json())
       .then((data) => {
           setCategories(data.data);
-          console.log(data.data)
+          // console.log(data.data)
       })
       .catch ((error)=>{
         console.log(error);

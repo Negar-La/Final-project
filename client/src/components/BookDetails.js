@@ -51,12 +51,12 @@ const BookDetails = () => {
           setCategory(data.data.categories)
           setLat(Number(data.data.lat))
           setLng(Number(data.data.lng))
-          console.log(data.data);
-          console.log(data.data.categories)
-          console.log(data.data.lat)
-          console.log(typeof data.data.lat);
-          console.log(Number(data.data.lat));
-          console.log(typeof Number(data.data.lat));
+          // console.log(data.data);
+          // console.log(data.data.categories)
+          // console.log(data.data.lat)
+          // console.log(typeof data.data.lat);
+          // console.log(Number(data.data.lat));
+          // console.log(typeof Number(data.data.lat));
         } else {
           setNotFound(true);
         }
@@ -100,7 +100,7 @@ const BookDetails = () => {
         .then((data) => {
           if (data.status === 200) {
             setSimilar(data.data);
-            console.log(data.data)
+            // console.log(data.data)
           } else {
             setNotFound(true);
           }
@@ -138,7 +138,7 @@ const BookDetails = () => {
               </FavoriteBtn>
               <FlexDiv>
               <MapButton onClick={()=> setShowMap(true)}>View Library on Map <BsFillPinMapFill style={{marginLeft: '5px'}} /></MapButton>
-                            {showMap && <Map onCloseFunc={()=>setShowMap(false)} center={[parseFloat(lat), parseFloat(lng)]} />}
+                            {showMap && <Map onCloseFunc={()=>setShowMap(false)} center={[parseFloat(lat), parseFloat(lng)]} book = {book}/>}
                             
               </FlexDiv>
           </Left>
@@ -151,9 +151,6 @@ const BookDetails = () => {
             <Pages>Pages: <span>{book.pageCount}</span></Pages>
             <Pages>Library: <span>{book.libraryName}</span></Pages>
             <Description>Description: <span>{book.description}</span></Description>
-       
-           
-           
           </div>
           <CommentContainer>
                 <Write2>
