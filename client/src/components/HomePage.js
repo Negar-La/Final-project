@@ -54,6 +54,12 @@ const BookWrapper = styled.div`
   position: fixed;
   right: 100px;
   top: 200px;
+  @media (max-width: 750px) {
+    position: fixed;
+    right: 50px;
+    top: 200px;
+  }
+
   `
 
 const Quote = styled.p`

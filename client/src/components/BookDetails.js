@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 import NewComment from "./NewComment";
@@ -7,7 +7,11 @@ import { useNavigate } from "react-router-dom";
 import Loader from "./Loader";
 import {MdFavorite} from "react-icons/md"
 import {AiOutlineRead} from "react-icons/ai";
+import {BsFillPinMapFill} from "react-icons/bs";
 import SimilarBooks from "./SimilarBooks";
+import Map from "./Map";
+
+
 
 
 const BookDetails = () => {
@@ -27,6 +31,11 @@ const BookDetails = () => {
   const [category, setCategory] = useState(null)
   const [similar, setSimilar] = useState(null)
 
+  const [showMap,setShowMap]=useState(false)
+
+  const [lat, setLat] = useState(null)
+  const [lng, setLng] = useState(null)
+
   const handleClick = () => {
     // console.log("hi")
     window.open(book.previewLink);
@@ -40,7 +49,14 @@ const BookDetails = () => {
         if (data.status === 200) {
           setBook(data.data);
           setCategory(data.data.categories)
+          setLat(Number(data.data.lat))
+          setLng(Number(data.data.lng))
+          console.log(data.data);
           console.log(data.data.categories)
+          console.log(data.data.lat)
+          console.log(typeof data.data.lat);
+          console.log(Number(data.data.lat));
+          console.log(typeof Number(data.data.lat));
         } else {
           setNotFound(true);
         }
@@ -120,6 +136,11 @@ const BookDetails = () => {
                   
                   }}> Add to Favorite List <MdFavorite/>
               </FavoriteBtn>
+              <FlexDiv>
+              <MapButton onClick={()=> setShowMap(true)}>View Library on Map <BsFillPinMapFill style={{marginLeft: '5px'}} /></MapButton>
+                            {showMap && <Map onCloseFunc={()=>setShowMap(false)} center={[parseFloat(lat), parseFloat(lng)]} />}
+                            
+              </FlexDiv>
           </Left>
          
           <div>
@@ -128,20 +149,27 @@ const BookDetails = () => {
             <Publisher>Publisher: <span>{book.publisher}</span></Publisher>
             <Category>Category: <span>{book.categories}</span></Category>
             <Pages>Pages: <span>{book.pageCount}</span></Pages>
+            <Pages>Library: <span>{book.libraryName}</span></Pages>
             <Description>Description: <span>{book.description}</span></Description>
+       
+           
            
           </div>
           <CommentContainer>
+                <Write2>
+                    You're maybe interested in similar books in the same category:
+                    <SimilarBooks similar={similar} book={book}/>
+                </Write2>
+                {similar && similar.length === 1 ? <Nosimilar>Sorry, there is no other book in this category.</Nosimilar> : ""}
+                
               <Write>Write a comment about this book</Write>
               {isAuthenticated ? (
               <NewComment commentPosted={commentPosted} setCommentPosted={setCommentPosted} />
               ) :
               <Please>Please log in so you can read comments and write a comment!</Please>
               }
-              <Write2>
-                  You're maybe interested in similar books:
-             <SimilarBooks similar={similar} book={book}/>
-              </Write2>
+  
+           
           </CommentContainer>
           
         </Container>
@@ -235,6 +263,7 @@ const Please = styled.div`
    font-size: 20px;
   margin-top: 18px;
   font-weight: 500;
+  margin-bottom: 15px;
 `
 
 const PreviewBtn = styled.button`
@@ -307,5 +336,37 @@ const Write2  =styled.div`
   font-weight: bold;
   margin-top: 20px;
 `
+const Nosimilar = styled.p`
+  font-size: 22px;
+  margin-bottom: 20px;
+  font-weight: 400;
+  margin-left: 10px;
+`
 
+
+
+const FlexDiv = styled.div`
+   display: flex;
+ 
+`
+const MapButton = styled.button`
+  border: none;
+  margin-top: 40px;
+  font-size: 18px;
+  border-radius: 15px;
+  width: 210px;
+  padding: 10px 5px;
+  width: 200px;
+  background-color: var(--background);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s,
+              opacity 0.3s;
+  &:hover {
+    background-color: var(--yellow);
+  }
+  &:active {
+    opacity: 0.3;
+  }
+`;
 export default BookDetails

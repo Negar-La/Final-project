@@ -244,7 +244,7 @@ const CommentTitle = styled.p`
 
 const NoComment = styled.p`
   font-size: 22px;
-  margin-bottom: 8px;
+  margin-bottom: 20px;
   font-weight: 400;
   margin-left: 10px;
 `

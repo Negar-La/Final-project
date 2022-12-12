@@ -16,7 +16,7 @@ const getBooks = async (query) => {
 
 getBooks("Jasmine Guillory").then((items) => console.log(
     JSON.stringify(
-    items.slice(0, 7).map((result)=>{
+    items.slice(0, 10).map((result)=>{
         return {
             id : result.id,
             title: result.volumeInfo.title,
