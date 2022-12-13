@@ -13,6 +13,7 @@ const options = {
 const addPerson = async (req, res) =>{
   const client = new MongoClient(MONGO_URI, options);
   const {user} = req.body
+  console.log(req.body);
   try{
     await client.connect();
     const db = client.db("final-project");
@@ -40,15 +41,18 @@ const addPerson = async (req, res) =>{
 const getSinglePerson = async(req, res)=>{
   const client = new MongoClient(MONGO_URI, options);
   const {id} = req.params
+  console.log(req.params); //{ _id: '6397a7e0074cea4c26fe4723' }
+  console.log(req.params._id);
+  console.log(id);  //undefined
   try{
     await client.connect();
     const db = client.db("final-project");
     
-    const getPerson = await db.collection("persons").findOne({_id:id})
-   
+    const getPerson = await db.collection("persons").findOne({id})
+      console.log(getPerson);
 
       if (getPerson) {
-   res.status(200).json({ status: 200, message: "The requested person data", data: req.body})
+   res.status(200).json({ status: 200, message: "The requested person data", data: getPerson})
     
   } else {  res.status(400).json({status: 400, message: "No person was found based on this id"})}
 } catch (err){

@@ -90,7 +90,7 @@ const getSearchResults = async (req, res) => {
 const getSearchAuthor = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
   const author = req.params.author;
-  console.log(author)
+  // console.log(author)
 
   try{
       await client.connect();
@@ -131,7 +131,7 @@ const getCategories = async (req, res) => {
 
          // remove duplicates from the category array
     let  uniq = [...new Set(categories)];
-         console.log(uniq);
+        //  console.log(uniq);
 
     res.status(200).json({ status: 200, data: uniq });
   } catch (err) {
@@ -147,7 +147,7 @@ const getCategories = async (req, res) => {
 const getSingleCategory = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
   const category = req.params.category
-  console.log(category);
+  // console.log(category);
   try {
     await client.connect();
     const db = client.db("final-project");

@@ -10,7 +10,7 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
   const { bookId } = useParams();
 
   const { user, isAuthenticated } = useAuth0();
-  // console.log(user)
+  // console.log(user.email)
 
   const [commentText, setCommentText] = useState("");
   const [postComment, setPostComment] = useState(null);
@@ -48,7 +48,7 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
         "Accept": "application/json",
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({comment: commentText, user:user.name, userPicture:user.picture})
+      body: JSON.stringify({id:bookId, comment: commentText, user:user.name, userPicture:user.picture, email: user.email})
     })
     .then(res=>res.json()).then((data)=>{
       if (data.status === 400 || data.status === 500) {
@@ -69,15 +69,16 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
     })
   }
 
-  const deleteCommentHandler = (e, c) => {                        
+  const deleteCommentHandler = (e, object) => {                        
     e.preventDefault();
-    fetch("/api/delete-comment", {         
+    console.log(object);
+    fetch(`/api/delete-comment/${bookId}`, {         
       method: "DELETE",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({c}),
+      body: JSON.stringify({object}),
     })
       .then((data) => {
         return data.json();
@@ -132,10 +133,10 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
                               //  console.log(c)
                                return (
                                  <PreviousComments key={i}  >
-                                  <ImgCurrentUser src={c.newUser.userPicture}/>
-                                  <UserSpan>{c.newUser.user}: </UserSpan>
-                                  <CommentText>{c.newUser.comment}</CommentText>
-                                  { c.newUser.userPicture === user.picture ?
+                                  <ImgCurrentUser src={c.newComment.userPicture}/>
+                                  <UserSpan>{c.newComment.user}: </UserSpan>
+                                  <CommentText>{c.newComment.comment}</CommentText>
+                                  { c.newComment.userPicture === user.picture &&  c.newComment.email === user.email?
                                   (
                                     <DeleteBtn  onClick={(e) => { deleteCommentHandler(e, c) }}>
                                       <SpanIcon>
@@ -268,6 +269,11 @@ const CommentText = styled.span`
   resize: none;
   text-align: justify;
 `
+
+const MomentSpan = styled.span`
+  margin-left: 40px;
+`
+
 
 const DeleteBtn = styled.button`
   cursor: pointer;

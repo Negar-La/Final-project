@@ -21,7 +21,7 @@ express()
   .get("/api/get-categories/:category", getSingleCategory)
 
   .post("/api/person", addPerson)
-  .get("/api/person/:id", getSinglePerson)
+  .get("/api/person/:_id", getSinglePerson)
 
   .post("/api/add-favorite", addFavorite)
   .delete("/api/delete-favorite", deleteFavorite)
@@ -29,7 +29,7 @@ express()
 
   .post("/api/comment/:id", addComment)
   .get("/api/comment/:id", getComments)
-  .delete("/api/delete-comment", deleteComment)
+  .delete("/api/delete-comment/:id", deleteComment)
 
 
 

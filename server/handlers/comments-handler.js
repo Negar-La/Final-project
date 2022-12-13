@@ -13,8 +13,11 @@ const options = {
 const addComment = async (req, res) =>{
   const client = new MongoClient(MONGO_URI, options);
   const {id} = req.params;
-  const { comment, user, userPicture } = req.body;
-  req.body.userId = uuidv4();
+
+  //db.collection.deleteOne() deletes the first document that matches the filter. Use a field that is part of a unique index such as _id for precise deletions.
+  //so we define commentId and then when deleting a comment, we use deleteOne({"newComment.commentId": req.body.object.newComment.commentId})
+  req.body.commentId = uuidv4();
+  const { comment, email, user, userPicture, commentId } = req.body;
   // console.log(id)
   // console.log( req.body)  
 try{
@@ -22,11 +25,11 @@ try{
 
     const db = client.db("final-project");
 
-    const newUser = { "id":id, "userId":  req.body.userId, "comment": comment, "user": user, "userPicture": userPicture};
+    const newComment = {id, email, comment, user, userPicture, commentId};
  
-    const userComment = await db.collection("comments").insertOne({newUser})
+    await db.collection("comments").insertOne({newComment})
   
-    res.status(200).json({ status: 200, message: "Comment successfully added", data: newUser});
+    res.status(200).json({ status: 200, message: "Comment successfully added", data: newComment});
   } catch (err){
     res.status(400).json({status: 400, message: "Comment not added"});
     console.log(err.stack);
@@ -37,15 +40,17 @@ try{
 
 const deleteComment = async(req, res) =>{
   const client = new MongoClient(MONGO_URI, options);
-  
-  console.log(req.body) 
+  const {id} = req.params;
+  console.log("helloooo");
+  console.log("req.body", req.body) 
+  console.log(id);
 
 try{
     await client.connect();
 
     const db = client.db("final-project");
-
-    const deleteOne = await db.collection("comments").deleteOne({ "newUser.comment": req.body.c.newUser.comment})
+    //delete a comment based on commentId
+    const deleteOne = await db.collection("comments").deleteOne({"newComment.commentId": req.body.object.newComment.commentId})
     console.log(deleteOne.deletedCount)
     res.status(200).json({ status: 200, message: "comment successfully deleted from list", data: deleteOne });
   } catch (err){
@@ -59,6 +64,7 @@ try{
 const getComments = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
   const {id} = req.params;
+  // console.log(id);
 try{
     await client.connect();
 
@@ -66,9 +72,9 @@ try{
 
     const allComments = await db.collection("comments").find().toArray()
    let filteredComments = allComments.filter((comment)=>{
-    //  console.log(comment.newUser)
-      if (comment.newUser.id === id)
-      return comment.newUser
+    //  console.log(comment)
+      if (comment.newComment.id === id)
+      return comment.newComment
     })
     // console.log(filteredComments)
   
