@@ -71,6 +71,7 @@ try{
     const db = client.db("final-project");
 
     const allComments = await db.collection("comments").find().toArray()
+    //filter all comments that are for a specific book (based on book id)
    let filteredComments = allComments.filter((comment)=>{
     //  console.log(comment)
       if (comment.newComment.id === id)
