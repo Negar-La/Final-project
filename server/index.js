@@ -5,7 +5,7 @@ const port = 8000;
 
 const {getBooks, getSingleBook, getSearchResults, getSearchAuthor, getCategories, getSingleCategory} = require ("./handlers/books-handler")
 const {addFavorite, deleteFavorite, getFavorites} = require ("./handlers/Favorite-handlers")
-const {addComment, getComments, deleteComment} = require ("./handlers/comments-handler")
+const {addComment, getComments, deleteComment, updateComment} = require ("./handlers/comments-handler")
 const {addPerson, getSinglePerson} = require ("./handlers/person-Auth0-handler")
 
 express()
@@ -30,6 +30,7 @@ express()
   .post("/api/comment/:id", addComment)
   .get("/api/comment/:id", getComments)
   .delete("/api/delete-comment/:id", deleteComment)
+  .patch("/api/update-comment/:id", updateComment)
 
 
 

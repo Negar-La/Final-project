@@ -23,19 +23,10 @@ const Logout = () => {
         return (
             <Center><Loader/></Center> 
         )
-
-    // if the user is not logged in, it will prevent him from logging off
-    } else if (!isAuthenticated) {
-        return (
-            <Wrapper>
-                <LogoutDiv>
-                    <ErrorMessage>You not signed in and therefore cannot sign off. <a href="/" style={{color: "white"}} >Return to the homepage.</a></ErrorMessage>
-                </LogoutDiv>
-            </Wrapper>
-        )
+    } 
 
     // if the user is logged in, it offers him options
-    } else {
+     else {
         return (
             <Wrapper>
                 <LogoutDiv>

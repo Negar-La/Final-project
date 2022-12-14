@@ -6,7 +6,6 @@ import {CgProfile} from "react-icons/cg";
 import { NavLink } from "react-router-dom";
 import { useEffect } from "react";
 import Loader from "./Loader";
-import About from "./About"
 
 const Navbar = () => {
 

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useParams } from "react-router-dom";
 import {FaTimes} from "react-icons/fa";
+import {AiTwotoneEdit} from "react-icons/ai";
 import Loader from "./Loader";
 
 const NewComment = ({commentPosted, setCommentPosted}) => {
@@ -16,7 +17,13 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
   const [postComment, setPostComment] = useState(null);
   const [remainingLetters, setRemainingLetters] = useState(200);
   const [comments, setComments] = useState(null)
-  const[commentDeleted, setCommentDeleted] = useState(false)
+  const [commentDeleted, setCommentDeleted] = useState(false)
+
+  const [targetCommentId, setTargetCommentId] = useState(null);
+  const [updatedComment, setUpdatedComment] = useState(null);
+  const [showEditComment, setShowEditComment] = useState(false);
+  const [isBeingUpdated, setIsBeingUpdated] = useState(false);
+  const [submittedComment, setSubmittedComment] = useState(false);  
 
    // Handle the onChange function for the New comment text
    const handleCommentTextChange = (e) => {
@@ -54,7 +61,7 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
       if (data.status === 400 || data.status === 500) {
         throw new Error (data.message)
        } else{
-        // console.log(data); //{comment: {…}}
+        console.log(data); //{comment: {…}}
         setPostComment(data.data)
         // window.location.reload(); //refresh the page to show most recent comment in the list I do not need it!
         //I create the comment, post it to db and then by get method I retrieve all comments from db!!
@@ -85,14 +92,62 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
       })
       .then((data) => {
         if (data.status === 200) {          
-        //  console.log(data)   
-         setCommentDeleted(!commentDeleted)          
+         console.log(data)   
+         setCommentDeleted(!commentDeleted)    
+          
         }
       })
       .catch((error) => {
         return error;
       });
   };
+
+    const handleClick = (commentId => {
+      console.log(commentId);
+      setShowEditComment(true);
+      setIsBeingUpdated(true);
+      setTargetCommentId(commentId)
+  })
+
+  const handleChange = ((ev) => {
+    // console.log(ev.target.value)
+    setUpdatedComment(ev.target.value);
+});
+
+const handleCancel = ((ev) => {
+  setShowEditComment(false);
+  setIsBeingUpdated(false);
+});
+
+
+
+const handleUpdateSubmit = ((e)=>{
+  e.preventDefault();
+  console.log(targetCommentId);
+  fetch(`/api/update-comment/${targetCommentId}`,{
+      method: "PATCH",
+      headers: {
+          Accept: 'application/json',
+          "Content-type":"application/json"
+      },
+      body: JSON.stringify({
+        // commentId:commentId,
+          comment:updatedComment
+      })
+  })
+  .then(res => res.json())
+  .then(data => {
+      console.log(data);
+      // if true set to false or vice versa why not just write true
+      setSubmittedComment(!submittedComment);
+      setUpdatedComment("");
+      setIsBeingUpdated(false)
+      window.location.reload();
+  })
+  .catch((error) => {
+      console.log(error);
+  })
+});
 
 
   return (
@@ -133,18 +188,33 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
                               //  console.log(c)
                                return (
                                  <PreviousComments key={i}  >
-                                  <ImgCurrentUser src={c.newComment.userPicture}/>
-                                  <UserSpan>{c.newComment.user}: </UserSpan>
-                                  <CommentText>{c.newComment.comment}</CommentText>
-                                  { c.newComment.userPicture === user.picture &&  c.newComment.email === user.email?
+                                  <ImgCurrentUser src={c.userPicture}/>
+                                  <UserSpan>{c.user}: </UserSpan>
+                                  <CommentText>{c.comment}</CommentText>
+                                  { c.userPicture === user.picture &&  c.email === user.email?
                                   (
-                                    <DeleteBtn  onClick={(e) => { deleteCommentHandler(e, c) }}>
-                                      <SpanIcon>
-                                          <FaTimes size={25}
-                                          onMouseOver={({target})=>target.style.color="var(--yellow)"}
-                                          onMouseOut={({target})=>target.style.color='var(--darkblue)'}/>
-                                      </SpanIcon>
-                                  </DeleteBtn>
+                                    <>
+                                      <DeleteBtn  onClick={(e) => { deleteCommentHandler(e, c) }}>
+                                        <SpanIcon>
+                                            <FaTimes />
+                                        </SpanIcon>
+                                      </DeleteBtn>
+
+
+                                      <EditBtn onClick={(e)=> handleClick(c.commentId)} ><AiTwotoneEdit /></EditBtn>
+                                    {showEditComment && isBeingUpdated
+                                    ?
+                                    <DivEdit >
+                                        <EditTextArea type="text" placeholder={c.comment} onChange={(ev)=>{handleChange(ev)}} value={updatedComment || ""}></EditTextArea>
+
+                                        <SubmitBtn type="submit" disabled={updatedComment=== null || updatedComment === "" ? true : false} onClick={handleUpdateSubmit} >Submit</SubmitBtn>
+                                        <SubmitBtn type="button" onClick={handleCancel} >Cancel</SubmitBtn>
+                                    </DivEdit>
+                                      : null}
+
+
+                                    </>
+                               
                                   ) : ("")
                                     }
 
@@ -257,7 +327,6 @@ const PreviousComments = styled.div`
   align-items: center;
 `
 
-
 const UserSpan = styled.span`
   margin-right: 8px;
   margin-left: 10px;
@@ -270,29 +339,88 @@ const CommentText = styled.span`
   text-align: justify;
 `
 
-const MomentSpan = styled.span`
-  margin-left: 40px;
-`
-
-
 const DeleteBtn = styled.button`
-  cursor: pointer;
-  border: none;
-  background-color: white;
-  border-radius: 10px;
+border: none;
   margin-left: 10px;
-`
-
-const SpanIcon = styled.span`
-  color: var(--darkblue);
-  transition: color 0.3s,
+  font-size: 18px;
+  border-radius: 15px;
+  padding: 5px;
+  background-color: var(--background);
+  cursor: pointer;
+  transition: background-color 0.3s,
               opacity 0.3s;
   &:hover {
-  color: var(--yellow);
+    background-color: var(--yellow);
   }
   &:active {
     opacity: 0.3;
   }
 `
+
+const SpanIcon = styled.span`
+`
+
+const DivEdit = styled.div`
+  border: 3px solid var(--darkblue);
+  border-radius: 10px;
+`
+
+const EditTextArea = styled.textarea`
+  padding: 10px;
+  font-size: 18px;
+  width: 150px;
+  height: 40px;
+  outline: none;
+  resize: none;
+  border: none;
+  border-radius: 10px;
+  overflow:auto;
+  overflow: hidden;
+`
+
+const EditBtn = styled.button`
+  border: none;
+  margin-left: 10px;
+  font-size: 16px;
+  border-radius: 15px;
+  padding: 5px;
+  margin-right: 20px;
+  font-weight: bold;
+  background-color: var(--background);
+  cursor: pointer;
+  transition: background-color 0.3s,
+              opacity 0.3s;
+  &:hover {
+    background-color: var(--yellow);
+  }
+  &:active {
+    opacity: 0.3;
+  }
+`
+
+
+const SubmitBtn = styled.button`
+  border: none;
+  margin-left: 1px;
+  font-size: 16px;
+  border-radius: 15px;
+  padding: 5px;
+  font-weight: bold;
+  background-color: var(--background);
+  cursor: ${(props)=>
+    !props.disabled ? 'pointer' : 'not-allowed'};
+  transition: background-color 0.3s,
+              opacity 0.3s;
+   &:hover {
+    background-color: ${(props)=>
+    !props.disabled ? 'var(--yellow)' : 'gray'};
+    color: ${(props)=>
+    !props.disabled ? 'var(--darkbluew)' : 'white'};
+  }
+  &:active {
+    opacity: 0.3;
+  }
+`
+
 
 export default NewComment
