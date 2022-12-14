@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Loader from "./Loader";
+import Pagination from "./Pagination";
 
 const SearchAuthor = () => {
 
@@ -20,10 +21,35 @@ const SearchAuthor = () => {
       });
   }, [searchTerm]);
 
+  // PAGINATION 
+// current page starts at one, this is used as a prop in paginatiojn
+
+const [currentPage, setCurrentPage] = useState(1)
+// see Product grid, this is slicing array of products depending on value of x and y. which is manipulated below
+const [x, setX] = useState(0)
+const [y, setY] = useState(15)
+
+// change page function. i
+const changePages = (pageNum) => {
+  if (pageNum === 1) { // if page is 1 , set initial slice values
+      setX(0)
+      setY(15)
+  }
+  else {
+    // else set them accordingly
+    setX((15 * (pageNum - 1)) + 1)
+    setY(15 * pageNum + 1)
+  }
+}
+// everytime page changes, perform changePages function
+useEffect(() => {
+  changePages(currentPage)
+}, [currentPage])
+
 
   return (
     <>
-    <Title>Results for the author " {searchTerm} ":</Title>
+    <Title>Results for the Author " {searchTerm} " :</Title>
 {/* consider 3 possibilities: loading state - there is no result - there are results to shown */}
     {searchedItems ===null ? ( 
       <>
@@ -35,17 +61,35 @@ const SearchAuthor = () => {
         :
         ( 
     <Wrapper>
-    {searchedItems.map((book) => {
-      return (
-        <Link to={`/books/${book.id}`} key={book.id} >
-          <Box>
-                <Image src={book.image} alt={book.title} />
-              <Name>{book.title}</Name>
-              <Author>{book.author}</Author>
-          </Box>
-        </Link>
-      );
-    })}
+             <Container>
+                <ProductGrid>
+                  {searchedItems.slice(x,y).map((book) => {
+                    return (
+                      <Link to={`/books/${book.id}`} key={book.id} >
+                        <Box>
+                              <Image src={book.image} alt={book.title} />
+                            <Name>{book.title}</Name>
+                            <Author>{book.author}</Author>
+                        </Box>
+                      </Link>
+                    );
+                  })}
+                </ProductGrid>
+             </Container>
+   
+
+{
+        searchedItems && 
+        <Container>
+            <Pagination 
+              currentPage={currentPage}
+              searchedItems={searchedItems}
+              setCurrentPage={setCurrentPage}
+              limit={12}
+              onPageChange={(page) => setCurrentPage(page) }
+            />
+        </Container>
+      }
   </Wrapper>
     )
     }
@@ -61,16 +105,17 @@ const ErrorMsg = styled.div`
 `
 
 const Title = styled.div`
-  padding-top: 90px;
+  padding-top: 100px;
   font-weight: bold;
+  font-size: 20px;
   margin-left: 20px;
   margin-bottom: 10px;
+  text-align: center;
 `;
 
 const Wrapper = styled.div`
   display: flex;
-  width: 100vw;
-  flex-wrap: wrap;
+  flex-direction: column;
   a {
     text-decoration: none;
     box-shadow: none;
@@ -117,5 +162,16 @@ const Center = styled.div`
     transform: translate(-50%, -50%);
 `
 
+const ProductGrid = styled.div`
+  display: grid;
+  gap: 40px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  margin-top: 20px;
+`
+
+const Container = styled.div `
+  display: flex;
+  justify-content: center;
+`
 
 export default SearchAuthor
