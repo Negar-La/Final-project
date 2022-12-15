@@ -176,6 +176,22 @@ const getSingleCategory = async (req, res) => {
 };
 
 
+const getQuotes = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
 
+  try {
+    await client.connect();
+    const db = client.db("final-project");
 
-module.exports = { getBooks, getSingleBook, getSearchResults, getSearchAuthor, getCategories, getSingleCategory};
+    const result = await db.collection("quotes").find().toArray();
+
+    res.status(200).json({ status: 200, data: result });
+  } catch (err) {
+    console.log(err.stack);
+    res.status(500).json({ status: 500, data: req.body, message: err.message });
+  } finally {
+    client.close();
+  }
+};
+
+module.exports = { getBooks, getSingleBook, getSearchResults, getSearchAuthor, getCategories, getSingleCategory, getQuotes};

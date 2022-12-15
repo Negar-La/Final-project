@@ -10,6 +10,7 @@ const options = {
 }
 
 const books = require("./books.json");
+const quotes = require("./quotes.json");
 
 
 const batchImport = async () => {
@@ -21,7 +22,8 @@ const batchImport = async () => {
         console.log("connected to books")
         console.log(books)
   
-        await db.collection("books").insertMany(books);
+        // await db.collection("books").insertMany(books);
+         await db.collection("quotes").insertMany(quotes);
         console.log("success!")
     } catch (e) {
         //triggers error if applicable

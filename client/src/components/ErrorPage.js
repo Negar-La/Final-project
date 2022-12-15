@@ -20,6 +20,10 @@ const ErrorDiv = styled.div`
   transform: translate(-50%, -50%);
   text-align: center;
   font-size: 30px;
+    h3 {
+      margin-top: 20px;
+      margin-bottom: 30px;
+    }
 `;
 
 const ErrorIcon = styled.span`

@@ -42,11 +42,10 @@ const Pagination = props => {
             currentPage &&
             <>
             <PageOfPage className="pagination">
-                {currentPage} of {pages} pages
+                Page {currentPage} of {pages} 
                 
             </PageOfPage>
             <NextPageContainer>
-                <NextPage onClick={currentPageHandler}>Next Page</NextPage>
                 <button onClick={backPageHandler}> <AiOutlineArrowLeft size={20} /> </button>
                 <button onClick={currentPageHandler}>  <AiOutlineArrowRight size={20} /> </button>
             </NextPageContainer>
@@ -63,7 +62,7 @@ const NextPageContainer = styled.div`
     display:flex;
     justify-content: space-between;
     align-items: center;
-    width: 200px;
+    width: 100px;
     margin-right: 10px;
     font-weight: bold;
 button {

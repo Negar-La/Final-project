@@ -9,6 +9,11 @@ import Loader from "./Loader";
 
 const Navbar = () => {
 
+  const time = new Date();
+  const hours = time.getHours();
+  // console.log(time);    // Wed Dec 14 2022 21:18:52 GMT-0500 (Eastern Standard Time)
+  // console.log(hours);   // 21
+
   const navigate = useNavigate();
   const { user, isAuthenticated, isLoading } = useAuth0();
   // console.log(user)
@@ -57,7 +62,11 @@ const Navbar = () => {
            {isAuthenticated && (
             <>
               <NavigationLink to='/profile'>
-                  <Hello>Hello, {user.name} <CgProfile style={{color: 'var(--darkblue)',  verticalAlign: 'middle', }}/>
+                  <Hello>{(hours >= 18)
+                        ? "Good Evening"
+                        : (hours < 12)
+                        ? "Good Morning"
+                        : "Good Afternoon"}, {user.name} <CgProfile style={{color: 'var(--darkblue)',  verticalAlign: 'middle', }}/>
                   </Hello>
               </NavigationLink>
      
