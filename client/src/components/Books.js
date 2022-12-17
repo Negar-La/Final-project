@@ -38,9 +38,8 @@ const Books = () => {
 const Div = styled.div`
   display: flex;
   flex-wrap: wrap;
-  width: 500px;
-  padding-right: 0px;
-  padding-left: 35px;
+  width: 485px;
+  padding: 10px;
   @media (max-width: 750px) {
     width: 200px;
   }
@@ -49,7 +48,7 @@ const Div = styled.div`
 const Wrapper = styled.div`
   margin-left: 15px;
   margin-bottom: 15px;
-  border: 3px solid var(--darkblue);
+  border: 2px solid var(--darkblue);
   border-radius: 6px;
   height: 203px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;

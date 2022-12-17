@@ -22,47 +22,38 @@ const HomePage = () => {
                   <SearchBar/>
               </SearchWrapper>
             </Left>
-            <Choose>Choose a book <AiOutlineRead size={25} style={{marginTop: '10px'}}/> and start reading:</Choose>
-            <BookWrapper>
-              <Books/>
-            </BookWrapper>
+            <Right>
+              <Choose>Choose a book <AiOutlineRead size={25} style={{marginTop: '10px'}}/> and start reading:</Choose>
+              <BookWrapper>
+                <Books/>
+              </BookWrapper>
+            </Right>
+
         </Container>
     </>
   )
 }
-const Choose = styled.p`
-  font-size:24px; 
-  font-weight:700;  
-  letter-spacing:1px; 
-  position: fixed;
-  right: 136px;
-  `
 
 const Container = styled.div`
   /* background: url("/images/book-hand.jpg"); */
-  background-size: cover;
+  /* background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; */
   height: 100vh;
   width: 100vw;
   display: flex;
   padding-top: 130px;
   padding-left: 20px;
   `
-
-const BookWrapper = styled.div`
-  position: fixed;
-  right: 100px;
-  top: 200px;
-  @media (max-width: 750px) {
-    position: fixed;
-    right: 50px;
-    top: 200px;
-  }
-
+  const Left = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  height: 200px;
+  margin-top: 200px;
   `
-
-const Quote = styled.p`
+  const Quote = styled.p`
   padding-top: 10px;
   padding-left: 20px;
   font-family: roboto;
@@ -93,17 +84,30 @@ const Quote = styled.p`
     margin-bottom: 5px;
 }`
 
-const Left = styled.div`
-   display: flex;
-   flex-direction: column;
-   justify-content: start;
-   align-items: center;
-   height: 200px;
-   margin-top: 200px;
-  `
-
 const SearchWrapper = styled.div`
  margin-top: 20px;
  padding: 5px;
   `
+
+  const Right = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 50px;
+  `
+  const Choose = styled.p`
+  font-size:24px; 
+  font-weight:700;  
+  letter-spacing:1px; 
+  margin-bottom: 20px;
+  `
+
+const BookWrapper = styled.div`
+
+  @media (max-width: 750px) {
+    
+  }
+  `
+
+
 export default HomePage
