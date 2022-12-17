@@ -131,7 +131,7 @@ const Wrapper = styled.div`
 const UserInfo = styled.article`
   text-align: center;
   h2, h3 {
-    color: var(--darkblue);
+    /* color: var(--darkblue); */
     margin: 15px;
   }
 `;
@@ -162,7 +162,7 @@ const Flex = styled.div`
 `
 
 const Box = styled.div`
-  border: 2px solid var(--darkblue);
+  /* border: 2px solid var(--darkblue); */
   max-width: 200px;
   padding: 10px 25px;
   margin: 10px;
@@ -171,8 +171,8 @@ const Box = styled.div`
   border-radius: 10px;
   position: relative;
   &:hover {
-    box-shadow: rgba(0, 0, 204, 0.3) 0px 2px 3px 1px,
-      rgba(0, 0, 204, 0.15) 0px 1px 3px 1px;
+    box-shadow: rgba(255, 201, 113, 0.8) -3px 2px 4px 3px,
+      rgba(255, 201, 113, 0.8) 0px 1px 3px 1px;
   }
 `
 
@@ -199,7 +199,7 @@ const Image = styled.img`
 
 const Author = styled.div`
   font-size: 16px;
-  color: var(--purple);
+  /* color: var(--purple); */
   span{
     font-weight: bold;
   }
@@ -210,7 +210,7 @@ const DeleteBtn = styled.button`
   top: 0px;
   cursor: pointer;
   border: none;
-  background-color: white;
+  /* background-color: white; */
   border-radius: 50%;
   transition: background-color 0.3s,
               opacity 0.3s;

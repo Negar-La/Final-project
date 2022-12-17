@@ -156,7 +156,7 @@ const StyledLink = styled(Link)`
   border-radius: 4px;
   color: var(--darkblue);
   &:hover {
-    background-color: var(--hoveryellow);
+    background-color: var(--yellow);
   }
 `;
 const SearchIcon = styled.div`

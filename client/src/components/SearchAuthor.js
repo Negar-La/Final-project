@@ -124,7 +124,7 @@ const Wrapper = styled.div`
 `;
 
 const Box = styled.div`
-  border: 2px solid var(--darkblue);
+  /* border: 2px solid var(--darkblue); */
   width: 200px;
   height: 321px;
   padding: 10px 25px;
@@ -134,8 +134,8 @@ const Box = styled.div`
   border-radius: 10px;
   position: relative;
   &:hover {
-    box-shadow: rgba(0, 0, 204, 0.3) 0px 2px 3px 1px,
-      rgba(0, 0, 204, 0.15) 0px 1px 3px 1px;
+    box-shadow: rgba(255, 201, 113, 0.8) -3px 2px 4px 3px,
+      rgba(255, 201, 113, 0.8) 0px 1px 3px 1px;
   }
 `
 
@@ -152,7 +152,7 @@ const Name = styled.p`
 `;
 const Author = styled.div`
   font-size: 16px;
-  color: var(--purple);
+  /* color: var(--purple); */
   `;
 
 const Center = styled.div`

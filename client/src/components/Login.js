@@ -2,7 +2,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Loader from "./Loader";
 import styled from "styled-components"
 
-const Login = () => {
+const Login = ({theme}) => {
 
   const { isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
 
@@ -28,8 +28,9 @@ const LoginBtn = styled.button`
   font-size: 17px;
   border-radius: 14px;
   border: none;
-  color: var(--darkblue);
-  background-color: var(--background);
+  color: ${props => props.theme.text};
+  background-color: inherit;
+  /* background-color: var(--background); */
   margin-left: 15px;
   margin-right: 15px;
   cursor: pointer;

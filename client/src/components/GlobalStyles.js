@@ -7,9 +7,9 @@ export default createGlobalStyle`
        // USED IN MAIN NAVBAR, SECONDARY BUTTONS, HOVER MAIN BUTTONS 
     --darkblue: #142b6f;
     // USED AS A BACKGROUND COLOR 
-    --background: #fffcf2;
+    --background: #ede7e3;
     // USED IN THE SECONDARY NAVBAR DISPLAYING CATEGORY
-    --yellow: rgb(255, 214, 0);
+    --yellow: #ffc971;
     // USED IN ICONS // LOGO MAIN NAVBAR
     --hoveryellow:  #f4d35e;
 
@@ -24,6 +24,7 @@ export default createGlobalStyle`
     // FONT FOR EVERYTHING ELSE
     --body: 'Arimo', sans-serif; */
     }
+
     body, html {
     height: 100%;
     margin: 0;
@@ -69,7 +70,7 @@ export default createGlobalStyle`
         content: none;
     }
     h1, h2, h3, p {
-      color: var(--darkblue);
+      /* color: var(--darkblue); */
   
     }
     h2 {
@@ -77,6 +78,24 @@ export default createGlobalStyle`
     }
     div, button, textarea {
         font-family: roboto;
-        color: var(--darkblue);
+        /* color: var(--darkblue); */
     }
+
+    body {
+    background: ${({ theme }) => theme.body};
+    color: ${({ theme }) => theme.text};
+    transition: all 0.50s linear;
+  }
+
+  div {
+    /* background: ${({ theme }) => theme.body}; */
+    color: ${({ theme }) => theme.text};
+   
+    /* transition: all 0.50s linear; */
+  }
+  
+  Box {
+ border:${({ theme }) => theme.border};
+  }
 `;
+

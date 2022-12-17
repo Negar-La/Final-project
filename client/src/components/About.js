@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
+import Loader from "./Loader";
 
 const About = () => {
 
@@ -30,7 +31,7 @@ const About = () => {
       </Para1>
 
       <Para2>
-          {random && 
+          {!random ? <Loader/> : 
           <>
             <h2>{random.quote} </h2>
             <h3>- {random.author}</h3>
@@ -44,16 +45,17 @@ const About = () => {
   )
 }
 const Wrapper = styled.div`
+  /* position: relative;
   background-image: url("/images/book-light.jpg");
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; */
   height: 100vh;
   width: 100vw;
 `
 
 const Div = styled.div`
-  color: var(--background);
+  /* color: var(--darkblue); */
   padding-top: 100px;
   margin-left: 50px;
   margin-bottom: 10px;
@@ -63,26 +65,28 @@ const Div = styled.div`
   }
 `
 const Para1 = styled.div`
-  color: var(--background);
+  /* color: var(--darkblue); */
   margin: 20px 50px;
   line-height: 1.7;
   text-align: justify;
   font-size: 21px;
-  margin-top: 50px;
+  margin-top: 20px;
 `
 const Para2 = styled.div`
-  margin: 20px 250px;
+  margin: 0;
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background-color: inherit;
   line-height: 1.5;
-  text-align: center;
-  padding: 1rem;
+  padding: 1.5rem;
   font-size: 21px;
-  margin-top: 380px;
   border: 2px solid var(--yellow);
   border-radius: 10px;
     h2, h3{
-      color: white;
+      text-align: center;
     }
-   
 `
-
 export default About

@@ -45,10 +45,10 @@ const Wrapper = styled.div`
   display: flex;
   width: 100%;
   height: calc(100vh - 300px);
-  background-image: url("/images/books.jpg");
-  background-size: cover;
+  /* background-image: url("/images/books.jpg"); */
+  /* background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; */
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -61,7 +61,7 @@ const LogoutDiv = styled.div`
     margin: auto;
     border-radius: 6px;
     margin-top: 300px;
-    background-color: #fffcf2;
+    background-color: var(--background);
     display: flex;
     flex-direction: column;
     padding: 20px;

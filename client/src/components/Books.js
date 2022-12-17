@@ -58,8 +58,8 @@ const Wrapper = styled.div`
     width: 129px;
   }
   &:hover {
-    box-shadow: rgba(0, 0, 204, 0.3) 0px 2px 3px 1px,
-      rgba(0, 0, 204, 0.15) 0px 1px 3px 1px;
+    box-shadow: rgba(255, 201, 113, 0.8) -3px 2px 4px 3px,
+      rgba(255, 201, 113, 0.8) 0px 1px 3px 1px;
   }
 `
 

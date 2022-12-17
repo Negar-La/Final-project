@@ -31,7 +31,7 @@ import Loader from "./Loader";
 
  
 const Box = styled.div`
-border: 2px solid var(--darkblue);
+/* border: 2px solid var(--darkblue); */
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -45,9 +45,9 @@ text-align: center;
 border-radius: 10px;
 cursor: pointer;
 &:hover {
-  box-shadow: rgba(0, 0, 204, 0.3) 0px 2px 3px 1px,
-    rgba(0, 0, 204, 0.15) 0px 1px 3px 1px;
-}
+    box-shadow: rgba(255, 201, 113, 0.8) -3px 2px 4px 3px,
+      rgba(255, 201, 113, 0.8) 0px 1px 3px 1px;
+  }
 `
 const FlexDiv = styled.div`
   display: flex;
@@ -55,7 +55,7 @@ const FlexDiv = styled.div`
   a {
     text-decoration: none;
     box-shadow: none;
-    color: black;
+    /* color: black; */
   }
 `
 
@@ -75,7 +75,7 @@ margin-bottom: 5px;
 const AuthorSimilar = styled.div`
 width: 175px;
 font-size: 14px;
-color: var(--purple);
+/* color: var(--purple); */
 margin-bottom: 4px;
 `;
 

@@ -102,12 +102,18 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
       });
   };
 
-    const handleClick = (commentId => {
-      console.log(commentId);
-      setShowEditComment(true);
-      setIsBeingUpdated(true);
-      setTargetCommentId(commentId)
-  })
+  
+//storing the showEditComment status of each comment you want to toggle in an object and check if the specific comment is currently toggled showEditComment.
+  const handleClick = (commentId) => {
+    // console.log(commentId);
+    setShowEditComment((showEditComment) => ({
+      ...showEditComment,
+      [commentId]: !showEditComment[commentId],
+    }));
+    console.log(showEditComment);
+    setIsBeingUpdated(true);
+    setTargetCommentId(commentId)
+  };
 
   const handleChange = ((ev) => {
     // console.log(ev.target.value)
@@ -154,7 +160,7 @@ const handleUpdateSubmit = ((e)=>{
     <>
       <>
         <Flex>
-         <ImgCurrentUser src={user.picture}/>
+         <ImgCurrentUserTop src={user.picture}/>
          <FormContainer onSubmit={(e)=>{
                     e.preventDefault();
                     handleSubmit();
@@ -191,7 +197,7 @@ const handleUpdateSubmit = ((e)=>{
                                   <ImgCurrentUser src={c.userPicture}/>
                                   <UserSpan>{c.user}: </UserSpan>
                                   <CommentText>{c.comment}</CommentText>
-                                  { c.userPicture === user.picture &&  c.email === user.email?
+                                  { c.userPicture === user.picture ? // I deleted '&&  c.email === user.email' because github account has no email
                                   (
                                     <>
                                       <DeleteBtn  onClick={(e) => { deleteCommentHandler(e, c) }}>
@@ -202,13 +208,21 @@ const handleUpdateSubmit = ((e)=>{
 
 
                                       <EditBtn onClick={(e)=> handleClick(c.commentId)} ><AiTwotoneEdit /></EditBtn>
-                                    {showEditComment && isBeingUpdated
+                                      {/* check by id --> */}
+                                    {showEditComment[c.commentId]
                                     ?
                                     <DivEdit >
-                                        <EditTextArea type="text" placeholder={c.comment} onChange={(ev)=>{handleChange(ev)}} value={updatedComment || ""}></EditTextArea>
-
-                                        <SubmitBtn type="submit" disabled={updatedComment=== null || updatedComment === "" ? true : false} onClick={handleUpdateSubmit} >Submit</SubmitBtn>
-                                        <SubmitBtn type="button" onClick={handleCancel} >Cancel</SubmitBtn>
+                                      <Wrapper>
+                                        <Content>
+                                            <EditTextArea type="text" placeholder={c.comment} onChange={(ev)=>{handleChange(ev)}} value={updatedComment || ""}></EditTextArea>
+                                            <div>
+                                              <SubmitBtn type="submit" disabled={updatedComment=== null || updatedComment === "" ? true : false} onClick={handleUpdateSubmit} >Submit</SubmitBtn>
+                                              <SubmitBtn type="button" onClick={handleCancel} >Cancel</SubmitBtn>
+                                            </div>
+                                        </Content>
+                                      </Wrapper>
+                                        
+                                      
                                     </DivEdit>
                                       : null}
 
@@ -246,11 +260,20 @@ const Flex = styled.div`
   display: flex;
 `
 
+const ImgCurrentUserTop = styled.img`
+  width : 50px;
+  height: 50px;
+  border: 3px solid var(--darkblue);
+  border-radius: 50%;
+  margin-top: 8px;
+`
+
 const ImgCurrentUser = styled.img`
   width : 50px;
   height: 50px;
   border: 3px solid var(--darkblue);
   border-radius: 50%;
+  margin: 13px;
 `
 const Bottom = styled.div`
   margin-top: -50px;
@@ -322,9 +345,13 @@ const NoComment = styled.p`
 
 const PreviousComments = styled.div`
   max-width: 600px;
+  max-height:200px;
   margin-bottom: 5px;
   display: flex;
   align-items: center;
+  border: 2px solid var(--yellow);
+  border-radius: 10px;
+  position: relative;
 `
 
 const UserSpan = styled.span`
@@ -337,6 +364,9 @@ const CommentText = styled.span`
   outline: none;
   resize: none;
   text-align: justify;
+  width: 400px;
+  /* word-wrap: break-word; */
+  word-break: break-all; 
 `
 
 const DeleteBtn = styled.button`
@@ -361,30 +391,31 @@ const SpanIcon = styled.span`
 `
 
 const DivEdit = styled.div`
-  border: 3px solid var(--darkblue);
+  /* border: 1px solid var(--darkblue); */
   border-radius: 10px;
 `
 
 const EditTextArea = styled.textarea`
   padding: 10px;
   font-size: 18px;
-  width: 150px;
-  height: 40px;
+  width: 470px;
   outline: none;
   resize: none;
   border: none;
   border-radius: 10px;
+  margin-bottom: 6px;
   overflow:auto;
   overflow: hidden;
+ border: 1px solid black;
 `
 
 const EditBtn = styled.button`
   border: none;
-  margin-left: 10px;
+  margin-left: 5px;
   font-size: 16px;
   border-radius: 15px;
   padding: 5px;
-  margin-right: 20px;
+  margin-right: 10px;
   font-weight: bold;
   background-color: var(--background);
   cursor: pointer;
@@ -401,7 +432,7 @@ const EditBtn = styled.button`
 
 const SubmitBtn = styled.button`
   border: none;
-  margin-left: 1px;
+  margin-left: 10px;
   font-size: 16px;
   border-radius: 15px;
   padding: 5px;
@@ -421,6 +452,28 @@ const SubmitBtn = styled.button`
     opacity: 0.3;
   }
 `
-
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: -244px;
+  right: -87px;
+  width: 40vw;
+  height: 40vh;
+  z-index: 2;
+`;
+const Content = styled.div`
+  background: var(--background);
+  border: 2px solid var(--darkblue);
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  height: 30%;
+  width: 70%;
+  padding: 10px;
+`;
 
 export default NewComment

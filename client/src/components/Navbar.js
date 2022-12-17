@@ -3,11 +3,20 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
 import Login from "./Login";
 import {CgProfile} from "react-icons/cg";
+import {BsSunFill} from "react-icons/bs";
+import {BsMoonStarsFill} from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 import { useEffect } from "react";
 import Loader from "./Loader";
 
-const Navbar = () => {
+const Navbar = ({theme, setTheme}) => {
+
+  const toggleTheme = () => {
+    // console.log(theme)
+    theme === "light" ? setTheme("dark") : setTheme("light");
+  };
+
+  const icon = theme === "light" ? <BsMoonStarsFill size={22} style={{color: 'var(--darkblue)'}} /> : <BsSunFill size={22} style={{color: 'var(--yellow)'}}/>
 
   const time = new Date();
   const hours = time.getHours();
@@ -50,11 +59,16 @@ const Navbar = () => {
            <Logo src={process.env.PUBLIC_URL + '/images/logo.png'}/>
         </NavigationLink>
         <NavigationLink to='/' end>
-           <Name>My Online Library</Name>
+           <NameLogo>My Online Library</NameLogo>
         </NavigationLink>
         <NavigationLink to='/about' >
         <Name>About</Name>
         </NavigationLink>
+        <span>
+          <Toggle onClick={toggleTheme}>
+              {icon}
+          </Toggle>
+        </span>   
       </LeftSide>
         
       
@@ -77,13 +91,11 @@ const Navbar = () => {
             </>
             )}
         </RightSide>
-          {!isAuthenticated && <Login/> }
-        
-
+          {!isAuthenticated && <Login theme={theme}/> }
     </Container>
-    
   )
 }
+
 
 const Container = styled.div`
   width: 100vw;
@@ -93,7 +105,7 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-   background-color: var(--background);
+   background-color: ${props => props.theme.background};
 `
 const RightSide = styled.div`
   display: flex;
@@ -119,10 +131,10 @@ const Logo = styled.img`
   width: 50px;
   margin-left: 10px;
 `
-const Name = styled.p`
+
+const NameLogo = styled.p`
   margin-left: 5px;
-  color: var(--darkblue);
-  background-color: var(--background);
+  color: ${props => props.theme.text};
   font-family: roboto, sans-serif;
   border-radius: 14px;
   padding: 5px;
@@ -134,8 +146,26 @@ const Name = styled.p`
               opacity 0.5s;
   &:hover {
     background-color: var(--yellow);
-    padding: 5px;
-    border-radius: 14px;
+  }
+  &:active {
+    opacity: 0.3;
+  }
+`
+const Name = styled.p`
+  margin-right: 15px;
+  margin-left: 15px;
+  color: ${props => props.theme.text};
+  font-family: roboto, sans-serif;
+  border-radius: 14px;
+  padding: 5px;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: background-color 0.4s,
+              opacity 0.5s;
+  &:hover {
+    background-color: var(--yellow);
   }
   &:active {
     opacity: 0.3;
@@ -148,15 +178,12 @@ const Hello = styled.span`
   padding: 5px;
   font-weight: 600;
   font-size: 17px;
-  color: var(--darkblue);
-  background-color: var(--background);
+  color: ${props => props.theme.text};
   cursor: pointer;
   transition: background-color 0.4s,
               opacity 0.5s;
   &:hover {
     background-color: var(--yellow);
-    padding: 5px;
-    border-radius: 14px;
   }
   &:active {
     opacity: 0.3;
@@ -169,8 +196,9 @@ const LogoutBtn = styled.button`
   font-size: 17px;
   border-radius: 14px;
   border: none;
-  color: var(--darkblue);
-  background-color: var(--background);
+  color: ${props => props.theme.text};
+  background-color: inherit;
+  /* background-color: var(--background); */
   margin-left: 15px;
   cursor: pointer;
   transition: background-color 0.4s,
@@ -188,5 +216,12 @@ const Center = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
 `
+
+const Toggle = styled.button`
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
+`;
+
 
 export default Navbar

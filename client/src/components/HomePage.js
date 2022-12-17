@@ -39,7 +39,7 @@ const Choose = styled.p`
   `
 
 const Container = styled.div`
-  background: url("/images/book-hand.jpg");
+  /* background: url("/images/book-hand.jpg"); */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
