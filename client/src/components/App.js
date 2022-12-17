@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import GlobalStyles from "./GlobalStyles";
 import HomePage from "./HomePage";
 import Navbar from "./Navbar";
@@ -12,7 +11,7 @@ import SearchCategory from "./SearchCategory";
 import About from "./About";
 import { useContext } from 'react';
 import { BooksContext } from "./BooksContext" ;
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import ErrorPage from './ErrorPage';
 import Loader from "./Loader";
