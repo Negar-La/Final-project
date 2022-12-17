@@ -13,10 +13,28 @@ const Navbar = ({theme, setTheme}) => {
 
   const toggleTheme = () => {
     // console.log(theme)
-    theme === "light" ? setTheme("dark") : setTheme("light");
+    theme === "light" ? setMode("dark") : setMode("light");
   };
 
-  const icon = theme === "light" ? <BsMoonStarsFill size={22} style={{color: 'var(--darkblue)'}} /> : <BsSunFill size={22} style={{color: 'var(--yellow)'}}/>
+  const icon = theme === "light" ? <BsMoonStarsFill size={22} style={{color: 'var(--darkblue)'}} /> : <BsSunFill size={22} style={{color: 'var(--yellow)' }}/>
+
+
+  //We use localStorage to persist between sessions in the browser. So, if a user has chosen the dark or light theme,
+  // that’s what they’ll get upon their next visit to the app or if they reload the page. Hence, this function
+  // sets our state and passes theme to localStorage.
+
+  const setMode = mode => {
+    window.localStorage.setItem('theme', mode)
+    setTheme(mode)
+};
+
+
+useEffect(() => {
+    const localTheme = window.localStorage.getItem('theme');
+    localTheme && setTheme(localTheme)
+}, []);
+
+
 
   const time = new Date();
   const hours = time.getHours();
@@ -80,12 +98,8 @@ const Navbar = ({theme, setTheme}) => {
                         ? "Good Evening"
                         : (hours < 12)
                         ? "Good Morning"
-                        : "Good Afternoon"}, {user.name} <CgProfile style={{color: 'var(--darkblue)',  verticalAlign: 'middle', }}/>
+                        : "Good Afternoon"}, {user.name} <CgProfile style={{color: props => props.theme.profileLogo,  verticalAlign: 'middle', }}/>
                   </Hello>
-              </NavigationLink>
-     
-              <NavigationLink to='/profile'>
-                  
               </NavigationLink>
               <LogoutBtn onClick={() => navigate("/logout")}>Log out</LogoutBtn>
             </>
@@ -113,6 +127,7 @@ const RightSide = styled.div`
   align-items: center;
 `
 const LeftSide = styled.div`
+  width: 320px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -129,14 +144,13 @@ const NavigationLink = styled(NavLink)`
 
 const Logo = styled.img`
   width: 50px;
-  margin-left: 10px;
 `
 
 const NameLogo = styled.p`
-  margin-left: 5px;
   color: ${props => props.theme.text};
   font-family: roboto, sans-serif;
   border-radius: 14px;
+  margin-left: -20px;
   padding: 5px;
   font-size: 1rem;
   font-weight: 600;
@@ -145,15 +159,13 @@ const NameLogo = styled.p`
   transition: background-color 0.4s,
               opacity 0.5s;
   &:hover {
-    background-color: var(--yellow);
+    background-color: ${props => props.theme.hover};
   }
   &:active {
     opacity: 0.3;
   }
 `
 const Name = styled.p`
-  margin-right: 15px;
-  margin-left: 15px;
   color: ${props => props.theme.text};
   font-family: roboto, sans-serif;
   border-radius: 14px;
@@ -165,7 +177,7 @@ const Name = styled.p`
   transition: background-color 0.4s,
               opacity 0.5s;
   &:hover {
-    background-color: var(--yellow);
+    background-color: ${props => props.theme.hover};
   }
   &:active {
     opacity: 0.3;
@@ -183,7 +195,7 @@ const Hello = styled.span`
   transition: background-color 0.4s,
               opacity 0.5s;
   &:hover {
-    background-color: var(--yellow);
+    background-color:  ${props => props.theme.hover};
   }
   &:active {
     opacity: 0.3;
@@ -204,7 +216,7 @@ const LogoutBtn = styled.button`
   transition: background-color 0.4s,
               opacity 0.5s;
   &:hover {
-    background-color: var(--yellow);
+    background-color:  ${props => props.theme.hover};
   }
   &:active {
     opacity: 0.3;
@@ -219,6 +231,7 @@ const Center = styled.div`
 
 const Toggle = styled.button`
   background-color: inherit;
+  margin-left: 15px;
   border: none;
   cursor: pointer;
 `;

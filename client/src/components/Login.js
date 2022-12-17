@@ -37,7 +37,7 @@ const LoginBtn = styled.button`
   transition: background-color 0.4s,
               opacity 0.5s;
   &:hover {
-    background-color: var(--yellow);
+    background-color:  ${props => props.theme.hover};
   }
   &:active {
     opacity: 0.3;
