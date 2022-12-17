@@ -77,9 +77,7 @@ button {
           background-color: var(--yellow);
   }
    }`
-const NextPage = styled.div`
-  cursor: pointer;
-`
+
 const PageOfPage = styled.div`
    font-weight: bold;
    margin-left: 10px;

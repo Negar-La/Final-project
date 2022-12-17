@@ -444,9 +444,9 @@ const SubmitBtn = styled.button`
               opacity 0.3s;
    &:hover {
     background-color: ${(props)=>
-    !props.disabled ? 'var(--yellow)' : 'gray'};
-    color: ${(props)=>
-    !props.disabled ? 'var(--darkbluew)' : 'white'};
+    !props.disabled ? 'var(--yellow)' : 'inherited'};
+    /* color: ${(props)=>
+    !props.disabled ? 'var(--darkbluew)' : 'white'}; */
   }
   &:active {
     opacity: 0.3;
