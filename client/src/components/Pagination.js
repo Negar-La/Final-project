@@ -1,5 +1,3 @@
-
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 import {AiOutlineArrowLeft} from "react-icons/ai";
 import {AiOutlineArrowRight} from "react-icons/ai";
@@ -12,7 +10,7 @@ const Pagination = props => {
         searchedItems, // searchedItems being paginated
     } = props;
  
-    const limit = 15; // PAGINATION LIMIT OF ITEMS PER PAGE. 
+    const limit = 12; // PAGINATION LIMIT OF ITEMS PER PAGE. 
     let pages = searchedItems?.length/limit; // number of pages is total # of searchedItems/limit
     pages = Math.ceil(pages) // round up page total
     

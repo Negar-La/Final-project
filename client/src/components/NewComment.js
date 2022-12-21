@@ -401,7 +401,6 @@ const EditTextArea = styled.textarea`
   width: 470px;
   outline: none;
   resize: none;
-  border: none;
   border-radius: 10px;
   margin-bottom: 6px;
   overflow:auto;
@@ -445,8 +444,6 @@ const SubmitBtn = styled.button`
    &:hover {
     background-color: ${(props)=>
     !props.disabled ? 'var(--yellow)' : 'inherited'};
-    /* color: ${(props)=>
-    !props.disabled ? 'var(--darkbluew)' : 'white'}; */
   }
   &:active {
     opacity: 0.3;
@@ -458,8 +455,8 @@ const Wrapper = styled.div`
   align-items: center;
   position: absolute;
   bottom: -244px;
-  right: -87px;
-  width: 40vw;
+  right: 0px;
+  width: 100%;
   height: 40vh;
   z-index: 2;
 `;
@@ -472,7 +469,7 @@ const Content = styled.div`
   align-items: center;
   flex-direction: column;
   height: 30%;
-  width: 70%;
+  width: 100%;
   padding: 10px;
 `;
 

@@ -17,6 +17,7 @@ import ErrorPage from './ErrorPage';
 import Loader from "./Loader";
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "./Theme";
+import Menu from "./Menu";
 
 
 const App = ()=> {
@@ -45,6 +46,7 @@ const App = ()=> {
               <Route path="/books/:bookId" element={<BookDetails />} />
             </Routes>
             }
+            <Menu />
      </ThemeProvider>
     </BrowserRouter>
   );

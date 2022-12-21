@@ -88,5 +88,8 @@ const Para2 = styled.div`
     h2, h3{
       text-align: center;
     }
+    @media (max-width: 500px) {
+      margin-top: 130px;
+  }
 `
 export default About

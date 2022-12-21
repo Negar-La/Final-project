@@ -4,7 +4,8 @@ import SearchBar from "./SearchBar";
 import ErrorPage from './ErrorPage';
 import { useContext } from 'react';
 import { BooksContext } from "./BooksContext" ;
-import {AiOutlineRead} from "react-icons/ai"
+import {AiOutlineRead} from "react-icons/ai";
+
 
 const HomePage = () => {
   
@@ -15,7 +16,6 @@ const HomePage = () => {
   return (
     <>    
         <Container>
-       
             <Left>
               <Quote>A book is a Gift you open again and again</Quote>
               <SearchWrapper>
@@ -28,39 +28,56 @@ const HomePage = () => {
                 <Books/>
               </BookWrapper>
             </Right>
-
+            <Photo>
+              <img src={process.env.PUBLIC_URL + '/images/book-hand1.png'} />
+            </Photo>
         </Container>
     </>
   )
 }
 
 const Container = styled.div`
-  /* background: url("/images/book-hand.jpg"); */
-  /* background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat; */
   height: 100vh;
   width: 100vw;
   display: flex;
+  justify-content: space-around;
   padding-top: 130px;
-  padding-left: 20px;
+  @media (max-width: 500px) {
+    flex-direction: column;
+    align-items: center;
+  }
+  @media (min-width: 500.02px) and (max-width: 1200px) {
+    flex-direction: column;
+    align-items: center;
+  }
+  @media (min-width: 1200.02px)  {
+    justify-content: start;
+  }
   `
   const Left = styled.div`
   display: flex;
+  /* flex: 1; */
   flex-direction: column;
-  justify-content: start;
   align-items: center;
-  height: 200px;
   margin-top: 200px;
+  @media (max-width: 500px) {
+    margin-top: 270px;
+    margin-left: 70px;
+  }
+  @media (min-width: 500.02px) and (max-width: 1200px) {
+    margin-top: 1050px;
+  }
   `
   const Quote = styled.p`
+    @media (max-width: 500px) {
+      font-size:20px; 
+  }
   padding-top: 10px;
   padding-left: 20px;
   font-family: roboto;
   font-size:26px; 
   font-weight:700;  
   letter-spacing:1px; 
-  width:540px; 
   white-space:nowrap;
   padding-bottom:13px;
   position: relative;
@@ -91,22 +108,51 @@ const SearchWrapper = styled.div`
 
   const Right = styled.div`
   display: flex;
+  flex: 1;
   flex-direction: column;
   align-items: center;
-  margin-left: 50px;
+  @media (max-width: 500px) {
+    flex-direction: column;
+    text-align: center;
+    margin-left: 80px;
+  }
   `
   const Choose = styled.p`
   font-size:24px; 
   font-weight:700;  
   letter-spacing:1px; 
   margin-bottom: 20px;
+  @media (max-width: 500px) {
+      margin-top: 30px;
+  }
+  @media (min-width: 500.02px)  {
+    margin-top: 40px;
+  }
   `
 
-const BookWrapper = styled.div`
-
-  @media (max-width: 750px) {
-    
+const Photo = styled.div`
+  margin-top: 80px;
+  flex: 1;
+  
+ 
+  @media (max-width: 500px) {
+      height: 10px;
+      text-align: center;
+      img {
+        height: 400px;
+        margin-left: 70px;
+        margin-bottom: 50px;
+        border-radius: 10px;
+      }
   }
+  @media (min-width: 501px) {
+    img {
+      border-radius: 20px;
+      }
+  }
+`
+
+const BookWrapper = styled.div`
   `
 
 

@@ -126,6 +126,10 @@ const Profile = () => {
 const Wrapper = styled.div`
   display: flex;
   padding-top: 70px;
+  @media (max-width: 500px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `
 
 const UserInfo = styled.article`
@@ -133,6 +137,9 @@ const UserInfo = styled.article`
   h2, h3 {
     /* color: var(--darkblue); */
     margin: 15px;
+    @media (max-width: 500px) {
+    font-size: 18px;
+  }
   }
 `;
 
@@ -141,6 +148,9 @@ const UserImage = styled.img`
   border-radius: 30px;
   margin: 20px;
   margin-bottom: 0px;
+  @media (max-width: 500px) {
+    height: 200px;
+  }
 `
 const Title = styled.div`
   font-weight: bold;

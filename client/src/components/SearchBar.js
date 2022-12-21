@@ -143,7 +143,7 @@ const StyledInput = styled.input`
   border: none;
   margin-right: 15px;
   background-color: var(--background);
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 10px;
 `;
 const StyledLink = styled(Link)`
   width: 300px;
@@ -162,7 +162,6 @@ const StyledLink = styled(Link)`
 const SearchIcon = styled.div`
 `;
 const Container = styled.div`
-   
 `;
 
 const CategoryDiv = styled.div`
@@ -204,7 +203,7 @@ const AuthorBtn = styled.button`
   font-size: 15px;
   border-radius: 15px;
   background-color: var(--background);
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 10px;
   cursor: pointer;
   transition: background-color 0.3s,
               opacity 0.3s;

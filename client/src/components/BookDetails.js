@@ -180,6 +180,11 @@ const BookDetails = () => {
 const Container = styled.div`
   padding-top: 85px;
   display: flex;
+  @media (max-width: 1000px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `
 
 const Left = styled.div`
@@ -201,7 +206,7 @@ const BookImage = styled.img`
 
 const Title = styled.div`
   font-size: 22px;
-  margin-bottom: 8px;
+  margin: 20px 50px;
   font-weight: bold;
   span {
     font-weight: 400;
@@ -210,7 +215,7 @@ const Title = styled.div`
 
 const Author = styled.div`
   font-size: 20px;
-  margin-bottom: 8px;
+  margin: 20px 50px;
   font-weight: bold;
   span {
     font-weight: 400;
@@ -219,7 +224,7 @@ const Author = styled.div`
 
 const Publisher = styled.div`
    font-size: 20px;
-  margin-bottom: 8px;
+   margin: 20px 50px;
   font-weight: bold;
   span {
     font-weight: 400;
@@ -228,7 +233,7 @@ const Publisher = styled.div`
 
 const Category = styled.div`
    font-size: 20px;
-  margin-bottom: 8px;
+   margin: 20px 50px;
   font-weight: bold;
   span {
     font-weight: 400;
@@ -237,7 +242,7 @@ const Category = styled.div`
 
 const Pages = styled.div`
    font-size: 20px;
-  margin-bottom: 8px;
+   margin: 20px 50px;
   font-weight: bold;
   span {
     font-weight: 400;
@@ -249,9 +254,8 @@ const Description = styled.div`
   line-height: 1.5;
   text-align: justify;
   font-size: 20px;
-  margin-bottom: 8px;
+  margin: 20px 50px;
   font-weight: bold;
-  margin-bottom: 20px;
   span {
     font-weight: 400;
   }
@@ -305,7 +309,7 @@ const FavoriteBtn = styled.button`
   
 `
 const CommentContainer = styled.div`
-  margin-left: 5em;
+  
 `
 
 const ErrorMsg = styled.div`
@@ -349,6 +353,7 @@ const FlexDiv = styled.div`
 const MapButton = styled.button`
   border: none;
   margin-top: 40px;
+  margin-bottom: 40px;
   font-size: 18px;
   border-radius: 15px;
   width: 210px;

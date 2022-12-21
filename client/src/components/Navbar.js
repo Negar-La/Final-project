@@ -6,10 +6,14 @@ import {CgProfile} from "react-icons/cg";
 import {BsSunFill} from "react-icons/bs";
 import {BsMoonStarsFill} from "react-icons/bs";
 import { NavLink } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useContext  } from "react";
 import Loader from "./Loader";
+import BurgerMenu from "./BurgerMenu";
+import { MenuContext } from "./MenuContext";
 
 const Navbar = ({theme, setTheme}) => {
+
+  const { setOpenMenu } = useContext(MenuContext);
 
   const toggleTheme = () => {
     // console.log(theme)
@@ -79,9 +83,6 @@ useEffect(() => {
         <NavigationLink to='/' end>
            <NameLogo>My Online Library</NameLogo>
         </NavigationLink>
-        <NavigationLink to='/about' >
-        <Name>About</Name>
-        </NavigationLink>
         <span>
           <Toggle onClick={toggleTheme}>
               {icon}
@@ -93,7 +94,7 @@ useEffect(() => {
         <RightSide>
            {isAuthenticated && (
             <>
-              <NavigationLink to='/profile'>
+              <NavigationLink to='/profile' onClick={() => setOpenMenu(false)}>
                   <Hello>{(hours >= 18)
                         ? "Good Evening"
                         : (hours < 12)
@@ -101,11 +102,22 @@ useEffect(() => {
                         : "Good Afternoon"}, {user.name} <CgProfile style={{color: props => props.theme.profileLogo,  verticalAlign: 'middle', }}/>
                   </Hello>
               </NavigationLink>
+              <NavigationLink to='/about' onClick={() => setOpenMenu(false)} >
+                <Name>About</Name>
+              </NavigationLink>
               <LogoutBtn onClick={() => navigate("/logout")}>Log out</LogoutBtn>
             </>
             )}
         </RightSide>
-          {!isAuthenticated && <Login theme={theme}/> }
+          {!isAuthenticated && 
+          <RightNotLogin>
+             <NavigationLink to='/about' onClick={() => setOpenMenu(false)} >
+                 <Name>About</Name>
+            </NavigationLink>
+            <Login theme={theme}/>
+          </RightNotLogin>
+        }
+          <BurgerMenu />
     </Container>
   )
 }
@@ -118,16 +130,27 @@ const Container = styled.div`
   z-index: 2;
   display: flex;
   justify-content: space-between;
+  height: 70px;
   align-items: center;
    background-color: ${props => props.theme.background};
+   @media (max-width: 500px) {
+    /* flex-direction: column;
+    height: 100px; */
+    position: relative;
+    width: 100%;
+  }
 `
 const RightSide = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media (max-width: 500px) {
+    visibility: hidden;
+    width: 0%;
+  }
 `
 const LeftSide = styled.div`
-  width: 320px;
+  width: 240px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -150,7 +173,7 @@ const NameLogo = styled.p`
   color: ${props => props.theme.text};
   font-family: roboto, sans-serif;
   border-radius: 14px;
-  margin-left: -20px;
+  margin-left: -1px;
   padding: 5px;
   font-size: 1rem;
   font-weight: 600;
@@ -172,6 +195,7 @@ const Name = styled.p`
   padding: 5px;
   font-size: 1rem;
   font-weight: 600;
+  margin-left: 20px;
   line-height: 1.5;
   cursor: pointer;
   transition: background-color 0.4s,
@@ -235,6 +259,14 @@ const Toggle = styled.button`
   border: none;
   cursor: pointer;
 `;
+
+const RightNotLogin = styled.div`
+  display: flex;
+  @media (max-width: 500px) {
+    visibility: hidden;
+    width: 0%;
+  }
+`
 
 
 export default Navbar

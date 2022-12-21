@@ -28,18 +28,18 @@ const SearchResults = () => {
 const [currentPage, setCurrentPage] = useState(1)
 // see Product grid, this is slicing array of products depending on value of x and y. which is manipulated below
 const [x, setX] = useState(0)
-const [y, setY] = useState(15)
+const [y, setY] = useState(12)
 
 // change page function. i
 const changePages = (pageNum) => {
   if (pageNum === 1) { // if page is 1 , set initial slice values
       setX(0)
-      setY(15)
+      setY(12)
   }
   else {
     // else set them accordingly
-    setX((15 * (pageNum - 1)) + 1)
-    setY(15 * pageNum + 1)
+    setX((12 * (pageNum - 1)) + 1)
+    setY(12 * pageNum + 1)
   }
 }
 // everytime page changes, perform changePages function
@@ -170,7 +170,15 @@ const Container = styled.div `
 const ProductGrid = styled.div`
   display: grid;
   gap: 40px;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   margin-top: 20px;
+  @media (max-width: 650px) {
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (min-width: 650.02px) and (max-width: 1200px) {
+    gap: 2px;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 `
 export default SearchResults

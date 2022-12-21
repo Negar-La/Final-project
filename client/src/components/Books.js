@@ -41,7 +41,7 @@ const Div = styled.div`
   width: 485px;
   padding: 10px;
   @media (max-width: 750px) {
-    width: 200px;
+    
   }
 `
 
