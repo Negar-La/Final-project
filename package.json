@@ -4,10 +4,9 @@
     "uuid": "^9.0.0",
     "uuidv4": "^6.2.13"
   },
+  "name": "my-package",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build": "babel src -d lib",
+    "test": "jest"
   }
 }
