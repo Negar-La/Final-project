@@ -117,7 +117,7 @@ useEffect(() => {
             <Login theme={theme}/>
           </RightNotLogin>
         }
-          <BurgerMenu />
+          <BurgerMenu theme = {theme} />
     </Container>
   )
 }
@@ -144,7 +144,7 @@ const RightSide = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  @media (max-width: 500px) {
+  @media (max-width: 600px) {
     visibility: hidden;
     width: 0%;
   }
@@ -262,7 +262,7 @@ const Toggle = styled.button`
 
 const RightNotLogin = styled.div`
   display: flex;
-  @media (max-width: 500px) {
+  @media (max-width: 600px) {
     visibility: hidden;
     width: 0%;
   }

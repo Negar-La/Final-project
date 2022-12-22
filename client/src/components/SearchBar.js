@@ -23,7 +23,7 @@ const SearchBar = () => {
   const handleFilter = (event) => {
     const itemSearched = event.target.value;
     setUserQuery(itemSearched);
-    console.log(userQuery.length);
+    // console.log(userQuery.length);
     const newFilter = books.filter((item) => {
       if ( isToggled === true && item.author.toLowerCase().includes(itemSearched.toLowerCase())) {
         return true;
@@ -39,8 +39,8 @@ const SearchBar = () => {
   };
 
   const handleChange = (e)=>{
-    console.log(e.target.value);
-    console.log('category selected!');
+    // console.log(e.target.value);
+    // console.log('category selected!');
     isToggledCategory  &&
     setIsToggledCategory(true)
     navigate(`/searchByCategory/${e.target.value}`)

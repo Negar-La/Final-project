@@ -46,7 +46,7 @@ const App = ()=> {
               <Route path="/books/:bookId" element={<BookDetails />} />
             </Routes>
             }
-            <Menu />
+            <Menu  theme={theme}/>
      </ThemeProvider>
     </BrowserRouter>
   );

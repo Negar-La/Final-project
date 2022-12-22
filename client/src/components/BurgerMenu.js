@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { MenuContext } from "./MenuContext";
 
 
- const BurgerMenu = () => {
+ const BurgerMenu = ({theme}) => {
 
     const { openMenu, setOpenMenu } = useContext(MenuContext);
 
@@ -15,7 +15,7 @@ import { MenuContext } from "./MenuContext";
 
   return (
     <HamburgerButton onClick={handleClick}>
-      <GiHamburgerMenu />
+      <GiHamburgerMenu style={{color: theme === 'light' ? "var(--darkblue)" : 'white'}} />
     </HamburgerButton>
   );
 };
@@ -34,7 +34,7 @@ const HamburgerButton = styled.button`
   &:focus {
     outline: none;
   }
-  @media (max-width: 500px) {
+  @media (max-width: 600px) {
     visibility: visible;
     right: 2rem;
   }

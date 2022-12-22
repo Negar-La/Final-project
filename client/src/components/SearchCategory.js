@@ -8,7 +8,7 @@ import Pagination from "./Pagination";
 const SearchCategory = () => {
 
   const {category} = useParams();
-  console.log(category);
+  // console.log(category);
   const [searchedItems, setSearchedItems] = useState(null);
 
 

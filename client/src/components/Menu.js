@@ -6,7 +6,7 @@ import Login from "./Login";
 import { MenuContext } from "./MenuContext";
 
 
-const Menu = () => {
+const Menu = ({theme}) => {
 
   const { isAuthenticated } = useAuth0();
   const { openMenu, setOpenMenu } = useContext(MenuContext);
@@ -36,7 +36,7 @@ const Menu = () => {
 };
 
 const Wrapper = styled.div`
-  background-color: #ede7e3;
+  background-color: ${props => props.theme.background};
   visibility: hidden;
   position: absolute;
   display: flex;
@@ -44,20 +44,25 @@ const Wrapper = styled.div`
   align-items: center;
   top: 70px;
   right: 0px;
-  height: 20%;
-  width: 40%;
   border-radius: 5px;
-  @media (max-width: 500px) {
+  @media (max-width: 600px) {
     visibility: ${(props) => (props.open ? "visible" : "hidden")};
   }
 `;
 
 const Link = styled(NavLink)`
-   color: var(--darkblue);
+  color: ${props => props.theme.text};
+  height: 50px;
+  width: 150px;
   text-decoration: none;
-  margin-top: 30px;
+  text-align: center;
+  padding-top: 18px;
   font-size: 1.2rem;
   font-weight: 600;
+  &:hover {
+    background-color: ${props => props.theme.hover};
+
+  }
 `;
 
 
