@@ -3,9 +3,5 @@
     "request": "^2.88.2",
     "uuid": "^9.0.0",
     "uuidv4": "^6.2.13"
-  },
-  "scripts": {
-    "start": "some command to be run", 
-    "test": "(eslint lib || true) && jest"
   }
 }
