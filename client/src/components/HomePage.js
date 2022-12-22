@@ -61,11 +61,11 @@ const Container = styled.div`
   align-items: center;
   margin-top: 200px;
   @media (max-width: 500px) {
-    margin-top: 270px;
+    margin-top: 170px;
     margin-left: 70px;
   }
   @media (min-width: 500.02px) and (max-width: 1200px) {
-    margin-top: 1050px;
+    margin-top: 850px;
   }
   `
   const Quote = styled.p`
@@ -131,7 +131,7 @@ const SearchWrapper = styled.div`
   `
 
 const Photo = styled.div`
-  margin-top: 80px;
+  margin-top: 100px;
   flex: 1;
   
  

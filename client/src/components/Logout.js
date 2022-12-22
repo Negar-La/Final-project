@@ -36,6 +36,9 @@ const Logout = () => {
                             <Answer value="no" onClick={handleNo} >No</Answer>
                         </Buttons>
                 </LogoutDiv>
+                <Photo>
+                     <img src={process.env.PUBLIC_URL + '/images/book-pen.jpg'} />
+                </Photo>
             </Wrapper>
         )
     }
@@ -43,24 +46,17 @@ const Logout = () => {
 
 const Wrapper = styled.div`
   display: flex;
+  flex-direction: column;
   width: 100%;
-  height: calc(100vh - 300px);
-  /* background-image: url("/images/books.jpg"); */
-  /* background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat; */
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 `
 
 const LogoutDiv = styled.div`
     margin: auto;
-    border-radius: 6px;
-    margin-top: 300px;
+    border-radius: 20px;
+    margin-top: 180px;
+    margin-bottom: 50px;
     background-color: var(--background);
     display: flex;
     flex-direction: column;
@@ -107,19 +103,33 @@ const Buttons = styled.div`
     flex-direction: row;
     justify-content: space-between;
 `
-
-const ErrorMessage = styled.div`
-    padding: 10px;
-    background-color: rgba(138, 19, 11, 0.9);
-    color: white;
-    text-align: center;
-    margin: 3px;
-`
 const Center = styled.div`
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+`
+const Photo = styled.div`
+  margin-top: 40px;
+  margin-bottom: 20px;
+  text-align: center;
+  
+  img {
+    height: 500px;
+  }
+  
+ 
+  @media (max-width: 500px) {
+      img {
+        height: 400px;
+        border-radius: 10px;
+      }
+  }
+  @media (min-width: 501px) {
+    img {
+      border-radius: 20px;
+      }
+  }
 `
 
 export default Logout;

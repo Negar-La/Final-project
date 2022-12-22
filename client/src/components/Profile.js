@@ -126,7 +126,7 @@ const Profile = () => {
 const Wrapper = styled.div`
   display: flex;
   padding-top: 70px;
-  @media (max-width: 500px) {
+  @media (max-width: 600px) {
     flex-direction: column;
     align-items: center;
   }
@@ -135,9 +135,8 @@ const Wrapper = styled.div`
 const UserInfo = styled.article`
   text-align: center;
   h2, h3 {
-    /* color: var(--darkblue); */
     margin: 15px;
-    @media (max-width: 500px) {
+    @media (max-width: 600px) {
     font-size: 18px;
   }
   }
@@ -148,7 +147,7 @@ const UserImage = styled.img`
   border-radius: 30px;
   margin: 20px;
   margin-bottom: 0px;
-  @media (max-width: 500px) {
+  @media (max-width: 600px) {
     height: 200px;
   }
 `
@@ -157,18 +156,29 @@ const Title = styled.div`
   font-size: 22px;
   margin-top: 20px;
   margin-bottom: 10px;
+  @media (max-width: 600px) {
+    margin-left: 30px;
+  }
 `
 
 const FavoriteList = styled.div`
   margin-left: 130px;
   display: flex;
   flex-direction: column;
+  @media (max-width: 600px) {
+    
+    margin-left: 0px;
+  }
+
 `;
 
 const Flex = styled.div`
   display: flex;
   max-width: 1100px;
   flex-wrap: wrap;
+  @media (max-width: 600px) {
+    justify-content: center;
+  }
 `
 
 const Box = styled.div`
@@ -187,11 +197,8 @@ const Box = styled.div`
 `
 
 const NoBook = styled.div`
-  font-size: 32px;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  font-size: 25px;
+  
 `
 
 const BookTitle = styled.div`

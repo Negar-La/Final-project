@@ -99,7 +99,7 @@ useEffect(() => {
                         ? "Good Evening"
                         : (hours < 12)
                         ? "Good Morning"
-                        : "Good Afternoon"}, {user.name} <CgProfile style={{color: props => props.theme.profileLogo,  verticalAlign: 'middle', }}/>
+                        : "Good Afternoon"}, {user.name} <CgProfile style={{color: props => props.theme.text,  verticalAlign: 'middle', }}/>
                   </Hello>
               </NavigationLink>
               <NavigationLink to='/about' onClick={() => setOpenMenu(false)} >

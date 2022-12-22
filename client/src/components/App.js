@@ -39,7 +39,7 @@ const App = ()=> {
               <Route path="/" element={<HomePage />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/logout" element={<Logout />} />
-              <Route path="/about" element={<About />} />
+              <Route path="/about" element={<About theme={theme}/>} />
               <Route path="/search/:searchTerm" element={<SearchResults />}/>
               <Route path="/searchByAuthor/:searchTerm" element={<SearchAuthor />}/>
               <Route path="/searchByCategory/:category" element={<SearchCategory />}/>
