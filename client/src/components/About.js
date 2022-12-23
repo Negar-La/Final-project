@@ -36,19 +36,25 @@ const About = ({theme}) => {
           Furthermore, you can <Bold>add books to your favorite list</Bold> which will be shown in your profile page.</li>
         </ol>
       </Para1>
-      <Photo>
-              <img src={process.env.PUBLIC_URL + '/images/background12.jpg'} />
-      </Photo>
-    <Para2>Quote of the Day:</Para2>
-      <Para3>
-          {!random ? <Loader/> : 
-          <>
-            <h2>{random.quote} </h2>
-            <h3>- {random.author}</h3>
-            
-          </>
-          }
-      </Para3>
+      <Flex>
+        <Photo>
+                <img src={process.env.PUBLIC_URL + '/images/background12.jpg'} />
+        </Photo>
+        <Part2>
+            <Para2>Quote of the Day:</Para2>
+            <Para3>
+                {!random ? <Loader/> : 
+                <>
+                  <h2>{random.quote} </h2>
+                  <h3>- {random.author}</h3>
+                  
+                </>
+                }
+            </Para3>
+        </Part2>
+    
+      </Flex>
+
     
     </Wrapper>
 
@@ -80,6 +86,17 @@ const Bold = styled.span`
   font-weight: 600;
   color: ${props => props.theme.Bold};
 `
+const Flex = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  @media (max-width: 1000px) {
+        flex-direction: column;
+  }
+`
+const Part2 = styled.div`
+
+`
 
 const Para2 = styled.div`
   line-height: 1.7;
@@ -101,13 +118,9 @@ const Para3 = styled.div`
     }
 `
 
-
-
 const Photo = styled.div`
-  margin-top: 40px;
   margin-bottom: 20px;
-  text-align: center;
-  
+  margin-left: 50px;
   img {
     height: 500px;
   }
