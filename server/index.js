@@ -1,7 +1,8 @@
 const express = require('express');
 const helmet = require('helmet');
 const morgan = require ('morgan');
-const port = 8000;
+const cors = require("cors")
+const port = process.env.PORT || 8000;
 
 const {getBooks, getSingleBook, getSearchResults, getSearchAuthor, getCategories, getSingleCategory, getQuotes} = require ("./handlers/books-handler")
 const {addFavorite, deleteFavorite, getFavorites} = require ("./handlers/Favorite-handlers")
@@ -12,6 +13,10 @@ express()
   .use(express.json())
   .use(helmet())
   .use(morgan('tiny'))
+  .use(express.urlencoded({ extended: false }))
+  .use(cors({
+      origin: ['http://localhost:3000', 'https://my-online-library.onrender.com']
+  }))
 
   .get('/api/get-books', getBooks)
   .get('/api/get-book/:id', getSingleBook)
