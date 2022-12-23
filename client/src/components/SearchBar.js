@@ -4,13 +4,12 @@ import { BooksContext } from "./BooksContext";
 import styled from "styled-components";
 import { RiSearchFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import SearchCategory from "./SearchCategory";
 
 const SearchBar = () => {
 
   const navigate = useNavigate();
-  const {category} = useParams();
 
   const { books, categories } = useContext(BooksContext);
   const [filteredData, setFilteredData] = useState('');
@@ -74,7 +73,7 @@ const SearchBar = () => {
         />
 
       <SearchIcon className="search-icon"
-       onClick={() => {
+       onClick={(ev) => {
           if(userQuery.length > 0){ navigate(`/search/${userQuery}`)}
           else {window.alert("Please enter something!")}
           setFilteredData('');
