@@ -52,7 +52,7 @@ useEffect(() => {
   useEffect(() => {
     if (isAuthenticated) {
       // console.log("try to fetch in Navbar")
-      fetch("/api/person", {
+      fetch(`${process.env.REACT_APP_SERVER_URL}/api/person`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

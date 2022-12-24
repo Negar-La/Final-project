@@ -14,7 +14,7 @@ const SearchCategory = () => {
 
   //fetch data based on searchTerm
   useEffect(() => {
-    fetch(`/api/get-categories/${category}`)
+    fetch(`${process.env.REACT_APP_SERVER_URL}/api/get-categories/${category}`)
       .then((res) => res.json())
       .then((data) => {
         setSearchedItems(data.data);

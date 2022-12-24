@@ -17,7 +17,7 @@ const Profile = () => {
   const[favoriteDeleted, setFavoriteDeleted] = useState(false)
 
   useEffect(() => {
-    fetch(`/api/get-favorites`)
+    fetch(`${process.env.REACT_APP_SERVER_URL}/api/get-favorites`)
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
@@ -30,7 +30,7 @@ const Profile = () => {
 
   const deleteFavoriteHandler = (e, item) => {                        
     e.preventDefault();
-    fetch("/api/delete-favorite", {         
+    fetch(`${process.env.REACT_APP_SERVER_URL}/api/delete-favorite`, {         
       method: "DELETE",
       headers: {
         Accept: "application/json",

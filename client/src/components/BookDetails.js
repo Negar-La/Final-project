@@ -43,7 +43,7 @@ const BookDetails = () => {
 
   //fetch data to have book details
   useEffect(() => {
-    fetch(`/api/get-book/${bookId}`)
+    fetch(`${process.env.REACT_APP_SERVER_URL}/api/get-book/${bookId}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
@@ -65,7 +65,7 @@ const BookDetails = () => {
 
   const addToFavoriteHandler = (e, book) => {
     e.preventDefault();
-    fetch(`/api/add-favorite`, {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/api/add-favorite`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -95,7 +95,7 @@ const BookDetails = () => {
 
 //fetch books with the same category as the current book
     useEffect(() => {
-     category && fetch(`/api/get-categories/${category}`)
+     category && fetch(`${process.env.REACT_APP_SERVER_URL}/api/get-categories/${category}`)
         .then((res) => res.json())
         .then((data) => {
           if (data.status === 200) {

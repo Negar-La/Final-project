@@ -7,7 +7,7 @@ const About = ({theme}) => {
   const [random, setRandom] = useState(null)
  
   useEffect(() => {
-    fetch("/api/get-quotes")
+    fetch(`${process.env.REACT_APP_SERVER_URL}/api/get-quotes`)
       .then((res) => res.json())
       .then((data) => {
           setRandom(data.data[Math.floor(Math.random()*data.data.length)])

@@ -13,7 +13,7 @@ const SearchAuthor = () => {
 
   //fetch data based on searchTerm
   useEffect(() => {
-    fetch(`/api/books/searchByAuthor/${searchTerm}`)
+    fetch(`${process.env.REACT_APP_SERVER_URL}/api/books/searchByAuthor/${searchTerm}`)
       .then((res) => res.json())
       .then((data) => {
         setSearchedItems(data.data);

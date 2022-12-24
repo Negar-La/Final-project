@@ -1,8 +1,7 @@
 import { useJsApiLoader,
   GoogleMap,
   Marker,
-  Autocomplete,
-  DirectionsRenderer,} from "@react-google-maps/api";
+  } from "@react-google-maps/api";
 import Loader from "./Loader";
 import styled from "styled-components";
 
@@ -88,21 +87,5 @@ const Button = styled.button`
     opacity: 0.5;
   }
 `;
-// const Marker=styled.div`
-//     position: absolute;
-//     top: 50%;
-//     left: 50%;
-//     width: 18px;
-//     height: 18px;
-//     background-color: red;
-//     border: 2px solid #fff;
-//     border-radius: 100%;
-//     user-select: none;
-//     transform: translate(-50%, -50%);
-//     cursor: pointer;
-//     &:hover {
-//       z-index: 1;
-//     }
-// `;
 
 export default Map

@@ -34,7 +34,7 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
 
 //Get method shows all the comments based on book's id 
   useEffect(() => {
-    fetch(`/api/comment/${bookId}`)
+    fetch(`${process.env.REACT_APP_SERVER_URL}/api/comment/${bookId}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
@@ -49,7 +49,7 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
 //Post method post a new comment and adds it to users collection in mongodb
   const handleSubmit = ()=>{
     // console.log('hi')
-    fetch(`/api/comment/${bookId}`, {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/api/comment/${bookId}`, {
       method: "POST",
       headers: {
         "Accept": "application/json",
@@ -79,7 +79,7 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
   const deleteCommentHandler = (e, object) => {                        
     e.preventDefault();
     console.log(object);
-    fetch(`/api/delete-comment/${bookId}`, {         
+    fetch(`${process.env.REACT_APP_SERVER_URL}/api/delete-comment/${bookId}`, {         
       method: "DELETE",
       headers: {
         Accept: "application/json",
@@ -130,7 +130,7 @@ const handleCancel = ((ev) => {
 const handleUpdateSubmit = ((e)=>{
   e.preventDefault();
   console.log(targetCommentId);
-  fetch(`/api/update-comment/${targetCommentId}`,{
+  fetch(`${process.env.REACT_APP_SERVER_URL}/api/update-comment/${targetCommentId}`,{
       method: "PATCH",
       headers: {
           Accept: 'application/json',

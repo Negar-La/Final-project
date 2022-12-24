@@ -11,7 +11,7 @@ const BooksProvider = ({ children }) => {
   const [categories, setCategories] = useState(null)
   // FETCH ALL BOOKS
   useEffect(() => {
-    fetch("/api/get-books")
+    fetch(`${process.env.REACT_APP_SERVER_URL}/api/get-books`)
       .then((res) => res.json())
       .then((data) =>{
         // console.log(data.data) 
@@ -27,7 +27,7 @@ const BooksProvider = ({ children }) => {
 
 
   useEffect(() => {
-    fetch("/api/get-categories")
+    fetch(`${process.env.REACT_APP_SERVER_URL}/api/get-categories`)
       .then((res) => res.json())
       .then((data) => {
           setCategories(data.data);
