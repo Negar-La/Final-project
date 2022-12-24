@@ -45,10 +45,12 @@ const Container = styled.div`
   @media (max-width: 500px) {
     flex-direction: column;
     align-items: center;
+    padding-top: 360px;
   }
   @media (min-width: 500.02px) and (max-width: 1200px) {
     flex-direction: column;
     align-items: center;
+    padding-top: 460px;
   }
   @media (min-width: 1200.02px)  {
     justify-content: start;
@@ -61,16 +63,25 @@ const Container = styled.div`
   align-items: center;
   margin-top: 200px;
   @media (max-width: 500px) {
-    margin-top: 170px;
-    margin-left: 70px;
+    margin-top: 70px;
+    margin-left: 30px;
   }
   @media (min-width: 500.02px) and (max-width: 1200px) {
-    margin-top: 850px;
+    margin-top: 450px;
   }
   `
   const Quote = styled.p`
     @media (max-width: 500px) {
       font-size:20px; 
+      white-space: pre-wrap;
+      padding-left: 0px;
+        :after {
+          visibility: hidden;
+        }
+        :before{
+          visibility: hidden;
+        }
+
   }
   padding-top: 10px;
   padding-left: 20px;
@@ -114,7 +125,7 @@ const SearchWrapper = styled.div`
   @media (max-width: 500px) {
     flex-direction: column;
     text-align: center;
-    margin-left: 80px;
+    
   }
   `
   const Choose = styled.p`
@@ -124,6 +135,7 @@ const SearchWrapper = styled.div`
   margin-bottom: 20px;
   @media (max-width: 500px) {
       margin-top: 30px;
+      font-size:20px; 
   }
   @media (min-width: 500.02px)  {
     margin-top: 40px;
@@ -153,6 +165,10 @@ const Photo = styled.div`
 `
 
 const BookWrapper = styled.div`
+@media (max-width: 500px) {
+    margin-left: 100px;
+  }
+
   `
 
 

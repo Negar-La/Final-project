@@ -38,11 +38,10 @@ const Books = () => {
 const Div = styled.div`
   display: flex;
   flex-wrap: wrap;
+  flex-basis: 50%;
   width: 485px;
   padding: 10px;
-  @media (max-width: 750px) {
-    
-  }
+
 `
 
 const Wrapper = styled.div`
