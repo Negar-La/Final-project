@@ -9,9 +9,11 @@ const BooksProvider = ({ children }) => {
   const [status, setStatus] = useState("loading");
 
   const [categories, setCategories] = useState(null)
+
+  const URL = process.env.NODE_ENV !== 'development' ? process.env.REACT_APP_SERVER_URL : "";
   // FETCH ALL BOOKS
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_SERVER_URL}/api/get-books`)
+    fetch(`${URL}/api/get-books`)
       .then((res) => res.json())
       .then((data) =>{
         // console.log(data.data) 
@@ -27,7 +29,7 @@ const BooksProvider = ({ children }) => {
 
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_SERVER_URL}/api/get-categories`)
+    fetch(`${URL}/api/get-categories`)
       .then((res) => res.json())
       .then((data) => {
           setCategories(data.data);
@@ -40,7 +42,7 @@ const BooksProvider = ({ children }) => {
   }, []);
 
   return (
-    <BooksContext.Provider value={{ books, setBooks, status, setStatus, categories, setCategories }}>
+    <BooksContext.Provider value={{ books, setBooks, status, setStatus, categories, setCategories, URL }}>
       {children}
     </BooksContext.Provider>
   );
