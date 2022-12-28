@@ -164,7 +164,6 @@ const StyledLink = styled(Link)`
 const SearchIcon = styled.div`
 `;
 const Container = styled.div`
-  border: 1px solid blue;
 `;
 
 const CategoryDiv = styled.div`

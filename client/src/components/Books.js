@@ -36,7 +36,6 @@ const Books = () => {
   )
 }
 const Div = styled.div`
-border: 1px solid orange;
   display: grid;
   gap: 10px;
   grid-template-columns: repeat(3, 1fr);

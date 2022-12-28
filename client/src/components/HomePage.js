@@ -58,7 +58,6 @@ const Container = styled.div`
   }
   `
   const Left = styled.div`
-  border: 1px solid red;
   padding: 25px;
   display: flex;
   flex-direction: column;
@@ -101,7 +100,6 @@ const SearchWrapper = styled.div`
   `
 
   const Right = styled.div`
-  border: 1px solid purple;
   display: flex;
   flex: 1;
   flex-direction: column;
