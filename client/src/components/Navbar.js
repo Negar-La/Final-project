@@ -133,12 +133,6 @@ const Container = styled.div`
   height: 70px;
   align-items: center;
    background-color: ${props => props.theme.background};
-   @media (max-width: 500px) {
-    /* flex-direction: column;
-    height: 100px; */
-    position: relative;
-    width: 100%;
-  }
 `
 const RightSide = styled.div`
   display: flex;

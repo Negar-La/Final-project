@@ -143,6 +143,9 @@ const StyledInput = styled.input`
   margin-right: 15px;
   background-color: var(--background);
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 10px;
+  @media (max-width: 500px) {
+    width: 200px;
+  }
 `;
 const StyledLink = styled(Link)`
   width: 300px;
@@ -161,6 +164,7 @@ const StyledLink = styled(Link)`
 const SearchIcon = styled.div`
 `;
 const Container = styled.div`
+  border: 1px solid blue;
 `;
 
 const CategoryDiv = styled.div`
@@ -168,14 +172,16 @@ const CategoryDiv = styled.div`
 `
 
 const Select = styled.select`
-   border-radius: 15px;
+  border-radius: 15px;
   width: 250px;
   height: 36px;
   text-align: center;
   font-size: 17px;
   color: var(--darkblue);
   background-color: var(--background);
-  
+  @media (max-width: 500px) {
+    width: 200px;
+  }
 `
 
 const InputWrapper = styled.div`
@@ -224,6 +230,12 @@ const ResultWrapper = styled.div`
   border-radius: 4px;
   &::-webkit-scrollbar {
     display: none;
+  }
+  @media (max-width: 500px) {
+    width: 200px;
+    span {
+      width: 200px;
+    }
   }
 `;
 

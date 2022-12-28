@@ -63,12 +63,13 @@ const About = ({theme}) => {
 const Wrapper = styled.div`
   height: 100vh;
   width: 100vw;
+  overflow-x: hidden;
+
 `
 
 const Div = styled.div`
-  padding-top: 100px;
-  margin-left: 50px;
-  margin-bottom: 10px;
+  margin: 100px 50px 10px 50px;
+  line-height: 1.7;
   font-size: 22px;
   span {
     font-weight: bold;
@@ -119,16 +120,17 @@ const Para3 = styled.div`
 `
 
 const Photo = styled.div`
-  margin-bottom: 20px;
   margin-left: 50px;
   img {
     height: 500px;
+    object-fit: cover;
   }
   
  
   @media (max-width: 500px) {
+    margin-left: 0px;
       img {
-        height: 400px;
+        width: 350px;
         border-radius: 10px;
       }
   }

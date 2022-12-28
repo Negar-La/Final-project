@@ -36,12 +36,14 @@ const Books = () => {
   )
 }
 const Div = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  flex-basis: 50%;
-  width: 485px;
+border: 1px solid orange;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
   padding: 10px;
-
+  @media (max-width: 500px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `
 
 const Wrapper = styled.div`

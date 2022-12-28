@@ -36,7 +36,7 @@ const App = ()=> {
                   status === "loading" ?
               <Center><Loader/></Center>    : 
             <Routes>
-              <Route path="/" element={<HomePage />} />
+              <Route path="/" element={<HomePage theme={theme}/>} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/logout" element={<Logout />} />
               <Route path="/about" element={<About theme={theme}/>} />
