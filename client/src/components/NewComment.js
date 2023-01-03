@@ -256,6 +256,7 @@ const FormContainer = styled.form`
   margin-bottom: 25px;
   @media (max-width: 500px) {
     margin-left: 5px;
+    margin-bottom: 5px;
   }
 `;
 
@@ -263,7 +264,7 @@ const Flex = styled.div`
   display: flex;
   @media (max-width: 500px) {
     width: 300px;
-    margin: 14px;
+    margin: 10px;
   }
 `
 
@@ -290,7 +291,7 @@ const Bottom = styled.div`
   margin-left: 400px;
   @media (max-width: 500px) {
     margin-top: -50px;
-    margin-left: 185px;
+    margin-left: 175px;
     width: 130px;
   }
 
@@ -347,7 +348,7 @@ const Input = styled.textarea`
   border: 3px solid var(--darkblue);
   border-radius: 10px;
   @media (max-width: 500px) {
-    width: 270px;
+    width: 260px;
   }
 `;
 
@@ -383,7 +384,7 @@ const PreviousComments = styled.div`
   border-radius: 10px;
   position: relative;
   @media (max-width: 500px) {
-    max-width: 370px;
+    max-width: 340px;
     margin: 14px;
   }
 `
@@ -428,7 +429,6 @@ const SpanIcon = styled.span`
 `
 
 const DivEdit = styled.div`
-  /* border: 1px solid var(--darkblue); */
   border-radius: 10px;
 `
 

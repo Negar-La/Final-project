@@ -170,9 +170,6 @@ const Author = styled.div`
 
   const Category = styled.div`
     font-size: 16px;
-    @media (max-width: 500px) {
-    visibility: hidden;
-  }
   `
 
 const Center = styled.div`
