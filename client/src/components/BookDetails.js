@@ -159,7 +159,7 @@ const BookDetails = () => {
                 </Write2>
                 {similar && similar.length === 1 ? <Nosimilar>Sorry, there is no other book in this category.</Nosimilar> : ""}
                 
-              <Write>Write a comment about this book</Write>
+              <Write>Write a comment about this book!</Write>
               {isAuthenticated ? (
               <NewComment commentPosted={commentPosted} setCommentPosted={setCommentPosted} />
               ) :
@@ -260,6 +260,7 @@ const Please = styled.div`
   padding: 10px;
   @media (max-width: 500px) {
     font-size: 19px;
+    line-height: 1.5;
   }
 `
 

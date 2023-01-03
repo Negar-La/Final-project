@@ -61,6 +61,9 @@ const LogoutDiv = styled.div`
     display: flex;
     flex-direction: column;
     padding: 20px;
+    @media (max-width: 500px) {
+    width: 90%;
+  }
 `
 
 const Answer = styled.button`
@@ -95,6 +98,7 @@ const Question = styled.p`
     margin-bottom: 5px;
     font-family: roboto;
     font-size: 22px;
+    line-height: 1.3;
     color: var(--darkblue)
 `
 
@@ -121,7 +125,8 @@ const Photo = styled.div`
  
   @media (max-width: 500px) {
       img {
-        height: 400px;
+        width: 300px;
+        object-fit: cover;
         border-radius: 10px;
       }
   }

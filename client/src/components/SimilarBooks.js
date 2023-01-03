@@ -46,11 +46,6 @@ cursor: pointer;
     box-shadow: rgba(255, 201, 113, 0.8) -3px 2px 4px 3px,
       rgba(255, 201, 113, 0.8) 0px 1px 3px 1px;
   }
-  @media (max-width: 500px) {
-    width: 100px;
-    align-items: flex-start;
-    justify-content: flex-start;
-  }
 `
 const FlexDiv = styled.div`
   display: flex;
@@ -77,8 +72,8 @@ font-size: 17px;
 align-items: center;
 margin-bottom: 5px;
 @media (max-width: 500px) {
+  text-overflow: ellipsis;
   font-size: 16px;
-  width: 100px;
   }
 `;
 const AuthorSimilar = styled.div`
@@ -86,7 +81,7 @@ width: 175px;
 font-size: 14px;
 margin-bottom: 4px;
 @media (max-width: 500px) {
-  width: 100px;
+  text-overflow: ellipsis;
   }
 `;
 

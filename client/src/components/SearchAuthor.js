@@ -111,6 +111,9 @@ const Title = styled.div`
   margin-left: 20px;
   margin-bottom: 10px;
   text-align: center;
+  @media (max-width: 500px) {
+    margin: auto;
+  }
 `;
 
 const Wrapper = styled.div`
