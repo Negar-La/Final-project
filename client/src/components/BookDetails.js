@@ -143,18 +143,18 @@ const BookDetails = () => {
               </FlexDiv>
           </Left>
          
-          <div>
+          <Middle>
             <Title>Title: <span>{book.title}</span> </Title>
             <Author>Author: <span>{book.author}</span></Author>
-            <Publisher>Publisher: <span>{book.publisher}</span></Publisher>
-            <Category>Category: <span>{book.categories}</span></Category>
-            <Pages>Pages: <span>{book.pageCount}</span></Pages>
-            <Pages>Library: <span>{book.libraryName}</span></Pages>
+            <Author>Publisher: <span>{book.publisher}</span></Author>
+            <Author>Category: <span>{book.categories}</span></Author>
+            <Author>Pages: <span>{book.pageCount}</span></Author>
+            <Author>Library: <span>{book.libraryName}</span></Author>
             <Description>Description: <span>{book.description}</span></Description>
-          </div>
+          </Middle>
           <CommentContainer>
                 <Write2>
-                    You're maybe interested in similar books in the same category:
+                  <p> You're maybe interested in similar books in the same category:</p>
                     <SimilarBooks similar={similar} book={book}/>
                 </Write2>
                 {similar && similar.length === 1 ? <Nosimilar>Sorry, there is no other book in this category.</Nosimilar> : ""}
@@ -184,11 +184,12 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+
   }
 `
 
 const Left = styled.div`
-  width: 260px;
+  padding: 10px 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -204,48 +205,36 @@ const BookImage = styled.img`
   border-radius: 10px;
 `;
 
+const Middle = styled.div`
+  padding: 10px 30px;
+  @media (max-width: 500px) {
+    padding: 2px 15px;
+  }
+`
+
 const Title = styled.div`
   font-size: 22px;
-  margin: 20px 50px;
+  margin: 20px 0px;
   font-weight: bold;
+  line-height: 1.2;
   span {
     font-weight: 400;
+  }
+  @media (max-width: 500px) {
+    font-size: 20px;
   }
 `
 
 const Author = styled.div`
   font-size: 20px;
-  margin: 20px 50px;
+  margin: 20px 0px;
   font-weight: bold;
+  line-height: 1.2;
   span {
     font-weight: 400;
   }
-`
-
-const Publisher = styled.div`
-   font-size: 20px;
-   margin: 20px 50px;
-  font-weight: bold;
-  span {
-    font-weight: 400;
-  }
-`
-
-const Category = styled.div`
-   font-size: 20px;
-   margin: 20px 50px;
-  font-weight: bold;
-  span {
-    font-weight: 400;
-  }
-`
-
-const Pages = styled.div`
-   font-size: 20px;
-   margin: 20px 50px;
-  font-weight: bold;
-  span {
-    font-weight: 400;
+  @media (max-width: 500px) {
+    font-size: 20px;
   }
 `
 
@@ -254,17 +243,26 @@ const Description = styled.div`
   line-height: 1.5;
   text-align: justify;
   font-size: 20px;
-  margin: 20px 50px;
+  margin: 20px 0px;
   font-weight: bold;
   span {
     font-weight: 400;
   }
+  @media (max-width: 500px) {
+    width: 300px;
+  }
 `
 const Please = styled.div`
-   font-size: 20px;
-  margin-top: 18px;
-  font-weight: 500;
   margin-bottom: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 20px;
+  padding-top: 10px;
+  @media (max-width: 500px) {
+    font-size: 19px;
+  }
 `
 
 const PreviewBtn = styled.button`
@@ -309,7 +307,10 @@ const FavoriteBtn = styled.button`
   
 `
 const CommentContainer = styled.div`
-  
+  margin: 10px;
+  @media (max-width: 500px) {
+    margin: 0px;
+  }
 `
 
 const ErrorMsg = styled.div`
@@ -323,6 +324,13 @@ const Write = styled.p`
   margin-bottom: 15px;
   font-size: 22px;
   font-weight: bold;
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 20px;
+  padding-top: 20px;
+  @media (max-width: 500px) {
+    font-size: 19px;
+  }
 `
 const Center = styled.div`
     position: fixed;
@@ -332,10 +340,19 @@ const Center = styled.div`
 `
 
 const Write2  =styled.div`
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  white-space: pre-wrap;
+  margin: 20px;
   font-size: 22px;
+  line-height: 1.2;
   font-weight: bold;
-  margin-top: 20px;
+  @media (max-width: 500px) {
+    font-size: 19px;
+   
+  }
 `
 const Nosimilar = styled.p`
   font-size: 22px;
@@ -343,8 +360,6 @@ const Nosimilar = styled.p`
   font-weight: 400;
   margin-left: 10px;
 `
-
-
 
 const FlexDiv = styled.div`
    display: flex;

@@ -135,7 +135,7 @@ const Photo = styled.div`
       text-align: center;
       img {
         height: 400px;
-        margin-bottom: 50px;
+        margin-bottom: 10px;
         border-radius: 10px;
       }
   }

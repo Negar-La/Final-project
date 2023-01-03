@@ -254,10 +254,17 @@ const handleUpdateSubmit = ((e)=>{
 const FormContainer = styled.form`
   margin-left: 15px;
   margin-bottom: 25px;
+  @media (max-width: 500px) {
+    margin-left: 5px;
+  }
 `;
 
 const Flex = styled.div`
   display: flex;
+  @media (max-width: 500px) {
+    width: 300px;
+    margin: 14px;
+  }
 `
 
 const ImgCurrentUserTop = styled.img`
@@ -274,10 +281,18 @@ const ImgCurrentUser = styled.img`
   border: 3px solid var(--darkblue);
   border-radius: 50%;
   margin: 13px;
+  @media (max-width: 500px) {
+    margin: 10px;
+  }
 `
 const Bottom = styled.div`
   margin-top: -50px;
   margin-left: 400px;
+  @media (max-width: 500px) {
+    margin-top: -50px;
+    margin-left: 185px;
+    width: 130px;
+  }
 
 `;
 
@@ -316,6 +331,9 @@ const Span = styled.span`
     props.remainingLetters <= 55
       ? "Orange" 
       : "gray"};
+       @media (max-width: 500px) {
+        margin-right: 5px;
+  }
 `;
 
 //change your input type='text' to a textarea, and as a user types, the text will wrap onto the next line.
@@ -328,19 +346,31 @@ const Input = styled.textarea`
   resize: none;
   border: 3px solid var(--darkblue);
   border-radius: 10px;
+  @media (max-width: 500px) {
+    width: 270px;
+  }
 `;
 
 const CommentTitle = styled.p`
   font-size: 22px;
   margin-bottom: 8px;
   font-weight: 400;
+  padding-left: 20px;
+  padding-top: 20px;
+  @media (max-width: 500px) {
+    font-size: 19px;
+    
+  }
 `
 
 const NoComment = styled.p`
   font-size: 22px;
-  margin-bottom: 20px;
   font-weight: 400;
-  margin-left: 10px;
+  padding-left: 20px;
+  padding-top: 20px;
+  @media (max-width: 500px) {
+    font-size: 19px;
+  }
 `
 
 const PreviousComments = styled.div`
@@ -352,12 +382,19 @@ const PreviousComments = styled.div`
   border: 2px solid var(--yellow);
   border-radius: 10px;
   position: relative;
+  @media (max-width: 500px) {
+    max-width: 370px;
+    margin: 14px;
+  }
 `
 
 const UserSpan = styled.span`
   margin-right: 8px;
   margin-left: 10px;
   font-weight: bold;
+  @media (max-width: 500px) {
+    margin-left: 0px;
+  }
 `;
 
 const CommentText = styled.span`
@@ -405,7 +442,11 @@ const EditTextArea = styled.textarea`
   margin-bottom: 6px;
   overflow:auto;
   overflow: hidden;
- border: 1px solid black;
+  border: 1px solid black;
+ @media (max-width: 500px) {
+    width: 300px;
+   
+  }
 `
 
 const EditBtn = styled.button`

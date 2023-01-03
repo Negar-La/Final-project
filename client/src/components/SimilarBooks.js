@@ -18,7 +18,7 @@ import Loader from "./Loader";
                               <Image src={category.image} alt={category.title} />
                               <Name>{category.title}</Name>
                               <AuthorSimilar>{category.author}</AuthorSimilar>
-                              <AuthorSimilar>Category:  {category.categories}</AuthorSimilar>
+                              <AuthorSimilar2>Category:  {category.categories}</AuthorSimilar2>
                             </Box>
                         </a>
                     )
@@ -31,14 +31,12 @@ import Loader from "./Loader";
 
  
 const Box = styled.div`
-/* border: 2px solid var(--darkblue); */
 display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
 width: 180px;
 height: 220px;
-padding: 10px 25px;
 margin: 10px;
 text-decoration: none;
 text-align: center;
@@ -48,14 +46,20 @@ cursor: pointer;
     box-shadow: rgba(255, 201, 113, 0.8) -3px 2px 4px 3px,
       rgba(255, 201, 113, 0.8) 0px 1px 3px 1px;
   }
+  @media (max-width: 500px) {
+    width: 100px;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
 `
 const FlexDiv = styled.div`
   display: flex;
-
   a {
     text-decoration: none;
     box-shadow: none;
-    /* color: black; */
+  }
+  @media (max-width: 500px) {
+    width: 350px;
   }
 `
 
@@ -66,17 +70,34 @@ width: 100px;
 height: 120px;
 margin-bottom: 5px;
 `;
+
 const Name = styled.div`
 width: 175px;
 font-size: 17px;
 align-items: center;
 margin-bottom: 5px;
+@media (max-width: 500px) {
+  font-size: 16px;
+  width: 100px;
+  }
 `;
 const AuthorSimilar = styled.div`
 width: 175px;
 font-size: 14px;
+margin-bottom: 4px;
+@media (max-width: 500px) {
+  width: 100px;
+  }
+`;
+
+const AuthorSimilar2 = styled.div`
+width: 175px;
+font-size: 14px;
 /* color: var(--purple); */
 margin-bottom: 4px;
+  @media (max-width: 500px) {
+    visibility: hidden;
+  }
 `;
 
     export default SimilarBooks
