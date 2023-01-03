@@ -445,7 +445,6 @@ const EditTextArea = styled.textarea`
   border: 1px solid black;
  @media (max-width: 500px) {
     width: 300px;
-   
   }
 `
 
@@ -500,6 +499,9 @@ const Wrapper = styled.div`
   width: 100%;
   height: 40vh;
   z-index: 2;
+  @media (max-width: 500px) {
+    bottom: -180px;
+  }
 `;
 const Content = styled.div`
   background: var(--background);
