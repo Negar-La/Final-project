@@ -59,7 +59,7 @@ const FlexDiv = styled.div`
     box-shadow: none;
   }
   @media (max-width: 500px) {
-    width: 350px;
+    flex-direction: column;
   }
 `
 

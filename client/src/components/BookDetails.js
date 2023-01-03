@@ -253,13 +253,12 @@ const Description = styled.div`
   }
 `
 const Please = styled.div`
-  margin-bottom: 15px;
+  border: 1px solid black;
   font-size: 20px;
   font-weight: bold;
   display: flex;
   justify-content: flex-start;
-  padding-left: 20px;
-  padding-top: 10px;
+  padding: 10px;
   @media (max-width: 500px) {
     font-size: 19px;
   }
@@ -290,7 +289,6 @@ const FavoriteBtn = styled.button`
   margin-top: 40px;
   font-size: 18px;
   border-radius: 15px;
-  width: 210px;
   padding: 10px 2px;
   width: 200px;
   background-color: var(--background);
@@ -321,13 +319,13 @@ const ErrorMsg = styled.div`
     text-align: center;
 `
 const Write = styled.p`
+  border: 1px solid black;
   margin-bottom: 15px;
   font-size: 22px;
   font-weight: bold;
   display: flex;
   justify-content: flex-start;
-  padding-left: 20px;
-  padding-top: 20px;
+  padding: 10px;
   @media (max-width: 500px) {
     font-size: 19px;
   }
@@ -351,7 +349,7 @@ const Write2  =styled.div`
   font-weight: bold;
   @media (max-width: 500px) {
     font-size: 19px;
-   
+    margin: 5px
   }
 `
 const Nosimilar = styled.p`
@@ -371,7 +369,6 @@ const MapButton = styled.button`
   margin-bottom: 40px;
   font-size: 18px;
   border-radius: 15px;
-  width: 210px;
   padding: 10px 5px;
   width: 200px;
   background-color: var(--background);
