@@ -80,6 +80,9 @@ const PageOfPage = styled.div`
    font-weight: bold;
    margin-left: 10px;
    margin-right: 80px;
+   @media (max-width: 500px) {
+    width: 100px;
+  }
 `
 const Wrapper = styled.div`
     display: flex;

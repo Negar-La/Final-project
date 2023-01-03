@@ -125,7 +125,6 @@ const Wrapper = styled.div`
 `;
 
 const Box = styled.div`
-  /* border: 2px solid; */
   width: 200px;
   height: 321px;
   padding: 10px 25px;
@@ -138,6 +137,12 @@ const Box = styled.div`
     box-shadow: rgba(255, 201, 113, 0.8) -3px 2px 4px 3px,
       rgba(255, 201, 113, 0.8) 0px 1px 3px 1px;
   }
+  @media (max-width: 500px) {
+    width: 150px;
+    gap: 10px;
+    padding: 5px;
+    grid-template-columns: 1fr 1fr;
+  }
 `
 
 const Image = styled.img`
@@ -146,6 +151,9 @@ const Image = styled.img`
   width: 134px;
   height: 200px;
   margin-bottom: 10px;
+  @media (max-width: 500px) {
+    margin-top: 3px;
+  }
 `;
 const Name = styled.p`
   font-weight: bold;

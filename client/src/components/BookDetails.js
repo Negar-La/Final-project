@@ -253,7 +253,6 @@ const Description = styled.div`
   }
 `
 const Please = styled.div`
-  border: 1px solid black;
   font-size: 20px;
   font-weight: bold;
   display: flex;
@@ -319,7 +318,6 @@ const ErrorMsg = styled.div`
     text-align: center;
 `
 const Write = styled.p`
-  border: 1px solid black;
   margin-bottom: 15px;
   font-size: 22px;
   font-weight: bold;
