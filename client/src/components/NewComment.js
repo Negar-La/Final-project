@@ -371,6 +371,7 @@ const NoComment = styled.p`
   padding-top: 20px;
   @media (max-width: 500px) {
     font-size: 19px;
+    padding-top: 0px;
   }
 `
 
@@ -395,6 +396,11 @@ const UserSpan = styled.span`
   font-weight: bold;
   @media (max-width: 500px) {
     margin-left: 0px;
+    text-overflow: ellipsis;
+    white-space: nowrap; 
+    overflow: hidden;
+    max-width: 100px;
+    min-width: 50px;
   }
 `;
 
@@ -402,9 +408,12 @@ const CommentText = styled.span`
   outline: none;
   resize: none;
   text-align: justify;
-  width: 400px;
-  /* word-wrap: break-word; */
+  /* width: 400px; */
   word-break: break-all; 
+  @media (max-width: 500px) {
+    margin-left: 0px;
+    min-width: 100px;
+  }
 `
 
 const DeleteBtn = styled.button`
@@ -444,7 +453,7 @@ const EditTextArea = styled.textarea`
   overflow: hidden;
   border: 1px solid black;
  @media (max-width: 500px) {
-    width: 300px;
+    width: 280px;
   }
 `
 
@@ -490,18 +499,15 @@ const SubmitBtn = styled.button`
   }
 `
 const Wrapper = styled.div`
+border: 1px solid red;
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  bottom: -244px;
+  bottom: -130px;
   right: 0px;
   width: 100%;
-  height: 40vh;
   z-index: 2;
-  @media (max-width: 500px) {
-    bottom: -180px;
-  }
 `;
 const Content = styled.div`
   background: var(--background);
