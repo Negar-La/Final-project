@@ -408,7 +408,6 @@ const CommentText = styled.span`
   outline: none;
   resize: none;
   text-align: justify;
-  /* width: 400px; */
   word-break: break-all; 
   @media (max-width: 500px) {
     margin-left: 0px;
@@ -499,7 +498,6 @@ const SubmitBtn = styled.button`
   }
 `
 const Wrapper = styled.div`
-border: 1px solid red;
   display: flex;
   justify-content: center;
   align-items: center;
