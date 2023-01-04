@@ -11,7 +11,9 @@ If you login to the website, it gives you access to more features. You can write
 comments about different books. You can edit or delete your own comments. Furthermore, you can add books to your favorite
 list which will be shown in your profile page.
 A Dark Theme is also included.
-Click on the image below to view the deployed website at onrender.com
+
+
+Click [Here](https://my-online-library.onrender.com/) to view the deployed website at onrender.com
 
 
 For this project I decided to use 3 API for the first time: Google Map API, Auth0 and Google Books API. Google Map is used to render a map for each library, Auth0 is use to have a secure and fast log in and Google Books API is used to search content and organize an authenticated user's personal library.
@@ -20,37 +22,24 @@ Recently I was working on responsiveness of this website on mobile devices and i
 
 
 #### Screenshot of home page
-<a href="https://my-online-library.onrender.com/" target="_blank" rel="noreferrer">
-
-![Screenshot of home page!](./client/public/images/1homepage.jpg "home page")
-</a>
+![Screenshot of home page!](./client/public/images/1homepage.jpg "Home page")
 
 #### Screenshot of book details page
-<a href="https://my-online-library.onrender.com/" target="_blank" rel="noreferrer">
+![Screenshot of book detail page!](./client/public/images/2bookdetailpage.jpg "Book detail page")
 
-![Screenshot of book detail page!](./client/public/images/2bookdetailpage.jpg "detail page")
-</a>
 
 #### Screenshot of showing library on google map
-<a href="https://my-online-library.onrender.com/" target="_blank" rel="noreferrer">
+![showing library on google map](./client/public/images/3map.jpg "showing library on google map")
 
-![Screenshot of search result page!](./client/public/images/3map.jpg "search result page")
-</a>
 
 #### Screenshot of category search page
-<a href="https://my-online-library.onrender.com/" target="_blank" rel="noreferrer">
+![Screenshot of category search page!](./client/public/images/4categorySearch.jpg "category search page")
 
-![Screenshot of search result page!](./client/public/images/4categorySearch.jpg "search result page")
-</a>
 
 #### Screenshot of about page
-<a href="https://my-online-library.onrender.com/" target="_blank" rel="noreferrer">
+![Screenshot of about page!](./client/public/images/5aboutPage.jpg "about page")
 
-![Screenshot of search result page!](./client/public/images/5aboutPage.jpg "search result page")
-</a>
 
 #### Screenshot of profile page
-<a href="https://my-online-library.onrender.com/" target="_blank" rel="noreferrer">
+![Screenshot of profile page!](./client/public/images/6ProfilePage.jpg "profile page")
 
-![Screenshot of search result page!](./client/public/images/6ProfilePage.jpg "search result page")
-</a>
