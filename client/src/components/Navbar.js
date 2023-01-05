@@ -130,7 +130,7 @@ const Container = styled.div`
   z-index: 2;
   display: flex;
   justify-content: space-between;
-  height: 70px;
+  height: 50px;
   align-items: center;
    background-color: ${props => props.theme.background};
 `
