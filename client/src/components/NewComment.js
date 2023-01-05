@@ -255,6 +255,7 @@ const FormContainer = styled.form`
   margin-left: 15px;
   margin-bottom: 25px;
   @media (max-width: 500px) {
+    width: 90%;
     margin-left: 5px;
     margin-bottom: 5px;
   }
@@ -262,10 +263,6 @@ const FormContainer = styled.form`
 
 const Flex = styled.div`
   display: flex;
-  @media (max-width: 500px) {
-    width: 300px;
-    margin: 10px;
-  }
   @media (min-width: 500.02px) and (max-width: 1200px) {
     width: 400px;
   }
@@ -345,6 +342,7 @@ const Span = styled.span`
 
 //change your input type='text' to a textarea, and as a user types, the text will wrap onto the next line.
 const Input = styled.textarea`
+border: 1px solid green;
   padding: 10px;
   font-size: 18px;
   width: 500px;
@@ -369,6 +367,7 @@ const CommentTitle = styled.p`
   padding-top: 20px;
   @media (max-width: 500px) {
     font-size: 19px;
+    padding-left: 20px;
     
   }
 `

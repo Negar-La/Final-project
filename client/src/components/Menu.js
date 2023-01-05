@@ -38,11 +38,12 @@ const Menu = ({theme}) => {
 const Wrapper = styled.div`
   background-color: ${props => props.theme.background};
   visibility: hidden;
-  position: absolute;
+  /* changing position from absolute to fixed so when you scroll down it works properly */
+  position: fixed;
   display: flex;
   flex-direction: column;
   align-items: center;
-  top: 70px;
+  top: 50px;
   right: 0px;
   border-radius: 5px;
   @media (max-width: 600px) {

@@ -65,10 +65,8 @@ const Container = styled.div`
   flex: 1;
   flex-direction: column;
   align-items: center;
-  /* margin-top: 200px; */
   @media (max-width: 500px) {
     margin-top: 1170px;
-    /* padding: 15px; */
   }
   @media (min-width: 500.02px) and (max-width: 1200px) {
     margin-top: 280px;
@@ -89,6 +87,7 @@ const Container = styled.div`
     margin-bottom: 5px;
 }
 @media (max-width: 500px) {
+      margin: 0px 25px 0px 25px;
       font-size:20px; 
       white-space: pre-wrap;
         :before{
@@ -113,9 +112,6 @@ const SearchWrapper = styled.div`
     text-align: center;
     margin-top: 330px;
   }
-  @media (min-width: 1200px) {
-    /* margin-top: 300px; */
-  }
   `
   const Choose = styled.p`
   font-size:20px; 
@@ -125,7 +121,6 @@ const SearchWrapper = styled.div`
   line-height: 1.2;
   @media (max-width: 500px) {
       margin-top: 30px;
-      font-size:20px; 
       white-space: pre-wrap;
   }
   `
@@ -136,7 +131,8 @@ const Photo = styled.div`
       height: 10px;
       text-align: center;
       img {
-        height: 400px;
+        max-width: 100%;
+        height: auto;
         margin-bottom: 10px;
         border-radius: 10px;
       }
