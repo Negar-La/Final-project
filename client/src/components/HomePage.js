@@ -37,6 +37,8 @@ const HomePage = ({theme}) => {
 }
 
 const Container = styled.div`
+/* Just set a relative position to your body element: Because so your .absolute element will be relative to it and not to the viewport. */
+position: relative;
   overflow-x: hidden;
   height: 100vh;
   width: 100vw;
@@ -54,7 +56,7 @@ const Container = styled.div`
     padding-top: 660px;
   }
   @media (min-width: 1200.02px)  {
-    justify-content: start;
+    flex-wrap: wrap;
   }
   `
   const Left = styled.div`
@@ -68,7 +70,10 @@ const Container = styled.div`
     /* padding: 15px; */
   }
   @media (min-width: 500.02px) and (max-width: 1200px) {
-    margin-top: 450px;
+    margin-top: 530px;
+  }
+  @media (min-width: 1200.02px)  {
+    margin-top: 180px;
   }
   `
   const Quote = styled.p`
@@ -129,7 +134,6 @@ const SearchWrapper = styled.div`
 
 const Photo = styled.div`
   margin-top: 100px;
-  flex: 1;
   @media (max-width: 500px) {
       height: 10px;
       text-align: center;
@@ -139,7 +143,16 @@ const Photo = styled.div`
         border-radius: 10px;
       }
   }
-  @media (min-width: 501px) {
+  @media (min-width: 500.02px) and (max-width: 1200px) {
+    img {
+      border-radius: 20px;
+      margin-bottom: 10px;
+      height: 500px;
+      }
+  }
+  @media (min-width: 1200.02px)  {
+    margin-top: 100px;
+    margin-right: 29px;
     img {
       border-radius: 20px;
       }

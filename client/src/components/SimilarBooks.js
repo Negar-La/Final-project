@@ -46,6 +46,7 @@ cursor: pointer;
     box-shadow: rgba(255, 201, 113, 0.8) -3px 2px 4px 3px,
       rgba(255, 201, 113, 0.8) 0px 1px 3px 1px;
   }
+ 
 `
 const FlexDiv = styled.div`
   display: flex;
@@ -55,6 +56,9 @@ const FlexDiv = styled.div`
   }
   @media (max-width: 500px) {
     flex-direction: column;
+  }
+  @media (min-width: 500.02px) and (max-width: 750px)  {
+    margin-left: 0px;
   }
 `
 

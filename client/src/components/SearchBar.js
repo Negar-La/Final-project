@@ -160,6 +160,9 @@ const StyledLink = styled(Link)`
   &:hover {
     background-color: var(--yellow);
   }
+  @media (max-width: 500px) {
+    width: 200px;
+  }
 `;
 const SearchIcon = styled.div`
 `;

@@ -266,6 +266,9 @@ const Flex = styled.div`
     width: 300px;
     margin: 10px;
   }
+  @media (min-width: 500.02px) and (max-width: 1200px) {
+    width: 400px;
+  }
 `
 
 const ImgCurrentUserTop = styled.img`
@@ -294,7 +297,10 @@ const Bottom = styled.div`
     margin-left: 175px;
     width: 130px;
   }
-
+  @media (min-width: 500.02px) and (max-width: 750px)  {
+    width: 150px;
+    margin-left: 305px;
+  }
 `;
 
 const Button = styled.button`
@@ -349,6 +355,9 @@ const Input = styled.textarea`
   border-radius: 10px;
   @media (max-width: 500px) {
     width: 260px;
+  }
+  @media (min-width: 500.02px) and (max-width: 750px)  {
+    width: 400px;
   }
 `;
 

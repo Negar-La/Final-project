@@ -184,7 +184,10 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-
+  }
+  @media (min-width: 1000.02px)  {
+    justify-content: center;
+    flex-wrap: wrap;
   }
 `
 
@@ -251,6 +254,9 @@ const Description = styled.div`
   @media (max-width: 500px) {
     width: 300px;
   }
+  @media (min-width: 500.02px) and (max-width: 750px)  {
+    width: 450px;
+  }
 `
 const Please = styled.div`
   font-size: 20px;
@@ -306,9 +312,6 @@ const FavoriteBtn = styled.button`
 `
 const CommentContainer = styled.div`
   margin: 10px;
-  @media (max-width: 500px) {
-    margin: 0px;
-  }
 `
 
 const ErrorMsg = styled.div`
@@ -348,7 +351,6 @@ const Write2  =styled.div`
   font-weight: bold;
   @media (max-width: 500px) {
     font-size: 19px;
-    margin: 5px
   }
 `
 const Nosimilar = styled.p`
