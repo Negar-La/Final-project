@@ -40,23 +40,16 @@ const Container = styled.div`
 /* Just set a relative position to your body element: Because so your .absolute element will be relative to it and not to the viewport. */
   position: relative;
   overflow-x: hidden;
-  height: 100vh;
-  width: 100vw;
   display: flex;
   justify-content: space-around;
   padding-top: 70px;
   @media (max-width: 500px) {
     flex-direction: column;
     align-items: center;
-    padding-top: 360px;
   }
   @media (min-width: 500.02px) and (max-width: 1200px) {
     flex-direction: column;
     align-items: center;
-    padding-top: 660px;
-  }
-  @media (min-width: 1200.02px)  {
-    
   }
   `
   const Left = styled.div`
@@ -65,12 +58,6 @@ const Container = styled.div`
   flex: 1;
   flex-direction: column;
   align-items: center;
-  @media (max-width: 500px) {
-    margin-top: 1170px;
-  }
-  @media (min-width: 500.02px) and (max-width: 1200px) {
-    margin-top: 280px;
-  }
   `
   const Quote = styled.p`
   font-family: roboto;

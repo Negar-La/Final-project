@@ -19,7 +19,7 @@ const Books = () => {
       {!books ? 
       <h1>Loading...</h1>
       : (
-        books.sort(() => 0.5 - Math.random()).slice(0,9).map((book)=>{
+        books.sort(() => 0.5 - Math.random()).slice(0,12).map((book)=>{
           // console.log(book)
           return (
             <Link to={`/books/${book.id}`} key={book.id} >
@@ -38,10 +38,14 @@ const Books = () => {
 const Div = styled.div`
   display: grid;
   gap: 10px;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   padding: 10px;
   @media (max-width: 500px) {
     grid-template-columns: repeat(2, 1fr);
+  }
+  @media (min-width: 500.02px) and (max-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+
   }
 `
 
