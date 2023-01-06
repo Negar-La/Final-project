@@ -22,7 +22,7 @@ Recently I was working on responsiveness of this website on mobile devices and i
 
 
 #### Screenshot of home page
-![Screenshot of home page!](./client/public/images/1homepage[2].jpg "Home page")
+![Screenshot of home page!](./client/public/images/1homepage[3].jpg "Home page")
 
 #### Screenshot of book details page
 ![Screenshot of book detail page!](./client/public/images/2bookdetailpage.jpg "Book detail page")
