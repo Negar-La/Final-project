@@ -393,7 +393,7 @@ const PreviousComments = styled.div`
   border-radius: 10px;
   position: relative;
   @media (max-width: 500px) {
-    max-width: 340px;
+    max-width: 320px;
     margin: 14px;
   }
 `
