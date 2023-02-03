@@ -1,25 +1,26 @@
-# Final-project - My Online Library
-## Hello and welcome to "My Online Library"
+ <h1 align="center">📖 Welcome to My Online Library! 📖 </h1>
 
-A Full-stack MERN App as a final project for the concordia WebDev Bootcamp. 
-In this website you can search for books by category, title or author.
-When you choose a book, you'll have access to some details about that book including title, author, publisher, category, pages and description.
-Google Map API was used to render a map for a library that has that book.
-Based on the category of that book, some other books in the same category will be suggested to user.
-Some books have an available ebook that you can start reading in google books website by clicking on "Click to Preview".
-If you login to the website, it gives you access to more features. You can write comments and read other people's 
+<p> 📚 <strong> A Full-stack MERN App </strong>as a final project for the concordia WebDev Bootcamp.</p>
+<p>📚 Makes uses of <strong>HTML </strong>, <strong>CSS </strong>, <strong> ES6 JavaScript</strong>, and <strong> React</strong> on the FE, <strong> NodeJS</strong>, <strong> ExpressJS </strong>, and <strong> MongoDB </strong> on the BE. </p>
+<p>📚 The APIs:  <a href="https://developers.google.com/maps"> <strong>Google Map API </strong> </a>, <a href="https://auth0.com/docs/quickstart/spa/react/interactive"> <strong>Auth0</strong> </a>, and <a href="https://developers.google.com/books"> <strong>Google Books API</strong> </a> </p>
+<p>📚 In this App, you can search for books by category, title or author. </p>
+<p>📚 When you choose a book, you'll have access to some details about that book including title, author, publisher, category, pages and description.</p>
+<p>📚 Based on the category of the book, some other books in the same category will be suggested to user.</p>
+<p>📚 If you login to the website, it gives you access to more features. You can write comments and read other people's 
 comments about different books. You can edit or delete your own comments. Furthermore, you can add books to your favorite
-list and create your personal library in your profile page.
-A Dark Theme is also included.
+list and create your personal library in your profile page. </p>
+<p>📚 <a href="https://developers.google.com/maps"> Google Map API </a> provides location of a library that has that book </p>
+<p>📚 <a href="https://auth0.com/docs/quickstart/spa/react/interactive"> Auth0 </a> provides a secure and fast log in. </p>
+<p>📚 <a href="https://developers.google.com/books"> Google Books API </a> is used to search content and organize an authenticated user's personal library. </p>
+<p>📚 A Dark Theme is also included.</p>
 
 
-Click [Here](https://my-online-library.onrender.com/) to view the deployed website at onrender.com
+<p align="center"> Click <a href="https://my-online-library.onrender.com/"><strong> Here</strong> </a> to view the deployed website at render.com </p>
 
 
-For this project I decided to use 3 APIs for the first time: Google Map API, Auth0 and Google Books API. Google Map is used to render a map for each library, Auth0 is used to have a secure and fast log in and Google Books API is used to search content and organize an authenticated user's personal library.
 
-Recently I was working on responsiveness of this website on mobile devices and it was quite a challenge for me.
 
+<p >Recently I was working on responsiveness of this website on mobile devices and it was quite a challenge for me.  </p>
 
 #### Screenshot of home page
 ![Screenshot of home page!](./client/public/images/1homepage[3].jpg "Home page")

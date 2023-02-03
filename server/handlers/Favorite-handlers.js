@@ -14,7 +14,7 @@ const addFavorite = async(req, res) =>{
   const client = new MongoClient(MONGO_URI, options);
   const { user, userPicture, title, author, imageSrc, id } = req.body;
   console.log(id)
-  // console.log( req.body)  
+  console.log( req.body)  
 try{
     await client.connect();
 

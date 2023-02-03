@@ -22,7 +22,7 @@ const SearchAuthor = () => {
   }, [searchTerm]);
 
   // PAGINATION 
-// current page starts at one, this is used as a prop in paginatiojn
+// current page starts at one, this is used as a prop in pagination
 
 const [currentPage, setCurrentPage] = useState(1)
 // see Product grid, this is slicing array of products depending on value of x and y. which is manipulated below
