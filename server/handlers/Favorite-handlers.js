@@ -63,14 +63,20 @@ try{
 
 const getFavorites = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
+  const {id} = req.params;
+  console.log('id', id);
 try{
     await client.connect();
 
     const db = client.db("final-project");
 
-    const allFavorites = await db.collection("favorites").find().toArray()
+    const allFavorites = await db.collection("favorites").find().toArray() 
+    const filteredFavorites = allFavorites.filter((fav)=>{
+      return fav.user === id;
+    })
+    console.log(filteredFavorites);
 
-    res.status(200).json({ status: 200, message: "All favorite books", data: allFavorites});
+    res.status(200).json({ status: 200, message: "All favorite books for this user", data: filteredFavorites});
   } catch (err){
     res.status(400).json({status: 400, message: "Comment not added"});
     console.log(err.stack);

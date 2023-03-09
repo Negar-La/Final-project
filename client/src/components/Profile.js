@@ -4,12 +4,29 @@ import { useEffect, useState } from "react";
 import {TiDeleteOutline} from "react-icons/ti";
 import { Link } from "react-router-dom";
 import Loader from "./Loader";
+import Modal from 'react-modal';
+import {CgDanger} from 'react-icons/cg';
 
 const Profile = () => {
 
   const { user, isAuthenticated, isLoading } = useAuth0();
   // console.log(user)
-
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+      padding: '0',
+      backgroundColor: 'var(--background)',
+      borderRadius: '0.8rem',
+      border: 'none',
+    },
+  };
+  Modal.setAppElement();
 
   const [favoriteBooks, setFavoriteBooks] = useState(null)
 
@@ -17,18 +34,18 @@ const Profile = () => {
   const[favoriteDeleted, setFavoriteDeleted] = useState(false)
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_SERVER_URL}/api/get-favorites`)
+    fetch(`${process.env.REACT_APP_SERVER_URL}/api/get-favorites/${user.email}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
           setFavoriteBooks(data.data);
           // console.log(data.data)
-          // console.log(data.data[12].favoriteBook.userPicture)
         } 
       });
   }, [favoriteDeleted]);
 
-  const deleteFavoriteHandler = (e, item) => {                        
+  const handleDelete = (e, item) => {       
+    // console.log(item);                 
     e.preventDefault();
     fetch(`${process.env.REACT_APP_SERVER_URL}/api/delete-favorite`, {         
       method: "DELETE",
@@ -44,7 +61,8 @@ const Profile = () => {
       .then((data) => {
         if (data.status === 200) {          
         //  console.log(data)   
-         setFavoriteDeleted(!favoriteDeleted)  //you should set it to opposite value so it will change each time and renders useEffect each time and not just the first time!        
+         setFavoriteDeleted(!favoriteDeleted) 
+         setModalIsOpen(false)
         }
       })
       .catch((error) => {
@@ -52,15 +70,6 @@ const Profile = () => {
       });
   };
 
-
-// const x = favoriteBooks.filter((item)=>{
-//   console.log(item)
-//   if (item.userPicture === user.picture) {
-//   return item
-//   }
-// })
-
-// console.log(x) //[] or [{...}]
 
   if (isLoading) {
     return  <Center><Loader/></Center>  ;
@@ -89,25 +98,32 @@ const Profile = () => {
               (
                 <Flex>
                 {favoriteBooks && favoriteBooks.map((item)=>{
-                  // console.log(item) 
-                  if (item.userPicture === user.picture) {
                     return (
                       <Box key={item._id}>
-                          <DeleteBtn  onClick={(e) => { deleteFavoriteHandler(e, item) }}
-                          ><TiDeleteOutline size={26} style={{color: 'var(--darkblue)'}}/></DeleteBtn>
+                          <DeleteBtn onClick={(e) => setModalIsOpen(true)} >
+                            <TiDeleteOutline size={26} style={{color: 'var(--darkblue)'}}/>
+                          </DeleteBtn>
+                          <Modal   ariaHideApp={false} isOpen={modalIsOpen}  style={customStyles}>
+                            <ModalWrapper>
+                                <CgDanger  size={65} style={{ color: 'var(--darkblue)' }} />
+                                <label></label>
+                                <div>
+                                <button onClick={(e) => handleDelete(e, item)} >Yes, delete it!</button>
+                                <button onClick={(e) => setModalIsOpen(false)}  >No, cancel!</button>
+                                </div>
+                            </ModalWrapper>
+                        </Modal>
+
                            <Link to={`/books/${item.id}`} style={{ textDecoration: 'none' }}>
                               <Image src={item.imageSrc} alt={item.title} />
                               <BookTitle>{item.title}</BookTitle>
                               <Author>Author: <span>{item.author}</span></Author>
                           </Link>
-                       
                       </Box>
                     )
-                  }
                 })
                 }
                 {(favoriteBooks && favoriteBooks.filter((item)=>{
-                   if (item.userPicture === user.picture)
                    return item
                 }).length < 1) ? <NoBook>You have no book in your favorite list</NoBook> : "" 
 
@@ -122,6 +138,68 @@ const Profile = () => {
     )
   );
 }
+
+const ModalWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+    border: none;
+    label {
+        font-size: 1.2rem;
+        font-weight: 500;
+        margin: 15px 0;
+        &:after {
+            content: "Are you sure you want to delete this Book ?";
+            color: var(--darkblue);
+        }
+    }
+    button {
+    width: 150px;
+    height: 40px;
+    margin: 15px 10px;
+    background-color: var(--darkblue);
+    border-radius: 6px;
+    font-family: roboto;
+    border: none;
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.4s,
+                opacity 0.5s;
+    &:hover {
+      background-color: var(--yellow);
+      padding: 5px;
+      border-radius: 14px;
+      color: var(--darkblue);
+      font-family: roboto;
+      font-weight: 500;
+      font-size: 20px;
+  }
+    &:active {
+      opacity: 0.3;
+    }
+    }
+
+    @media screen and (max-width: 600px) {
+        padding: 10px;
+        label {
+          font-size: 1.1rem;
+          font-weight: 500;
+          margin: 10px 0;
+            &:after {
+            content: 'Delete this Book?';
+            }
+        }
+        button {
+            width: 120px;
+            padding: 0.8rem;
+            font-size: 1rem;
+    }
+ }
+`
 
 const Wrapper = styled.div`
   display: flex;

@@ -32,7 +32,7 @@ express()
 
   .post("/api/add-favorite", addFavorite)
   .delete("/api/delete-favorite", deleteFavorite)
-  .get("/api/get-favorites", getFavorites)
+  .get("/api/get-favorites/:id", getFavorites)
 
   .post("/api/comment/:id", addComment)
   .get("/api/comment/:id", getComments)
