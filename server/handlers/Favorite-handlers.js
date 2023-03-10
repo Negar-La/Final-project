@@ -20,7 +20,7 @@ try{
 
     const db = client.db("final-project");
     if (user && userPicture && title && author && imageSrc && id) {
-      const findBook = await db.collection("favorites").findOne({"id": id, "userPicture": userPicture})
+      const findBook = await db.collection("favorites").findOne({"id": id, "user": user})
       console.log(findBook)
      if (findBook) {
        res.status(200).json({status:200, data:req.body, message:"This book is already in your favorite list"})
@@ -43,14 +43,15 @@ try{
 const deleteFavorite = async(req, res) =>{
   const client = new MongoClient(MONGO_URI, options);
   
-  console.log(req.body) 
+  console.log("1", req.body)
+  // console.log("2", req.body.item.id);
  
 try{
     await client.connect();
 
     const db = client.db("final-project");
   //in mongodb we use "" to access the keys in database, so we check db to pick "id" and based on   console.log(req.body) in terminal, we have  req.body.item.id
-    const deleteOne = await db.collection("favorites").deleteOne({"id": req.body.item.id})
+    const deleteOne = await db.collection("favorites").deleteOne({"id": req.body.selectedItem.id, "user": req.body.selectedItem.user})
     console.log(deleteOne.deletedCount)
     res.status(200).json({ status: 200, message: "book successfully deleted from favorite list", data: deleteOne });
   } catch (err){
@@ -74,7 +75,7 @@ try{
     const filteredFavorites = allFavorites.filter((fav)=>{
       return fav.user === id;
     })
-    console.log(filteredFavorites);
+    // console.log(filteredFavorites);
 
     res.status(200).json({ status: 200, message: "All favorite books for this user", data: filteredFavorites});
   } catch (err){

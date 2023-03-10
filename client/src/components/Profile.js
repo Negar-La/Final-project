@@ -12,6 +12,11 @@ const Profile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   // console.log(user)
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  // If you put modal inside the map, it will have the value of the last item. 
+  //You should move modal out of the map function and store the selected item in a separate state and use that to delete the info.
+  const [ selectedItem, setSelectedItem ] = useState();
+
   const customStyles = {
     content: {
       top: '50%',
@@ -29,12 +34,10 @@ const Profile = () => {
   Modal.setAppElement();
 
   const [favoriteBooks, setFavoriteBooks] = useState(null)
-
-  //we define this useState to use in the dependency array of useEffect so the page re-render each time that it changes.
   const[favoriteDeleted, setFavoriteDeleted] = useState(false)
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_SERVER_URL}/api/get-favorites/${user.email}`)
+   user && fetch(`${process.env.REACT_APP_SERVER_URL}/api/get-favorites/${user.email}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
@@ -44,8 +47,8 @@ const Profile = () => {
       });
   }, [favoriteDeleted]);
 
-  const handleDelete = (e, item) => {       
-    // console.log(item);                 
+  const handleDelete = (e, selectedItem) => {      
+    // console.log(selectedItem);                 
     e.preventDefault();
     fetch(`${process.env.REACT_APP_SERVER_URL}/api/delete-favorite`, {         
       method: "DELETE",
@@ -53,14 +56,13 @@ const Profile = () => {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({item}),
+      body: JSON.stringify({selectedItem}),
     })
       .then((data) => {
         return data.json();
       })
       .then((data) => {
-        if (data.status === 200) {          
-        //  console.log(data)   
+        if (data.status === 200) {            
          setFavoriteDeleted(!favoriteDeleted) 
          setModalIsOpen(false)
         }
@@ -99,21 +101,11 @@ const Profile = () => {
                 <Flex>
                 {favoriteBooks && favoriteBooks.map((item)=>{
                     return (
-                      <Box key={item._id}>
-                          <DeleteBtn onClick={(e) => setModalIsOpen(true)} >
+                      <Box key={item.id}>
+                          <DeleteBtn onClick={(e) => {setModalIsOpen(true)
+                                                      setSelectedItem(item)}} >
                             <TiDeleteOutline size={26} style={{color: 'var(--darkblue)'}}/>
                           </DeleteBtn>
-                          <Modal   ariaHideApp={false} isOpen={modalIsOpen}  style={customStyles}>
-                            <ModalWrapper>
-                                <CgDanger  size={65} style={{ color: 'var(--darkblue)' }} />
-                                <label></label>
-                                <div>
-                                <button onClick={(e) => handleDelete(e, item)} >Yes, delete it!</button>
-                                <button onClick={(e) => setModalIsOpen(false)}  >No, cancel!</button>
-                                </div>
-                            </ModalWrapper>
-                        </Modal>
-
                            <Link to={`/books/${item.id}`} style={{ textDecoration: 'none' }}>
                               <Image src={item.imageSrc} alt={item.title} />
                               <BookTitle>{item.title}</BookTitle>
@@ -123,6 +115,19 @@ const Profile = () => {
                     )
                 })
                 }
+                {modalIsOpen &&
+                  <Modal   ariaHideApp={false} isOpen={modalIsOpen}  style={customStyles}>
+                  <ModalWrapper>
+                      <CgDanger  size={65} style={{ color: 'var(--darkblue)' }} />
+                      <label></label>
+                      <div>
+                      <button  onClick={(e) => handleDelete(e, selectedItem)} >Yes, delete it!</button>
+                      <button onClick={(e) => setModalIsOpen(false)}  >No, cancel!</button>
+                      </div>
+                  </ModalWrapper>
+                </Modal>
+                }
+
                 {(favoriteBooks && favoriteBooks.filter((item)=>{
                    return item
                 }).length < 1) ? <NoBook>You have no book in your favorite list</NoBook> : "" 
@@ -131,7 +136,6 @@ const Profile = () => {
               </Flex>
               )
             }
-         
         </FavoriteList>
       </Wrapper>
     

@@ -72,7 +72,7 @@ const BookDetails = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        user: user.name, 
+        user: user.email, 
         userPicture: user.picture,
         title: book.title,
         id: book.id,
