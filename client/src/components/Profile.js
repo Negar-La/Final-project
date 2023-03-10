@@ -130,7 +130,7 @@ const Profile = () => {
 
                 {(favoriteBooks && favoriteBooks.filter((item)=>{
                    return item
-                }).length < 1) ? <NoBook>You have no book in your favorite list</NoBook> : "" 
+                }).length < 1) ? <NoBook>You have no book in your favorite list.</NoBook> : "" 
 
                 }
               </Flex>
@@ -201,6 +201,9 @@ const ModalWrapper = styled.div`
             width: 120px;
             padding: 0.8rem;
             font-size: 1rem;
+            &:hover {
+               font-size: 1rem;
+            }
     }
  }
 `
@@ -239,7 +242,8 @@ const Title = styled.div`
   margin-top: 20px;
   margin-bottom: 10px;
   @media (max-width: 600px) {
-    margin-left: 30px;
+    margin: auto;
+    margin-top: 30px;
   }
 `
 
@@ -247,8 +251,7 @@ const FavoriteList = styled.div`
   margin-left: 130px;
   display: flex;
   flex-direction: column;
-  @media (max-width: 600px) {
-    
+  @media (max-width: 700px) {
     margin-left: 0px;
   }
 
@@ -280,7 +283,10 @@ const Box = styled.div`
 
 const NoBook = styled.div`
   font-size: 25px;
-  
+  margin-top: 20px;
+  @media (max-width: 600px) {
+    font-size: 20px;
+  }
 `
 
 const BookTitle = styled.div`
