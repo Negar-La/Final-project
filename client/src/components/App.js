@@ -1,23 +1,24 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import GlobalStyles from "./GlobalStyles";
-import HomePage from "./HomePage";
+import HomePage from "../pages/HomePage";
+import About from "../pages/About";
+import BookDetails from "../pages/BookDetails" ;
+import Logout from "../pages/Logout";
+import Profile from "../pages/Profile";
+import ErrorPage from '../pages/ErrorPage';
 import Navbar from "./Navbar";
-import Logout from "./Logout";
-import Profile from "./Profile";
-import SearchResults from "./SearchResults";
-import BookDetails from "./BookDetails" ;
-import SearchAuthor from "./SearchAuthor";
-import SearchCategory from "./SearchCategory";
-import About from "./About";
+import SearchResults from "../pages/SearchResults";
+import SearchAuthor from "../pages/SearchAuthor";
+import SearchCategory from "../pages/SearchCategory";
 import { useContext } from 'react';
 import { BooksContext } from "./BooksContext" ;
 import { useState } from "react";
-import styled from "styled-components";
-import ErrorPage from './ErrorPage';
 import Loader from "./Loader";
+import Menu from "./Menu";
+import styled from "styled-components";
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "./Theme";
-import Menu from "./Menu";
+
 
 
 const App = ()=> {

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
-import Login from "./Login";
+import Login from "../pages/Login";
 import {CgProfile} from "react-icons/cg";
 import {BsSunFill} from "react-icons/bs";
 import {BsMoonStarsFill} from "react-icons/bs";

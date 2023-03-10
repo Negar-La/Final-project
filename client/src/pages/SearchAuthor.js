@@ -2,10 +2,10 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import Loader from "./Loader";
-import Pagination from "./Pagination";
+import Loader from "../components/Loader";
+import Pagination from "../components/Pagination";
 
-const SearchResults = () => {
+const SearchAuthor = () => {
 
   const {searchTerm} = useParams();
   const [searchedItems, setSearchedItems] = useState(null);
@@ -13,17 +13,16 @@ const SearchResults = () => {
 
   //fetch data based on searchTerm
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_SERVER_URL}/api/books/search/${searchTerm}`)
+    fetch(`${process.env.REACT_APP_SERVER_URL}/api/books/searchByAuthor/${searchTerm}`)
       .then((res) => res.json())
       .then((data) => {
         setSearchedItems(data.data);
+        // console.log(data.data)
       });
   }, [searchTerm]);
 
-
-
   // PAGINATION 
-// current page starts at one, this is used as a prop in paginatiojn
+// current page starts at one, this is used as a prop in pagination
 
 const [currentPage, setCurrentPage] = useState(1)
 // see Product grid, this is slicing array of products depending on value of x and y. which is manipulated below
@@ -47,13 +46,14 @@ useEffect(() => {
   changePages(currentPage)
 }, [currentPage])
 
+
   return (
     <>
-    <Title>Results for the Term " {searchTerm} " in books titles :</Title>
+    <Title>Results for the Author " {searchTerm} " :</Title>
 {/* consider 3 possibilities: loading state - there is no result - there are results to shown */}
     {searchedItems ===null ? ( 
       <>
-         <Center><Loader/></Center> 
+        <Center><Loader/></Center> 
       </>
         ): searchedItems === undefined ? (
           <ErrorMsg>Sorry, no results were found matching your criteria!</ErrorMsg>
@@ -61,23 +61,24 @@ useEffect(() => {
         :
         ( 
     <Wrapper>
-       <Container>
-        <ProductGrid>
-            {searchedItems.slice(x,y).map((book) => {
-          return (
-            <Link to={`/books/${book.id}`} key={book.id} >
-              <Box>
-                  <Image src={book.image} alt={book.title} />
-                  <Name>{book.title}</Name>
-                  <Author>{book.author}</Author>
-              </Box>
-            </Link>
-          );
-          })}
-        </ProductGrid>
-       </Container>
- 
-      {
+             <Container>
+                <ProductGrid>
+                  {searchedItems.slice(x,y).map((book) => {
+                    return (
+                      <Link to={`/books/${book.id}`} key={book.id} >
+                        <Box>
+                              <Image src={book.image} alt={book.title} />
+                            <Name>{book.title}</Name>
+                            <Author>{book.author}</Author>
+                        </Box>
+                      </Link>
+                    );
+                  })}
+                </ProductGrid>
+             </Container>
+   
+
+{
         searchedItems && 
         <Container>
             <Pagination 
@@ -89,7 +90,6 @@ useEffect(() => {
             />
         </Container>
       }
-
   </Wrapper>
     )
     }
@@ -97,7 +97,6 @@ useEffect(() => {
 
   )
 }
-
 const ErrorMsg = styled.div`
    font-weight: bold;
     margin-top: 40px;
@@ -173,15 +172,11 @@ const Center = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
 `
-const Container = styled.div `
-  display: flex;
-  justify-content: center;
-`
 
 const ProductGrid = styled.div`
   display: grid;
   gap: 40px;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   margin-top: 20px;
   @media (max-width: 650px) {
     gap: 10px;
@@ -192,4 +187,10 @@ const ProductGrid = styled.div`
     grid-template-columns: 1fr 1fr 1fr;
   }
 `
-export default SearchResults
+
+const Container = styled.div `
+  display: flex;
+  justify-content: center;
+`
+
+export default SearchAuthor

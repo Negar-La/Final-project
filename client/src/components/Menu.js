@@ -1,8 +1,8 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
-import Login from "./Login";
+import Login from "../pages/Login";
 import { MenuContext } from "./MenuContext";
 
 

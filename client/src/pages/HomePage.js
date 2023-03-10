@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import Books from "./Books";
-import SearchBar from "./SearchBar";
-import ErrorPage from './ErrorPage';
+import Books from "../components/Books";
+import SearchBar from "../components/SearchBar";
+import ErrorPage from '../pages/ErrorPage';
 import { useContext } from 'react';
-import { BooksContext } from "./BooksContext" ;
+import { BooksContext } from "../components/BooksContext" ;
 import {AiOutlineRead} from "react-icons/ai";
 
 
@@ -22,7 +22,7 @@ const HomePage = ({theme}) => {
                   <SearchBar/>
               </SearchWrapper>
               <Photo>
-              <img src={process.env.PUBLIC_URL + '/images/book-hand1.png'} />
+              <img src={process.env.PUBLIC_URL + '/images/book-hand1.png'} alt="a hand holding some books" />
             </Photo>
             </Left>
             <Right>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import Loader from "./Loader";
+import Loader from "../components/Loader";
 
 const About = ({theme}) => {
 
@@ -38,7 +38,7 @@ const About = ({theme}) => {
       </Para1>
       <Flex>
         <Photo>
-                <img src={process.env.PUBLIC_URL + '/images/background12.jpg'} />
+                <img src={process.env.PUBLIC_URL + '/images/background12.jpg'} alt="books and a plant" />
         </Photo>
         <Part2>
             <Para2>Quote of the Day:</Para2>

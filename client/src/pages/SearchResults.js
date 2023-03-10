@@ -2,27 +2,27 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import Loader from "./Loader";
-import Pagination from "./Pagination";
+import Loader from "../components/Loader";
+import Pagination from "../components/Pagination";
 
-const SearchCategory = () => {
+const SearchResults = () => {
 
-  const {category} = useParams();
-  // console.log(category);
+  const {searchTerm} = useParams();
   const [searchedItems, setSearchedItems] = useState(null);
 
 
   //fetch data based on searchTerm
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_SERVER_URL}/api/get-categories/${category}`)
+    fetch(`${process.env.REACT_APP_SERVER_URL}/api/books/search/${searchTerm}`)
       .then((res) => res.json())
       .then((data) => {
         setSearchedItems(data.data);
-        // console.log(data.data)
       });
-  }, [category]);
+  }, [searchTerm]);
 
-    // PAGINATION 
+
+
+  // PAGINATION 
 // current page starts at one, this is used as a prop in paginatiojn
 
 const [currentPage, setCurrentPage] = useState(1)
@@ -47,15 +47,13 @@ useEffect(() => {
   changePages(currentPage)
 }, [currentPage])
 
-
-
   return (
     <>
-    <Title>Results for the Category " {category} " :</Title>
+    <Title>Results for the Term " {searchTerm} " in books titles :</Title>
 {/* consider 3 possibilities: loading state - there is no result - there are results to shown */}
     {searchedItems ===null ? ( 
       <>
-        <Center><Loader/></Center> 
+         <Center><Loader/></Center> 
       </>
         ): searchedItems === undefined ? (
           <ErrorMsg>Sorry, no results were found matching your criteria!</ErrorMsg>
@@ -63,23 +61,23 @@ useEffect(() => {
         :
         ( 
     <Wrapper>
-          <Container>
-            <ProductGrid>
-                {searchedItems && searchedItems.slice(x,y).map((book) => {
-                  return (
-                    <Link to={`/books/${book.id}`} key={book.id} >
-                      <Box>
-                            <Image src={book.image} alt={book.title} />
-                          <Name>{book.title}</Name>
-                          <Author>{book.author}</Author>
-                          <Category>Category:{book.categories}</Category>
-                      </Box>
-                    </Link>
-                  );
-                })}
-            </ProductGrid>
-          </Container>
-        {
+       <Container>
+        <ProductGrid>
+            {searchedItems.slice(x,y).map((book) => {
+          return (
+            <Link to={`/books/${book.id}`} key={book.id} >
+              <Box>
+                  <Image src={book.image} alt={book.title} />
+                  <Name>{book.title}</Name>
+                  <Author>{book.author}</Author>
+              </Box>
+            </Link>
+          );
+          })}
+        </ProductGrid>
+       </Container>
+ 
+      {
         searchedItems && 
         <Container>
             <Pagination 
@@ -90,7 +88,8 @@ useEffect(() => {
               onPageChange={(page) => setCurrentPage(page) }
             />
         </Container>
-         }
+      }
+
   </Wrapper>
     )
     }
@@ -98,6 +97,7 @@ useEffect(() => {
 
   )
 }
+
 const ErrorMsg = styled.div`
    font-weight: bold;
     margin-top: 40px;
@@ -129,7 +129,7 @@ const Wrapper = styled.div`
 
 const Box = styled.div`
   width: 200px;
-  height: 341px;
+  height: 321px;
   padding: 10px 25px;
   margin: 10px;
   text-decoration: none;
@@ -164,13 +164,8 @@ const Name = styled.p`
 `;
 const Author = styled.div`
   font-size: 16px;
-  /* color: var(--darkblue); */
-  margin-bottom: 5px;
+  /* color: var(--purple); */
   `;
-
-  const Category = styled.div`
-    font-size: 16px;
-  `
 
 const Center = styled.div`
     position: fixed;
@@ -178,11 +173,15 @@ const Center = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
 `
+const Container = styled.div `
+  display: flex;
+  justify-content: center;
+`
 
 const ProductGrid = styled.div`
   display: grid;
   gap: 40px;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
   margin-top: 20px;
   @media (max-width: 650px) {
     gap: 10px;
@@ -193,10 +192,4 @@ const ProductGrid = styled.div`
     grid-template-columns: 1fr 1fr 1fr;
   }
 `
-
-const Container = styled.div `
-  display: flex;
-  justify-content: center;
-`
-
-export default SearchCategory
+export default SearchResults

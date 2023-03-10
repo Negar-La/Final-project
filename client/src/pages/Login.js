@@ -1,5 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import Loader from "./Loader";
+import Loader from "../components/Loader";
 import styled from "styled-components"
 
 const Login = ({theme}) => {

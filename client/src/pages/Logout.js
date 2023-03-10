@@ -1,11 +1,11 @@
-import Loader from "./Loader";
+import Loader from "../components/Loader";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
 
 const Logout = () => {
-    const { isAuthenticated, isLoading, logout } = useAuth0();
+    const { isLoading, logout } = useAuth0();
     const navigateHome = useNavigate();
 
     // User confirms log off and it will log him off
@@ -37,7 +37,7 @@ const Logout = () => {
                         </Buttons>
                 </LogoutDiv>
                 <Photo>
-                     <img src={process.env.PUBLIC_URL + '/images/book-pen.jpg'} />
+                     <img src={process.env.PUBLIC_URL + '/images/book-pen.jpg'} alt="some books" />
                 </Photo>
             </Wrapper>
         )

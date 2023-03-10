@@ -2,27 +2,28 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import Loader from "./Loader";
-import Pagination from "./Pagination";
+import Loader from "../components/Loader";
+import Pagination from "../components/Pagination";
 
-const SearchAuthor = () => {
+const SearchCategory = () => {
 
-  const {searchTerm} = useParams();
+  const {category} = useParams();
+  // console.log(category);
   const [searchedItems, setSearchedItems] = useState(null);
 
 
   //fetch data based on searchTerm
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_SERVER_URL}/api/books/searchByAuthor/${searchTerm}`)
+    fetch(`${process.env.REACT_APP_SERVER_URL}/api/get-categories/${category}`)
       .then((res) => res.json())
       .then((data) => {
         setSearchedItems(data.data);
         // console.log(data.data)
       });
-  }, [searchTerm]);
+  }, [category]);
 
-  // PAGINATION 
-// current page starts at one, this is used as a prop in pagination
+    // PAGINATION 
+// current page starts at one, this is used as a prop in paginatiojn
 
 const [currentPage, setCurrentPage] = useState(1)
 // see Product grid, this is slicing array of products depending on value of x and y. which is manipulated below
@@ -47,9 +48,10 @@ useEffect(() => {
 }, [currentPage])
 
 
+
   return (
     <>
-    <Title>Results for the Author " {searchTerm} " :</Title>
+    <Title>Results for the Category " {category} " :</Title>
 {/* consider 3 possibilities: loading state - there is no result - there are results to shown */}
     {searchedItems ===null ? ( 
       <>
@@ -61,24 +63,23 @@ useEffect(() => {
         :
         ( 
     <Wrapper>
-             <Container>
-                <ProductGrid>
-                  {searchedItems.slice(x,y).map((book) => {
-                    return (
-                      <Link to={`/books/${book.id}`} key={book.id} >
-                        <Box>
-                              <Image src={book.image} alt={book.title} />
-                            <Name>{book.title}</Name>
-                            <Author>{book.author}</Author>
-                        </Box>
-                      </Link>
-                    );
-                  })}
-                </ProductGrid>
-             </Container>
-   
-
-{
+          <Container>
+            <ProductGrid>
+                {searchedItems && searchedItems.slice(x,y).map((book) => {
+                  return (
+                    <Link to={`/books/${book.id}`} key={book.id} >
+                      <Box>
+                            <Image src={book.image} alt={book.title} />
+                          <Name>{book.title}</Name>
+                          <Author>{book.author}</Author>
+                          <Category>Category:{book.categories}</Category>
+                      </Box>
+                    </Link>
+                  );
+                })}
+            </ProductGrid>
+          </Container>
+        {
         searchedItems && 
         <Container>
             <Pagination 
@@ -89,7 +90,7 @@ useEffect(() => {
               onPageChange={(page) => setCurrentPage(page) }
             />
         </Container>
-      }
+         }
   </Wrapper>
     )
     }
@@ -128,7 +129,7 @@ const Wrapper = styled.div`
 
 const Box = styled.div`
   width: 200px;
-  height: 321px;
+  height: 341px;
   padding: 10px 25px;
   margin: 10px;
   text-decoration: none;
@@ -163,8 +164,13 @@ const Name = styled.p`
 `;
 const Author = styled.div`
   font-size: 16px;
-  /* color: var(--purple); */
+  /* color: var(--darkblue); */
+  margin-bottom: 5px;
   `;
+
+  const Category = styled.div`
+    font-size: 16px;
+  `
 
 const Center = styled.div`
     position: fixed;
@@ -193,4 +199,4 @@ const Container = styled.div `
   justify-content: center;
 `
 
-export default SearchAuthor
+export default SearchCategory

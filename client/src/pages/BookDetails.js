@@ -2,17 +2,14 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
-import NewComment from "./NewComment";
+import NewComment from "../components/NewComment";
 import { useNavigate } from "react-router-dom";
-import Loader from "./Loader";
+import Loader from "../components/Loader";
 import {MdFavorite} from "react-icons/md"
 import {AiOutlineRead} from "react-icons/ai";
 import {BsFillPinMapFill} from "react-icons/bs";
-import SimilarBooks from "./SimilarBooks";
-import Map from "./Map";
-
-
-
+import SimilarBooks from "../components/SimilarBooks";
+import Map from "../components/Map";
 
 const BookDetails = () => {
 
@@ -51,12 +48,6 @@ const BookDetails = () => {
           setCategory(data.data.categories)
           setLat(Number(data.data.lat))
           setLng(Number(data.data.lng))
-          // console.log(data.data);
-          // console.log(data.data.categories)
-          // console.log(data.data.lat)
-          // console.log(typeof data.data.lat);
-          // console.log(Number(data.data.lat));
-          // console.log(typeof Number(data.data.lat));
         } else {
           setNotFound(true);
         }
@@ -105,7 +96,7 @@ const BookDetails = () => {
             setNotFound(true);
           }
         });
-    }, [book])
+    }, [book])// eslint-disable-line react-hooks/exhaustive-deps
  
 
 

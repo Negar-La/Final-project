@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import {TiDeleteOutline} from "react-icons/ti";
 import { Link } from "react-router-dom";
-import Loader from "./Loader";
+import Loader from "../components/Loader";
 import Modal from 'react-modal';
 import {CgDanger} from 'react-icons/cg';
 
@@ -45,7 +45,8 @@ const Profile = () => {
           // console.log(data.data)
         } 
       });
-  }, [favoriteDeleted]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [favoriteDeleted]);  
 
   const handleDelete = (e, selectedItem) => {      
     // console.log(selectedItem);                 

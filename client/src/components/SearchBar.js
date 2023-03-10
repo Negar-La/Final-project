@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { RiSearchFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import SearchCategory from "./SearchCategory";
+import SearchCategory from "../pages/SearchCategory";
 
 const SearchBar = () => {
 
