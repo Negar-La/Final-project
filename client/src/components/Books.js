@@ -27,9 +27,9 @@ const Books = () => {
                     <img src={book.image} />
                     <Layer>
                             <h3 style={{color: "white"}}>{book.title}</h3>
-                            <Description style={{color: "white"}}>
+                            <Author style={{color: "white"}}>
                             {book.author}
-                            </Description>
+                            </Author>
                     </Layer>
                 </Wrapper>
             </Link>
@@ -76,7 +76,6 @@ const Div = styled.div`
   }
   @media (min-width: 500.02px) and (max-width: 1200px) {
     grid-template-columns: repeat(3, 1fr);
-
   }
 `
 
@@ -92,38 +91,28 @@ const Wrapper = styled.div`
     }
     @media screen and (max-width: 500px) {
         margin-bottom: 6%;
-        width: 80%;
     }
-  margin-left: 15px;
-  margin-bottom: 15px;
-  border: 2px solid var(--darkblue);
-  border-radius: 6px;
-  height: 203px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  img {
-    height: 196px;
-    width: 129px;
-  }
-  &:hover {
-    box-shadow: rgba(255, 201, 113, 0.8) -3px 2px 4px 3px,
-      rgba(255, 201, 113, 0.8) 0px 1px 3px 1px;
-  }
+    margin-left: 15px;
+    margin-bottom: 15px;
+    border: 2px solid var(--darkblue);
+    border-radius: 6px;
+    height: 203px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    img {
+      height: 196px;
+      width: 129px;
+    }
+    &:hover {
+      box-shadow: rgba(255, 201, 113, 0.8) -3px 2px 4px 3px,
+        rgba(255, 201, 113, 0.8) 0px 1px 3px 1px;
+    }
 `
-const Description = styled.p`
+const Author = styled.p`
     font-size: 14px;
     margin: 20px 0;
-    font-weight: 500;
-    @media screen and (max-width: 1250px) {
-        font-size: 12px;
-    }  
-    @media screen and (max-width: 900px) {
-        font-size: 14px;
-    } 
-    @media screen and (max-width: 600px) {
-        font-size: 11px;
-    }   
+    font-weight: 500; 
     @media screen and (max-width: 500px) {
-        font-size: 12px;
+        font-size: 13px;
     } 
 `;
 export default Books
