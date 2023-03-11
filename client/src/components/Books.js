@@ -25,6 +25,12 @@ const Books = () => {
             <Link to={`/books/${book.id}`} key={book.id} >
                 <Wrapper >
                     <img src={book.image} />
+                    <Layer>
+                            <h3 style={{color: "white"}}>{book.title}</h3>
+                            <Description style={{color: "white"}}>
+                            {book.author}
+                            </Description>
+                    </Layer>
                 </Wrapper>
             </Link>
            
@@ -35,6 +41,31 @@ const Books = () => {
     </Div>
   )
 }
+
+const Layer = styled.div`
+    position: absolute;
+    width: 100%;
+    height: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), #363537);
+    left: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 5px;
+    text-align: center;
+    transition: height 0.8s;
+    h3{
+      margin-top: -65px;
+    }
+    div {
+        font-size: 0.8rem;
+        line-height: 0.6;
+    }
+`;
+
+
 const Div = styled.div`
   display: grid;
   gap: 10px;
@@ -50,6 +81,19 @@ const Div = styled.div`
 `
 
 const Wrapper = styled.div`
+    width: 90%;
+    position: relative;
+    overflow: hidden;
+    &:hover img {
+        transform: scale(1.3);
+    }
+    &:hover div {
+        height: 100%;
+    }
+    @media screen and (max-width: 500px) {
+        margin-bottom: 6%;
+        width: 80%;
+    }
   margin-left: 15px;
   margin-bottom: 15px;
   border: 2px solid var(--darkblue);
@@ -65,5 +109,21 @@ const Wrapper = styled.div`
       rgba(255, 201, 113, 0.8) 0px 1px 3px 1px;
   }
 `
-
+const Description = styled.p`
+    font-size: 14px;
+    margin: 20px 0;
+    font-weight: 500;
+    @media screen and (max-width: 1250px) {
+        font-size: 12px;
+    }  
+    @media screen and (max-width: 900px) {
+        font-size: 14px;
+    } 
+    @media screen and (max-width: 600px) {
+        font-size: 11px;
+    }   
+    @media screen and (max-width: 500px) {
+        font-size: 12px;
+    } 
+`;
 export default Books

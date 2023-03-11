@@ -74,7 +74,7 @@ const Container = styled.div`
     margin-bottom: 5px;
 }
 @media (max-width: 500px) {
-      margin: 0px 25px 0px 25px;
+      text-align: center;
       font-size:20px; 
       white-space: pre-wrap;
         :before{
@@ -118,7 +118,7 @@ const Photo = styled.div`
       height: 10px;
       text-align: center;
       img {
-        max-width: 100%;
+        max-width: 95%;
         height: auto;
         margin-bottom: 10px;
         border-radius: 10px;
