@@ -118,11 +118,12 @@ const Photo = styled.div`
   margin: 40px 0 20px 0;
   img {
     width: 80%;
-     border-radius: 20px;
+    border-radius: 20px;
   }
   @media (max-width: 500px) {
       img {
         border-radius: 10px;
+        width: 100%;
       }
   }
 `

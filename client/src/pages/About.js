@@ -127,7 +127,7 @@ const Photo = styled.div`
   }
   @media (max-width: 500px) {
       img {
-        height: 330px;
+        height: 300px;
         border-radius: 10px;
       }
   }
