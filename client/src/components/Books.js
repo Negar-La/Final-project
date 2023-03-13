@@ -83,15 +83,6 @@ const Wrapper = styled.div`
     width: 90%;
     position: relative;
     overflow: hidden;
-    &:hover img {
-        transform: scale(1.3);
-    }
-    &:hover div {
-        height: 100%;
-    }
-    @media screen and (max-width: 500px) {
-        margin-bottom: 6%;
-    }
     margin-left: 15px;
     margin-bottom: 15px;
     border: 2px solid var(--darkblue);
@@ -105,6 +96,17 @@ const Wrapper = styled.div`
     &:hover {
       box-shadow: rgba(255, 201, 113, 0.8) -3px 2px 4px 3px,
         rgba(255, 201, 113, 0.8) 0px 1px 3px 1px;
+    }
+    &:hover img {
+        transform: scale(1.3);
+    }
+    &:hover div {
+        height: 100%;
+    }
+    @media screen and (max-width: 500px) {
+        margin-bottom: 6%;
+        width: 100%;
+        margin-left: 0;
     }
 `
 const Author = styled.p`
