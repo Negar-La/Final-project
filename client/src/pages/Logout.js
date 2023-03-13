@@ -47,9 +47,9 @@ const Logout = () => {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
   justify-content: center;
   align-items: center;
+  margin: 0% 5%;
 `
 
 const LogoutDiv = styled.div`
@@ -114,25 +114,15 @@ const Center = styled.div`
     transform: translate(-50%, -50%);
 `
 const Photo = styled.div`
-  margin-top: 40px;
-  margin-bottom: 20px;
   text-align: center;
-  
+  margin: 40px 0 20px 0;
   img {
-    height: 500px;
+    width: 80%;
+     border-radius: 20px;
   }
-  
- 
   @media (max-width: 500px) {
       img {
-        width: 300px;
-        object-fit: cover;
         border-radius: 10px;
-      }
-  }
-  @media (min-width: 501px) {
-    img {
-      border-radius: 20px;
       }
   }
 `
