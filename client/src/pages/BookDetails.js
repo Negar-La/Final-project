@@ -314,6 +314,7 @@ const ErrorMsg = styled.div`
 `
 const Write = styled.p`
   margin-bottom: 15px;
+  margin-top: 40px;
   font-size: 22px;
   font-weight: bold;
   display: flex;

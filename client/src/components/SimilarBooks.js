@@ -31,72 +31,72 @@ import Loader from "./Loader";
 
  
 const Box = styled.div`
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-width: 180px;
-height: 220px;
-margin: 10px;
-text-decoration: none;
-text-align: center;
-border-radius: 10px;
-cursor: pointer;
-&:hover {
-    box-shadow: rgba(255, 201, 113, 0.8) -3px 2px 4px 3px,
-      rgba(255, 201, 113, 0.8) 0px 1px 3px 1px;
-  }
- 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 341px;
+  padding: 10px 25px;
+  margin: 10px;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+  &:hover {
+      box-shadow: rgba(255, 201, 113, 0.8) -3px 2px 4px 3px,
+        rgba(255, 201, 113, 0.8) 0px 1px 3px 1px;
+    }
 `
 const FlexDiv = styled.div`
-  display: flex;
-  a {
-    text-decoration: none;
-    box-shadow: none;
-  }
-  @media (max-width: 500px) {
-    flex-direction: column;
-  }
-  @media (min-width: 500.02px) and (max-width: 750px)  {
-    margin-left: 0px;
-  }
+    display: flex;
+    a {
+      text-decoration: none;
+      box-shadow: none;
+    }
+    @media (max-width: 500px) {
+      flex-direction: column;
+    }
+    @media (min-width: 500.02px) and (max-width: 750px)  {
+      margin-left: 0px;
+    }
 `
 
 const Image = styled.img`
-margin-top: 10px;
-border-radius: 10px;
-width: 100px;
-height: 120px;
-margin-bottom: 5px;
+  margin-top: 10px;
+  border-radius: 10px;
+  width: 129px;
+  height: 196px;
+  margin-bottom: 5px;
 `;
 
 const Name = styled.div`
-width: 175px;
-font-size: 17px;
-align-items: center;
-margin-bottom: 5px;
-@media (max-width: 500px) {
-  text-overflow: ellipsis;
-  font-size: 16px;
-  }
+  width: 175px;
+  font-size: 17px;
+  align-items: center;
+  margin-bottom: 5px;
+  @media (max-width: 500px) {
+    text-overflow: ellipsis;
+    font-size: 16px;
+    }
 `;
 const AuthorSimilar = styled.div`
-width: 175px;
-font-size: 14px;
-margin-bottom: 4px;
-@media (max-width: 500px) {
-  text-overflow: ellipsis;
-  }
+  width: 175px;
+  font-size: 14px;
+  margin-bottom: 4px;
+  @media (max-width: 500px) {
+    text-overflow: ellipsis;
+    }
 `;
 
 const AuthorSimilar2 = styled.div`
-width: 175px;
-font-size: 14px;
-/* color: var(--purple); */
-margin-bottom: 4px;
-  @media (max-width: 500px) {
-    visibility: hidden;
-  }
+  width: 175px;
+  font-size: 14px;
+  /* color: var(--purple); */
+  margin-bottom: 4px;
+    @media (max-width: 500px) {
+      visibility: hidden;
+    }
 `;
 
     export default SimilarBooks
