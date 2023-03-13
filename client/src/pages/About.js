@@ -52,10 +52,7 @@ const About = ({theme}) => {
                 }
             </Para3>
         </Part2>
-    
       </Flex>
-
-    
     </Wrapper>
 
   )
@@ -64,11 +61,10 @@ const Wrapper = styled.div`
   height: 100vh;
   width: 100vw;
   overflow-x: hidden;
-
 `
 
 const Div = styled.div`
-  margin: 100px 50px 10px 50px;
+  margin: 100px 5% 10px 5%;
   line-height: 1.7;
   font-size: 22px;
   span {
@@ -76,12 +72,14 @@ const Div = styled.div`
   }
 `
 const Para1 = styled.div`
-  /* color: var(--darkblue); */
-  margin: 20px 50px;
+  margin: 20px 5%;
   line-height: 1.7;
   text-align: justify;
   font-size: 21px;
   margin-top: 20px;
+  @media (max-width: 500px) {
+    margin: 20px 7%;
+  }
 `
 const Bold = styled.span`
   font-weight: 600;
@@ -91,12 +89,12 @@ const Flex = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  margin: 0 5%;
   @media (max-width: 1000px) {
         flex-direction: column;
   }
 `
 const Part2 = styled.div`
-
 `
 
 const Para2 = styled.div`
@@ -117,20 +115,19 @@ const Para3 = styled.div`
     h2, h3{
       text-align: center;
     }
+    @media (max-width: 500px) {
+      margin: 10px 30px 50px 30px;
+  }
 `
 
 const Photo = styled.div`
-  margin-left: 50px;
   img {
     height: 500px;
     object-fit: cover;
   }
-  
- 
   @media (max-width: 500px) {
-    margin-left: 0px;
       img {
-        width: 350px;
+        height: 330px;
         border-radius: 10px;
       }
   }
