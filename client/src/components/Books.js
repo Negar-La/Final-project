@@ -12,14 +12,14 @@ const Books = () => {
   //I deleted <React.StrictMode> from index.js and solved!
   // StrictMode renders components twice (on dev but not production) in order to detect 
   //any problems with your code and warn you about them (which can be quite useful).
-  // const random = books.sort(() => 0.5 - Math.random()).slice(0,6)
+  const random = books.sort(() => 0.5 - Math.random()).slice(0,12)
 
   return (
     <Div>
       {!books ? 
       <h1>Loading...</h1>
       : (
-        books.sort(() => 0.5 - Math.random()).slice(0,12).map((book)=>{
+        random.map((book)=>{
           // console.log(book)
           return (
             <Link to={`/books/${book.id}`} key={book.id} >
