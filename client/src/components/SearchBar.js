@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useContext } from "react";
 import { BooksContext } from "./BooksContext";
 import styled from "styled-components";
@@ -10,6 +10,12 @@ import SearchCategory from "../pages/SearchCategory";
 const SearchBar = () => {
 
   const navigate = useNavigate();
+
+  //to focus on input when the component mounts
+  const searchRef = useRef();
+  useEffect(() => {
+    searchRef.current.focus()
+  }, [])
 
   const { books, categories } = useContext(BooksContext);
   const [filteredData, setFilteredData] = useState('');
@@ -70,6 +76,7 @@ const SearchBar = () => {
           placeholder="Search here"
           onChange={handleFilter}
           value={userQuery}
+          ref= {searchRef}
         />
 
       <SearchIcon className="search-icon"
