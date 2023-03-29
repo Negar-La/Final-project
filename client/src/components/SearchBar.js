@@ -14,8 +14,11 @@ const SearchBar = () => {
   //to focus on input when the component mounts
   const searchRef = useRef();
   useEffect(() => {
+    // console.log(searchRef.current);
     searchRef.current.focus()
   }, [])
+
+  const resultsRef = useRef();
 
   const { books, categories } = useContext(BooksContext);
   const [filteredData, setFilteredData] = useState('');
@@ -52,6 +55,59 @@ const SearchBar = () => {
     setFilteredData('');
     <SearchCategory/>
   }
+
+//Using arrow keys to navigate through a list of search results
+  useEffect(() => {
+    if ( userQuery ) {
+      window.addEventListener('keydown', onKeyDown);
+    } else {
+      window.removeEventListener('keydown', onKeyDown);
+    }
+    return () => {
+      window.removeEventListener('keydown', onKeyDown);
+    }
+  }, [userQuery]);
+
+
+  function onKeyDown(event) {
+    const isUp = event.key === 'ArrowUp';
+    const isDown = event.key === 'ArrowDown';
+    const inputIsFocused = document.activeElement === searchRef.current;
+    // console.log(inputIsFocused); //true or false
+    const resultsItems = Array.from(resultsRef.current.children)
+    // console.log(resultsItems);  //array of 6 results
+
+    const activeResultIndex = resultsItems.findIndex(child => {
+      return child === document.activeElement;
+    });
+  
+    if ( isUp ) {
+      // console.log('Going up!')
+      if ( inputIsFocused ) {
+        resultsItems[resultsItems.length - 1].focus();
+      } else if ( resultsItems[activeResultIndex - 1] ) {
+        resultsItems[activeResultIndex - 1].focus();
+      } else {
+        searchRef.current.focus();
+      }
+    }
+  
+    if ( isDown ) {
+      // console.log('Going down!')
+      if ( inputIsFocused ) {
+        resultsItems[0].focus();
+      } else if ( resultsItems[activeResultIndex + 1] ) {
+        resultsItems[activeResultIndex + 1].focus();
+      } else {
+        searchRef.current.focus();
+      }
+    }
+  }
+
+
+
+
+
 
 
   return (
@@ -102,7 +158,7 @@ const SearchBar = () => {
       >Author</AuthorBtn>
     </InputWrapper>
     {filteredData.length  !== 0 && 
-      <ResultWrapper>
+      <ResultWrapper ref={resultsRef}>
           {
     //we decide to show maximum 6 results per search.        
                       filteredData.slice(0, 6).map((item) => {
@@ -110,7 +166,7 @@ const SearchBar = () => {
                         const suggestionIndex = item.title.toLowerCase().indexOf(userQuery.toLowerCase())-userQuery.length
                         return (
    //selecting a search results redirects to itemDetails page and also cleans up the input and search results.
-                          <StyledLink to={`/books/${item.id}`} key={item.id}
+                          <StyledLink to={`/books/${item.id}`} key={item.id} 
                                       onClick={() => {
                                       setFilteredData('');
                                       setUserQuery("");
@@ -165,6 +221,9 @@ const StyledLink = styled(Link)`
   border-radius: 4px;
   color: var(--darkblue);
   &:hover {
+    background-color: var(--yellow);
+  }
+  &:focus {
     background-color: var(--yellow);
   }
   @media (max-width: 500px) {
