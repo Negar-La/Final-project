@@ -78,7 +78,7 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
 
   const deleteCommentHandler = (e, object) => {                        
     e.preventDefault();
-    console.log(object);
+    // console.log(object);
     fetch(`${process.env.REACT_APP_SERVER_URL}/api/delete-comment/${bookId}`, {         
       method: "DELETE",
       headers: {
@@ -92,7 +92,7 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
       })
       .then((data) => {
         if (data.status === 200) {          
-         console.log(data)   
+        //  console.log(data)   
          setCommentDeleted(!commentDeleted)    
           
         }
@@ -110,15 +110,11 @@ const NewComment = ({commentPosted, setCommentPosted}) => {
       ...showEditComment,
       [commentId]: !showEditComment[commentId],
     }));
-    console.log(showEditComment);
+    // console.log(!showEditComment);
     setIsBeingUpdated(true);
     setTargetCommentId(commentId)
   };
 
-  const handleChange = ((ev) => {
-    // console.log(ev.target.value)
-    setUpdatedComment(ev.target.value);
-});
 
 const handleCancel = ((ev) => {
   setShowEditComment(false);
@@ -129,7 +125,7 @@ const handleCancel = ((ev) => {
 
 const handleUpdateSubmit = ((e)=>{
   e.preventDefault();
-  console.log(targetCommentId);
+  // console.log(targetCommentId);
   fetch(`${process.env.REACT_APP_SERVER_URL}/api/update-comment/${targetCommentId}`,{
       method: "PATCH",
       headers: {
@@ -143,7 +139,7 @@ const handleUpdateSubmit = ((e)=>{
   })
   .then(res => res.json())
   .then(data => {
-      console.log(data);
+      // console.log(data);
       // if true set to false or vice versa why not just write true
       setSubmittedComment(!submittedComment);
       setUpdatedComment("");
@@ -214,7 +210,7 @@ const handleUpdateSubmit = ((e)=>{
                                     <DivEdit >
                                       <Wrapper>
                                         <Content>
-                                            <EditTextArea type="text" placeholder={c.comment} onChange={(ev)=>{handleChange(ev)}} value={updatedComment || ""}></EditTextArea>
+                                            <EditTextArea type="text"  value={updatedComment || ""} placeholder={c.comment} onChange={(ev)=>setUpdatedComment(ev.target.value)} ></EditTextArea>
                                             <div>
                                               <SubmitBtn type="submit" disabled={updatedComment=== null || updatedComment === "" ? true : false} onClick={handleUpdateSubmit} >Submit</SubmitBtn>
                                               <SubmitBtn type="button" onClick={handleCancel} >Cancel</SubmitBtn>
@@ -225,29 +221,20 @@ const handleUpdateSubmit = ((e)=>{
                                       
                                     </DivEdit>
                                       : null}
-
-
                                     </>
-                               
                                   ) : ("")
                                     }
-
                                  </PreviousComments>
                                )
                  })
               ) 
-                          
               }
           </div>
         </>  
         ) : ("")
         }
-
-        
       </>
-    
     </>
- 
   )
 }
 
@@ -258,15 +245,13 @@ const FormContainer = styled.form`
     width: 90%;
     margin-left: 5px;
     margin-bottom: 5px;
-  }
-`;
+  }`;
 
 const Flex = styled.div`
   display: flex;
   @media (min-width: 500.02px) and (max-width: 1200px) {
     width: 400px;
-  }
-`
+  }`
 
 const ImgCurrentUserTop = styled.img`
   width : 50px;
@@ -284,8 +269,8 @@ const ImgCurrentUser = styled.img`
   margin: 13px;
   @media (max-width: 500px) {
     margin: 10px;
-  }
-`
+  }`
+
 const Bottom = styled.div`
   margin-top: -50px;
   margin-left: 400px;
@@ -321,8 +306,7 @@ const Button = styled.button`
   }
   &:active {
     opacity: 0.3;
-  }
-`;
+  }`;
 
 const Span = styled.span`
   right: 160px;
@@ -337,8 +321,7 @@ const Span = styled.span`
       : "gray"};
        @media (max-width: 500px) {
         margin-right: 5px;
-  }
-`;
+  }`;
 
 //change your input type='text' to a textarea, and as a user types, the text will wrap onto the next line.
 const Input = styled.textarea`
@@ -356,8 +339,7 @@ border: 1px solid green;
   }
   @media (min-width: 500.02px) and (max-width: 750px)  {
     width: 400px;
-  }
-`;
+  }`;
 
 const CommentTitle = styled.p`
   font-size: 22px;
@@ -368,9 +350,7 @@ const CommentTitle = styled.p`
   @media (max-width: 500px) {
     font-size: 19px;
     padding-left: 20px;
-    
-  }
-`
+  }`
 
 const NoComment = styled.p`
   font-size: 22px;
@@ -380,8 +360,7 @@ const NoComment = styled.p`
   @media (max-width: 500px) {
     font-size: 19px;
     padding-top: 0px;
-  }
-`
+  }`
 
 const PreviousComments = styled.div`
   max-width: 600px;
@@ -395,8 +374,7 @@ const PreviousComments = styled.div`
   @media (max-width: 500px) {
     max-width: 320px;
     margin: 14px;
-  }
-`
+  }`
 
 const UserSpan = styled.span`
   margin-right: 8px;
@@ -409,8 +387,7 @@ const UserSpan = styled.span`
     overflow: hidden;
     max-width: 100px;
     min-width: 50px;
-  }
-`;
+  }`;
 
 const CommentText = styled.span`
   outline: none;
@@ -420,8 +397,7 @@ const CommentText = styled.span`
   @media (max-width: 500px) {
     margin-left: 0px;
     min-width: 100px;
-  }
-`
+  }`
 
 const DeleteBtn = styled.button`
 border: none;
@@ -438,8 +414,7 @@ border: none;
   }
   &:active {
     opacity: 0.3;
-  }
-`
+  }`
 
 const SpanIcon = styled.span`
 `
@@ -461,8 +436,7 @@ const EditTextArea = styled.textarea`
   border: 1px solid black;
  @media (max-width: 500px) {
     width: 280px;
-  }
-`
+  }`
 
 const EditBtn = styled.button`
   border: none;
@@ -481,9 +455,7 @@ const EditBtn = styled.button`
   }
   &:active {
     opacity: 0.3;
-  }
-`
-
+  }`
 
 const SubmitBtn = styled.button`
   border: none;
@@ -503,8 +475,8 @@ const SubmitBtn = styled.button`
   }
   &:active {
     opacity: 0.3;
-  }
-`
+  }`
+
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -515,6 +487,7 @@ const Wrapper = styled.div`
   width: 100%;
   z-index: 2;
 `;
+
 const Content = styled.div`
   background: var(--background);
   border: 2px solid var(--darkblue);
