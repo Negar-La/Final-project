@@ -5,33 +5,32 @@ import { useAuth0 } from "@auth0/auth0-react";
 import NewComment from "../components/NewComment";
 import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
-import {MdFavorite} from "react-icons/md"
-import {AiOutlineRead} from "react-icons/ai";
-import {BsFillPinMapFill} from "react-icons/bs";
+import { MdFavorite } from "react-icons/md";
+import { AiOutlineRead } from "react-icons/ai";
+import { BsFillPinMapFill } from "react-icons/bs";
 import SimilarBooks from "../components/SimilarBooks";
 import Map from "../components/Map";
 
 const BookDetails = () => {
-
   const [book, setBook] = useState(null);
   const [notFound, setNotFound] = useState(false);
 
-  const {user, isAuthenticated} = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
   // console.log(user)
-  const [commentPosted, setCommentPosted] = useState(false)
+  const [commentPosted, setCommentPosted] = useState(false);
 
   const { bookId } = useParams();
   // console.log(bookId)
-  const [favoriteBook, setFavoriteBook] = useState(null)
+  const [favoriteBook, setFavoriteBook] = useState(null);
   const navigate = useNavigate();
 
-  const [category, setCategory] = useState(null)
-  const [similar, setSimilar] = useState(null)
+  const [category, setCategory] = useState(null);
+  const [similar, setSimilar] = useState(null);
 
-  const [showMap,setShowMap]=useState(false)
+  const [showMap, setShowMap] = useState(false);
 
-  const [lat, setLat] = useState(null)
-  const [lng, setLng] = useState(null)
+  const [lat, setLat] = useState(null);
+  const [lng, setLng] = useState(null);
 
   const handleClick = () => {
     // console.log("hi")
@@ -45,9 +44,9 @@ const BookDetails = () => {
       .then((data) => {
         if (data.status === 200) {
           setBook(data.data);
-          setCategory(data.data.categories)
-          setLat(Number(data.data.lat))
-          setLng(Number(data.data.lng))
+          setCategory(data.data.categories);
+          setLat(Number(data.data.lat));
+          setLng(Number(data.data.lng));
         } else {
           setNotFound(true);
         }
@@ -63,7 +62,7 @@ const BookDetails = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        user: user.email, 
+        user: user.email,
         userPicture: user.picture,
         title: book.title,
         id: book.id,
@@ -74,7 +73,7 @@ const BookDetails = () => {
       .then((res) => res.json())
       .then((data) => {
         // console.log(data)
-        setFavoriteBook(data.data)
+        setFavoriteBook(data.data);
         navigate("/profile"); //we put navigate after fetching data to be sure that navigation occurs after fetching data.
       })
       .catch((error) => {
@@ -82,11 +81,12 @@ const BookDetails = () => {
       });
   };
 
- 
-
-//fetch books with the same category as the current book
-    useEffect(() => {
-     category && fetch(`${process.env.REACT_APP_SERVER_URL}/api/get-categories/${category}`)
+  //fetch books with the same category as the current book
+  useEffect(() => {
+    category &&
+      fetch(
+        `${process.env.REACT_APP_SERVER_URL}/api/get-categories/${category}`
+      )
         .then((res) => res.json())
         .then((data) => {
           if (data.status === 200) {
@@ -96,77 +96,111 @@ const BookDetails = () => {
             setNotFound(true);
           }
         });
-    }, [book])// eslint-disable-line react-hooks/exhaustive-deps
- 
-
+  }, [book]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (notFound) {
-    return (
-      <ErrorMsg>"No book found with that ID."</ErrorMsg>
-    );
+    return <ErrorMsg>"No book found with that ID."</ErrorMsg>;
   } else {
-
     return (
       <>
-       {!book ?
-       <Center><Loader/></Center>
-       :
-       book &&
-        <Container>
-          <Left>
-            <BookImage src={book.image} />
-            <PreviewBtn onClick={ handleClick}>Click to Preview <AiOutlineRead /> </PreviewBtn>
-              <FavoriteBtn    onClick={(e) => {
-                if (!isAuthenticated)
-                {
-                  window.alert("Please log in first!")
-                } else {
-                  addToFavoriteHandler(e, book);
-                }
-                
-                  
-                  }}> Add to Favorite List <MdFavorite/>
-              </FavoriteBtn>
-              <FlexDiv>
-              <MapButton onClick={()=> setShowMap(true)}>View Library on Map <BsFillPinMapFill style={{marginLeft: '5px'}} /></MapButton>
-                            {showMap && <Map onCloseFunc={()=>setShowMap(false)} center={[parseFloat(lat), parseFloat(lng)]} book = {book}/>}
-                            
-              </FlexDiv>
-          </Left>
-         
-          <Middle>
-            <Title>Title: <span>{book.title}</span> </Title>
-            <Author>Author: <span>{book.author}</span></Author>
-            <Author>Publisher: <span>{book.publisher}</span></Author>
-            <Author>Category: <span>{book.categories}</span></Author>
-            <Author>Pages: <span>{book.pageCount}</span></Author>
-            <Author>Library: <span>{book.libraryName}</span></Author>
-            <Description>Description: <span>{book.description}</span></Description>
-          </Middle>
-          <CommentContainer>
+        {!book ? (
+          <Center>
+            <Loader />
+          </Center>
+        ) : (
+          book && (
+            <Container>
+              <Left>
+                <BookImage src={book.image} />
+                <PreviewBtn onClick={handleClick}>
+                  Click to Preview <AiOutlineRead />{" "}
+                </PreviewBtn>
+                <FavoriteBtn
+                  onClick={(e) => {
+                    if (!isAuthenticated) {
+                      window.alert("Please log in first!");
+                    } else {
+                      addToFavoriteHandler(e, book);
+                    }
+                  }}
+                >
+                  {" "}
+                  Add to Favorite List <MdFavorite />
+                </FavoriteBtn>
+                <FlexDiv>
+                  <MapButton onClick={() => setShowMap(true)}>
+                    View Library on Map{" "}
+                    <BsFillPinMapFill style={{ marginLeft: "5px" }} />
+                  </MapButton>
+                  {showMap && (
+                    <Map
+                      onCloseFunc={() => setShowMap(false)}
+                      center={[parseFloat(lat), parseFloat(lng)]}
+                      book={book}
+                    />
+                  )}
+                </FlexDiv>
+              </Left>
+
+              <Middle>
+                <Title>
+                  Title: <span>{book.title}</span>{" "}
+                </Title>
+                <Author>
+                  Author: <span>{book.author}</span>
+                </Author>
+                <Author>
+                  Publisher: <span>{book.publisher}</span>
+                </Author>
+                <Author>
+                  Category: <span>{book.categories}</span>
+                </Author>
+                <Author>
+                  Pages: <span>{book.pageCount}</span>
+                </Author>
+                <Author>
+                  Library: <span>{book.libraryName}</span>
+                </Author>
+                <Description>
+                  Description: <span>{book.description}</span>
+                </Description>
+              </Middle>
+              <CommentContainer>
                 <Write2>
-                  <p> You're maybe interested in similar books in the same category:</p>
-                    <SimilarBooks similar={similar} book={book}/>
+                  <p>
+                    {" "}
+                    You're maybe interested in similar books in the same
+                    category:
+                  </p>
+                  <SimilarBooks similar={similar} book={book} />
                 </Write2>
-                {similar && similar.length === 1 ? <Nosimilar>Sorry, there is no other book in this category.</Nosimilar> : ""}
-                
-              <Write>Write a comment about this book!</Write>
-              {isAuthenticated ? (
-              <NewComment commentPosted={commentPosted} setCommentPosted={setCommentPosted} />
-              ) :
-              <Please>Please log in so you can read comments and write a comment!</Please>
-              }
-  
-           
-          </CommentContainer>
-          
-        </Container>
-      }
-      </>  
-      
-    )
+                {similar && similar.length === 1 ? (
+                  <Nosimilar>
+                    Sorry, there is no other book in this category.
+                  </Nosimilar>
+                ) : (
+                  ""
+                )}
+
+                <Write>Write a comment about this book!</Write>
+                {isAuthenticated ? (
+                  <NewComment
+                    commentPosted={commentPosted}
+                    setCommentPosted={setCommentPosted}
+                  />
+                ) : (
+                  <Please>
+                    Please log in so you can read comments and write a comment!
+                  </Please>
+                )}
+              </CommentContainer>
+            </Container>
+          )
+        )}
+      </>
+    );
   }
-}
+};
 
 const Container = styled.div`
   padding-top: 85px;
@@ -176,18 +210,18 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
   }
-  @media (min-width: 1000.02px)  {
+  @media (min-width: 1000.02px) {
     justify-content: center;
     flex-wrap: wrap;
   }
-`
+`;
 
 const Left = styled.div`
   padding: 10px 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
-`
+`;
 
 const BookImage = styled.img`
   border: 3px solid var(--darkblue);
@@ -204,7 +238,7 @@ const Middle = styled.div`
   @media (max-width: 500px) {
     padding: 2px 15px;
   }
-`
+`;
 
 const Title = styled.div`
   font-size: 22px;
@@ -217,7 +251,7 @@ const Title = styled.div`
   @media (max-width: 500px) {
     font-size: 20px;
   }
-`
+`;
 
 const Author = styled.div`
   font-size: 20px;
@@ -230,7 +264,7 @@ const Author = styled.div`
   @media (max-width: 500px) {
     font-size: 20px;
   }
-`
+`;
 
 const Description = styled.div`
   width: 700px;
@@ -245,10 +279,10 @@ const Description = styled.div`
   @media (max-width: 500px) {
     width: 300px;
   }
-  @media (min-width: 500.02px) and (max-width: 750px)  {
+  @media (min-width: 500.02px) and (max-width: 750px) {
     width: 450px;
   }
-`
+`;
 const Please = styled.div`
   font-size: 20px;
   font-weight: bold;
@@ -259,7 +293,7 @@ const Please = styled.div`
     font-size: 19px;
     line-height: 1.5;
   }
-`
+`;
 
 const PreviewBtn = styled.button`
   border: none;
@@ -271,15 +305,14 @@ const PreviewBtn = styled.button`
   background-color: var(--background);
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   cursor: pointer;
-  transition: background-color 0.3s,
-              opacity 0.3s;
+  transition: background-color 0.3s, opacity 0.3s;
   &:hover {
     background-color: var(--yellow);
   }
   &:active {
     opacity: 0.3;
   }
-`
+`;
 
 const FavoriteBtn = styled.button`
   border: none;
@@ -291,27 +324,25 @@ const FavoriteBtn = styled.button`
   background-color: var(--background);
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   cursor: pointer;
-  transition: background-color 0.3s,
-              opacity 0.3s;
+  transition: background-color 0.3s, opacity 0.3s;
   &:hover {
     background-color: var(--yellow);
   }
   &:active {
     opacity: 0.3;
   }
-  
-`
+`;
 const CommentContainer = styled.div`
   margin: 10px;
-`
+`;
 
 const ErrorMsg = styled.div`
-    font-family: "Arimo", sans-serif;
-    font-weight: bold;
-    margin-top: 40px;
-    font-size: 22px;
-    text-align: center;
-`
+  font-family: "Arimo", sans-serif;
+  font-weight: bold;
+  margin-top: 40px;
+  font-size: 22px;
+  text-align: center;
+`;
 const Write = styled.p`
   margin-bottom: 15px;
   margin-top: 40px;
@@ -323,15 +354,15 @@ const Write = styled.p`
   @media (max-width: 500px) {
     font-size: 19px;
   }
-`
+`;
 const Center = styled.div`
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
 
-const Write2  =styled.div`
+const Write2 = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -344,18 +375,17 @@ const Write2  =styled.div`
   @media (max-width: 500px) {
     font-size: 19px;
   }
-`
+`;
 const Nosimilar = styled.p`
   font-size: 22px;
   margin-bottom: 20px;
   font-weight: 400;
   margin-left: 10px;
-`
+`;
 
 const FlexDiv = styled.div`
-   display: flex;
- 
-`
+  display: flex;
+`;
 const MapButton = styled.button`
   border: none;
   margin-top: 40px;
@@ -367,8 +397,7 @@ const MapButton = styled.button`
   background-color: var(--background);
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   cursor: pointer;
-  transition: background-color 0.3s,
-              opacity 0.3s;
+  transition: background-color 0.3s, opacity 0.3s;
   &:hover {
     background-color: var(--yellow);
   }
@@ -376,4 +405,4 @@ const MapButton = styled.button`
     opacity: 0.3;
   }
 `;
-export default BookDetails
+export default BookDetails;

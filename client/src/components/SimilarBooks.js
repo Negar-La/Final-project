@@ -1,35 +1,46 @@
 import styled from "styled-components";
 import Loader from "./Loader";
+import { useEffect, useState } from "react";
 
+const SimilarBooks = ({ similar, book }) => {
+  const [randomSimilarBooks, setRandomSimilarBooks] = useState(null);
 
-    const SimilarBooks = ({similar, book})=>{
+  useEffect(() => {
+    if (similar && !randomSimilarBooks) {
+      const randomBooks = similar
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 3)
+        .filter((category) => category.id !== book.id);
 
-        return (
-            <FlexDiv>
-            {!similar ? <Loader/>
-            : similar && similar.sort(() => 0.5 - Math.random()).slice(0,3).map((category)=>{
-                if(category.id !== book.id){
-                    // console.log(book.id)
-                    // console.log(category)
-                    return (
-                        //If you use this, it will go to the link and also reload
-                        <a key={category.id} onClick={() => {window.location.href=`/books/${category.id}`}}>
-                            <Box>
-                              <Image src={category.image} alt={category.title} />
-                              <Name>{category.title}</Name>
-                              <AuthorSimilar>{category.author}</AuthorSimilar>
-                              <AuthorSimilar2>Category:  {category.categories}</AuthorSimilar2>
-                            </Box>
-                        </a>
-                    )
-                }
-            }
-            )}
-          </FlexDiv>
-        )
+      setRandomSimilarBooks(randomBooks);
     }
+  }, [similar, book, randomSimilarBooks]);
 
- 
+  return (
+    <FlexDiv>
+      {!randomSimilarBooks ? (
+        <Loader />
+      ) : (
+        randomSimilarBooks.map((category) => (
+          <a
+            key={category.id}
+            onClick={() => {
+              window.location.href = `/books/${category.id}`;
+            }}
+          >
+            <Box>
+              <Image src={category.image} alt={category.title} />
+              <Name>{category.title}</Name>
+              <AuthorSimilar>{category.author}</AuthorSimilar>
+              <AuthorSimilar2>Category: {category.categories}</AuthorSimilar2>
+            </Box>
+          </a>
+        ))
+      )}
+    </FlexDiv>
+  );
+};
+
 const Box = styled.div`
   display: flex;
   flex-direction: column;
@@ -44,23 +55,23 @@ const Box = styled.div`
   border-radius: 10px;
   cursor: pointer;
   &:hover {
-      box-shadow: rgba(255, 201, 113, 0.8) -3px 2px 4px 3px,
-        rgba(255, 201, 113, 0.8) 0px 1px 3px 1px;
-    }
-`
+    box-shadow: rgba(255, 201, 113, 0.8) -3px 2px 4px 3px,
+      rgba(255, 201, 113, 0.8) 0px 1px 3px 1px;
+  }
+`;
 const FlexDiv = styled.div`
-    display: flex;
-    a {
-      text-decoration: none;
-      box-shadow: none;
-    }
-    @media (max-width: 500px) {
-      flex-direction: column;
-    }
-    @media (min-width: 500.02px) and (max-width: 750px)  {
-      margin-left: 0px;
-    }
-`
+  display: flex;
+  a {
+    text-decoration: none;
+    box-shadow: none;
+  }
+  @media (max-width: 500px) {
+    flex-direction: column;
+  }
+  @media (min-width: 500.02px) and (max-width: 750px) {
+    margin-left: 0px;
+  }
+`;
 
 const Image = styled.img`
   margin-top: 10px;
@@ -78,7 +89,7 @@ const Name = styled.div`
   @media (max-width: 500px) {
     text-overflow: ellipsis;
     font-size: 16px;
-    }
+  }
 `;
 const AuthorSimilar = styled.div`
   width: 175px;
@@ -86,7 +97,7 @@ const AuthorSimilar = styled.div`
   margin-bottom: 4px;
   @media (max-width: 500px) {
     text-overflow: ellipsis;
-    }
+  }
 `;
 
 const AuthorSimilar2 = styled.div`
@@ -94,9 +105,9 @@ const AuthorSimilar2 = styled.div`
   font-size: 14px;
   /* color: var(--purple); */
   margin-bottom: 4px;
-    @media (max-width: 500px) {
-      visibility: hidden;
-    }
+  @media (max-width: 500px) {
+    visibility: hidden;
+  }
 `;
 
-    export default SimilarBooks
+export default SimilarBooks;
