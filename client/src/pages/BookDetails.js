@@ -10,8 +10,9 @@ import { AiOutlineRead } from "react-icons/ai";
 import { BsFillPinMapFill } from "react-icons/bs";
 import SimilarBooks from "../components/SimilarBooks";
 import Map from "../components/Map";
+import Modal from "../components/Modal";
 
-const BookDetails = () => {
+const BookDetails = ({ theme }) => {
   const [book, setBook] = useState(null);
   const [notFound, setNotFound] = useState(false);
 
@@ -31,6 +32,9 @@ const BookDetails = () => {
 
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState(null);
+
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
   const handleClick = () => {
     // console.log("hi")
@@ -55,30 +59,35 @@ const BookDetails = () => {
 
   const addToFavoriteHandler = (e, book) => {
     e.preventDefault();
-    fetch(`${process.env.REACT_APP_SERVER_URL}/api/add-favorite`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        user: user.email,
-        userPicture: user.picture,
-        title: book.title,
-        id: book.id,
-        author: book.author,
-        imageSrc: book.image,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        // console.log(data)
-        setFavoriteBook(data.data);
-        navigate("/profile"); //we put navigate after fetching data to be sure that navigation occurs after fetching data.
+    if (!isAuthenticated) {
+      setModalMessage("Please log in first!");
+      setModalVisible(true);
+    } else {
+      fetch(`${process.env.REACT_APP_SERVER_URL}/api/add-favorite`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user: user.email,
+          userPicture: user.picture,
+          title: book.title,
+          id: book.id,
+          author: book.author,
+          imageSrc: book.image,
+        }),
       })
-      .catch((error) => {
-        console.log(error);
-      });
+        .then((res) => res.json())
+        .then((data) => {
+          // console.log(data)
+          setFavoriteBook(data.data);
+          navigate("/profile"); //we put navigate after fetching data to be sure that navigation occurs after fetching data.
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 
   //fetch books with the same category as the current book
@@ -117,11 +126,7 @@ const BookDetails = () => {
                 </PreviewBtn>
                 <FavoriteBtn
                   onClick={(e) => {
-                    if (!isAuthenticated) {
-                      window.alert("Please log in first!");
-                    } else {
-                      addToFavoriteHandler(e, book);
-                    }
+                    addToFavoriteHandler(e, book);
                   }}
                 >
                   {" "}
@@ -140,6 +145,13 @@ const BookDetails = () => {
                     />
                   )}
                 </FlexDiv>
+                {isModalVisible && (
+                  <Modal
+                    onClose={() => setModalVisible(false)}
+                    message={modalMessage}
+                    theme={theme}
+                  />
+                )}
               </Left>
 
               <Middle>

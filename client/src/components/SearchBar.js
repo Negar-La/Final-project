@@ -6,26 +6,29 @@ import { RiSearchFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import SearchCategory from "../pages/SearchCategory";
+import Modal from "./Modal";
 
-const SearchBar = () => {
-
+const SearchBar = ({ theme }) => {
   const navigate = useNavigate();
 
   //to focus on input when the component mounts
   const searchRef = useRef();
   useEffect(() => {
     // console.log(searchRef.current);
-    searchRef.current.focus()
-  }, [])
+    searchRef.current.focus();
+  }, []);
 
   const resultsRef = useRef();
 
   const { books, categories } = useContext(BooksContext);
-  const [filteredData, setFilteredData] = useState('');
+  const [filteredData, setFilteredData] = useState("");
   const [userQuery, setUserQuery] = useState("");
   // console.log(userQuery);
   const [isToggled, setIsToggled] = useState(false);
   const [isToggledCategory, setIsToggledCategory] = useState(false);
+
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
   //This handler tracks what user types in input and checks if a book's title includes that word.
   const handleFilter = (event) => {
@@ -33,70 +36,72 @@ const SearchBar = () => {
     setUserQuery(itemSearched);
     // console.log(userQuery.length);
     const newFilter = books.filter((item) => {
-      if ( isToggled === true && item.author.toLowerCase().includes(itemSearched.toLowerCase())) {
+      if (
+        isToggled === true &&
+        item.author.toLowerCase().includes(itemSearched.toLowerCase())
+      ) {
         return true;
-      } else
-      if ( item.title.toLowerCase().includes(itemSearched.toLowerCase()) ) {
-         return true;
-        }  else {
+      } else if (
+        item.title.toLowerCase().includes(itemSearched.toLowerCase())
+      ) {
+        return true;
+      } else {
         return false;
       }
     });
-//Only when set FilteredData to newFilter that user has typed something in input.
-    itemSearched === "" ? setFilteredData('') : setFilteredData(newFilter);
+    //Only when set FilteredData to newFilter that user has typed something in input.
+    itemSearched === "" ? setFilteredData("") : setFilteredData(newFilter);
   };
 
-  const handleChange = (e)=>{
+  const handleChange = (e) => {
     // console.log(e.target.value);
     // console.log('category selected!');
-    isToggledCategory  &&
-    setIsToggledCategory(true)
-    navigate(`/searchByCategory/${e.target.value}`)
-    setFilteredData('');
-    <SearchCategory/>
-  }
+    isToggledCategory && setIsToggledCategory(true);
+    navigate(`/searchByCategory/${e.target.value}`);
+    setFilteredData("");
+    <SearchCategory />;
+  };
 
-//Using arrow keys to navigate through a list of search results
+  //Using arrow keys to navigate through a list of search results
   useEffect(() => {
-    if ( userQuery ) {
-      window.addEventListener('keydown', onKeyDown);
+    if (userQuery) {
+      window.addEventListener("keydown", onKeyDown);
     } else {
-      window.removeEventListener('keydown', onKeyDown);
+      window.removeEventListener("keydown", onKeyDown);
     }
     return () => {
-      window.removeEventListener('keydown', onKeyDown);
-    }
+      window.removeEventListener("keydown", onKeyDown);
+    };
   }, [userQuery]);
 
-
   function onKeyDown(event) {
-    const isUp = event.key === 'ArrowUp';
-    const isDown = event.key === 'ArrowDown';
+    const isUp = event.key === "ArrowUp";
+    const isDown = event.key === "ArrowDown";
     const inputIsFocused = document.activeElement === searchRef.current;
     // console.log(inputIsFocused); //true or false
-    const resultsItems = Array.from(resultsRef.current.children)
+    const resultsItems = Array.from(resultsRef.current.children);
     // console.log(resultsItems);  //array of 6 results
 
-    const activeResultIndex = resultsItems.findIndex(child => {
+    const activeResultIndex = resultsItems.findIndex((child) => {
       return child === document.activeElement;
     });
-  
-    if ( isUp ) {
+
+    if (isUp) {
       // console.log('Going up!')
-      if ( inputIsFocused ) {
+      if (inputIsFocused) {
         resultsItems[resultsItems.length - 1].focus();
-      } else if ( resultsItems[activeResultIndex - 1] ) {
+      } else if (resultsItems[activeResultIndex - 1]) {
         resultsItems[activeResultIndex - 1].focus();
       } else {
         searchRef.current.focus();
       }
     }
-  
-    if ( isDown ) {
+
+    if (isDown) {
       // console.log('Going down!')
-      if ( inputIsFocused ) {
+      if (inputIsFocused) {
         resultsItems[0].focus();
-      } else if ( resultsItems[activeResultIndex + 1] ) {
+      } else if (resultsItems[activeResultIndex + 1]) {
         resultsItems[activeResultIndex + 1].focus();
       } else {
         searchRef.current.focus();
@@ -104,98 +109,131 @@ const SearchBar = () => {
     }
   }
 
-
-
-
-
-
-
   return (
     <Container>
-        <CategoryDiv>
-          <Select name="categories" id='categories'
-          onChange={handleChange}
-        >
+      <CategoryDiv>
+        <Select name="categories" id="categories" onChange={handleChange}>
           <option value="pick">Select Category</option>
-              <>{categories && categories.map((category, index)=>{
-                  return  <option key ={index} value= {category}> {category}</option> 
-                  }) 
-                  }
-              </>
-                  
-          </Select>
-        </CategoryDiv>
-        <Para>Or</Para>
+          <>
+            {categories &&
+              categories.map((category, index) => {
+                return (
+                  <option key={index} value={category}>
+                    {" "}
+                    {category}
+                  </option>
+                );
+              })}
+          </>
+        </Select>
+      </CategoryDiv>
+      <Para>Or</Para>
       <InputWrapper>
         <StyledInput
           type="text"
           placeholder="Search here"
           onChange={handleFilter}
           value={userQuery}
-          ref= {searchRef}
+          ref={searchRef}
         />
 
-      <SearchIcon className="search-icon"
-       onClick={(ev) => {
-          if(userQuery.length > 0){ navigate(`/search/${userQuery}`)}
-          else {window.alert("Please enter something!")}
-          setFilteredData('');
-          setUserQuery("");
-       }}>
-          <RiSearchFill size={36} style={{color: "var(--darkblue)", marginLeft: '-53px'}}
-                    onMouseOver={({target})=>target.style.color="var(--yellow)"}
-                    onMouseOut={({target})=>target.style.color="var(--darkblue)"}
-                 />     
-      </SearchIcon>
-      <AuthorBtn 
-         onClick={() => {
-          setIsToggled(true)
-          setFilteredData('');
-          setUserQuery("");
-          if(userQuery.length > 0){ navigate(`/searchByAuthor/${userQuery}`)}
-          else {window.alert("Please enter the name of the author!")}
-        }}
-      >Author</AuthorBtn>
-    </InputWrapper>
-    {filteredData.length  !== 0 && 
-      <ResultWrapper ref={resultsRef}>
+        <SearchIcon
+          className="search-icon"
+          onClick={(ev) => {
+            if (userQuery.length > 0) {
+              navigate(`/search/${userQuery}`);
+            } else {
+              setModalMessage("Please enter something!");
+              setModalVisible(true);
+            }
+            setFilteredData("");
+            setUserQuery("");
+          }}
+        >
+          {isModalVisible && (
+            <Modal
+              onClose={() => setModalVisible(false)}
+              message={modalMessage}
+              theme={theme}
+            />
+          )}
+          <RiSearchFill
+            size={36}
+            style={{ color: "var(--darkblue)", marginLeft: "-53px" }}
+            onMouseOver={({ target }) => (target.style.color = "var(--yellow)")}
+            onMouseOut={({ target }) =>
+              (target.style.color = "var(--darkblue)")
+            }
+          />
+        </SearchIcon>
+        <AuthorBtn
+          onClick={() => {
+            setIsToggled(true);
+            setFilteredData("");
+            setUserQuery("");
+            if (userQuery.length > 0) {
+              navigate(`/searchByAuthor/${userQuery}`);
+            } else {
+              setModalMessage("Please enter the name of the author!");
+              setModalVisible(true);
+            }
+          }}
+        >
+          Author
+        </AuthorBtn>
+      </InputWrapper>
+      {filteredData.length !== 0 && (
+        <ResultWrapper ref={resultsRef}>
           {
-    //we decide to show maximum 6 results per search.        
-                      filteredData.slice(0, 6).map((item) => {
-                        const authorName = item.author;
-                        const suggestionIndex = item.title.toLowerCase().indexOf(userQuery.toLowerCase())-userQuery.length
-                        return (
-   //selecting a search results redirects to itemDetails page and also cleans up the input and search results.
-                          <StyledLink to={`/books/${item.id}`} key={item.id} 
-                                      onClick={() => {
-                                      setFilteredData('');
-                                      setUserQuery("");
-                                     }}>
-                      {item.title.toLowerCase().includes(userQuery.toLowerCase()) ? 
-                      <>
-                        <span>
-                          {item.title.slice(0, suggestionIndex + userQuery.length)} 
-                          <Prediction>{item.title.slice(suggestionIndex + userQuery.length)}
-                            <ItalicIn> by </ItalicIn>
-                            <AuthorName>{authorName}</AuthorName>
-                          </Prediction>
-                        </span>
-                      </>
-                      : item.title}
-                          </StyledLink>
-                        );
-                      })
-                    }
-      </ResultWrapper>
-    }
-  </Container>
+            //we decide to show maximum 6 results per search.
+            filteredData.slice(0, 6).map((item) => {
+              const authorName = item.author;
+              const suggestionIndex =
+                item.title.toLowerCase().indexOf(userQuery.toLowerCase()) -
+                userQuery.length;
+              return (
+                //selecting a search results redirects to itemDetails page and also cleans up the input and search results.
+                <StyledLink
+                  to={`/books/${item.id}`}
+                  key={item.id}
+                  onClick={() => {
+                    setFilteredData("");
+                    setUserQuery("");
+                  }}
+                >
+                  {item.title
+                    .toLowerCase()
+                    .includes(userQuery.toLowerCase()) ? (
+                    <>
+                      <span>
+                        {item.title.slice(
+                          0,
+                          suggestionIndex + userQuery.length
+                        )}
+                        <Prediction>
+                          {item.title.slice(suggestionIndex + userQuery.length)}
+                          <ItalicIn> by </ItalicIn>
+                          <AuthorName>{authorName}</AuthorName>
+                        </Prediction>
+                      </span>
+                    </>
+                  ) : (
+                    item.title
+                  )}
+                </StyledLink>
+              );
+            })
+          }
+        </ResultWrapper>
+      )}
+    </Container>
   );
 };
 const Para = styled.p`
   font-weight: bold;
   margin-top: 0px;
   margin-left: 10px;
-`
+`;
 
 const StyledInput = styled.input`
   border-radius: 15px;
@@ -230,14 +268,12 @@ const StyledLink = styled(Link)`
     width: 200px;
   }
 `;
-const SearchIcon = styled.div`
-`;
-const Container = styled.div`
-`;
+const SearchIcon = styled.div``;
+const Container = styled.div``;
 
 const CategoryDiv = styled.div`
-   margin-bottom: 10px;
-`
+  margin-bottom: 10px;
+`;
 
 const Select = styled.select`
   border-radius: 15px;
@@ -250,7 +286,7 @@ const Select = styled.select`
   @media (max-width: 500px) {
     width: 200px;
   }
-`
+`;
 
 const InputWrapper = styled.div`
   margin-top: 10px;
@@ -259,15 +295,13 @@ const InputWrapper = styled.div`
   .search-icon {
     cursor: pointer;
     border-radius: 45%;
-    transition: background-color 0.3s,
-                opacity 0.3s;
-  &:hover {
-    background-color: var(--yellow);
-    
-  }
-  &:active {
-    opacity: 0.7;
-  }
+    transition: background-color 0.3s, opacity 0.3s;
+    &:hover {
+      background-color: var(--yellow);
+    }
+    &:active {
+      opacity: 0.7;
+    }
   }
 `;
 
@@ -278,15 +312,14 @@ const AuthorBtn = styled.button`
   background-color: var(--background);
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 10px;
   cursor: pointer;
-  transition: background-color 0.3s,
-              opacity 0.3s;
+  transition: background-color 0.3s, opacity 0.3s;
   &:hover {
     background-color: var(--yellow);
   }
   &:active {
     opacity: 0.8;
   }
-`
+`;
 
 const ResultWrapper = styled.div`
   position: absolute;
@@ -314,9 +347,9 @@ const ItalicIn = styled.span`
 `;
 
 const AuthorName = styled.span`
-color:  var(--purple);
-font-style: italic;
-font-size: 14px;
+  color: var(--purple);
+  font-style: italic;
+  font-size: 14px;
 `;
 
 const Prediction = styled.span`
